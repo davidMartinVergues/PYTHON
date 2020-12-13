@@ -138,22 +138,138 @@
   - ## Strings
 
     Funcionan como arrays así que usando el índice podemos extraer letras del string.
-    Está habilitado el reverse index(indice reverso) así sin conocer la longitud del string podemos extraer el último carácter.
+    Está habilitado el reverse index(indice reverso) así sin conocer la longitud del string podemos extraer el último carácter(poner el índice en negativo: -1).
+
+    ```
+      my_name = "david"
+      my_name[0] # 'd'
+      my_name[1] # 'a'
+      # len() function
+
+      print('utilizando la función len() => '+my_name[len(my_name)-1])
+
+      # utilizando la función len() => d
+
+      # última letra sin saber la longitud del str
+
+      # Reverse index
+
+      print('utilizando el indice reverso => '+my_name[-1])
+      #utilizando el indice reverso => d
+    ```
 
     Tamaño de un str usamos la función len()
-    Propiedades de los strings
-    1.Son inmutables, no podemos modificar un string
 
-    2.Concatenables
+    - ### Propiedades de los strings
 
-    3.Multiplicables
+          1. Son inmutables, no podemos modificar un string
 
-    Métodos de los strings
+          ```
+          # Strinig properties and immutability
 
-    1.Slicing [start:stop:step] obtener un subString
+          name = 'David'
+          name[0]= 'P'
 
-    - stop no incluimos ese índice
-    - step tamaño del subString a generar
+          # 'str' object does not support item assignment por lo tanto strings inmutables
+          ```
+
+          2. Concatenables
+
+          ```
+            x = "hello world"
+
+            y = ' is beatifull outside'
+
+            x+= y
+            print(x) #hello world is beatifull outside
+
+            name = 'David'
+
+            name = 'P'+ name[1:]
+            name #'Pavid'
+          ```
+
+          3. Multiplicables
+
+          ```
+          name = 'd'
+
+          name\*10 # dddddddddddd
+
+          ```
+
+    - ### Métodos de los strings
+
+      - Slicing [start:stop:step] obtener un subString
+        stop no incluimos ese índice
+        step tamaño del subString a generar
+
+        ```
+          # slicing [start:stop:step]
+
+          my_string = "abcdefghijk"
+
+          print(' substring desde el índice 0 hasta el final [::] => '+my_string[::])
+          print(' substring desde el índice 2 hasta el final => '+my_string[2:])
+          print(' substring desde el índice 0 hasta el índice 3 (NO incluido)) => '+my_string[:3])
+          print(' substring desde el índice 2 hasta al 5(No incluido) => '+my_string[2:5])
+
+          # uso del tercer parámetro, divide en str en grupos de X carcateres y nos devuelve el primer caracter de cada grupo
+
+          # por ejemplo si ponemos 2 ab - cd - ef - gh - ij - k null
+
+          print(' substring dividido en grupos de a 2 => '+my_string[::2])
+
+          # por ejemplo si ponemos 3 abc - def - ghi - jk null
+
+          print(' substring dividido en grupos de a 3 => '+my_string[::3])
+
+          # lo mismo pero de un subString cd - ef
+
+          print(' substring del 2 al 5 dividido en grupos de a 2 => '+my_string[2:6:2])
+
+          # utilizando el 3 como negativo -1 invierte el string kjihgfedcba
+
+          print('separador de grupo en - empieza por el final(INVIERTE EL STRING) => '+my_string[::-1])
+
+          # utilizando el 3 como negativo -1 Ab - Cd - Ef - Gh - Ij - K null <-
+
+          print(' usando el separador de grupo en - empieza a contar por el final=> '+my_string[::-2])
+
+          '''
+            substring desde el índice 0 hasta el final [::]              => abcdefghijk
+            substring desde el índice 2 hasta el final                   =>   cdefghijk
+            substring desde el índice 0 hasta el índice 3 (NO incluido)) => abc
+            substring desde el índice 2 hasta al 5(No incluido)          =>   cde
+            substring dividido en grupos de a 2                          => acegik
+            substring dividido en grupos de a 3                          => adgj
+            substring  del 2 al 5 dividido en grupos de a 2               => ce
+            separador de grupo en - empieza por el final(INVIERTE EL STRING) => kjihgfedcba
+            usando el separador de grupo en - empieza a contar por el final=> kigeca
+          '''
+        ```
+
+#-------------------------------------------
+
+#-------------------------------------------
+
+#-------------------------------------------
+
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       2..upper() .lower() .split()
 
