@@ -86,7 +86,7 @@
   - [Argumentos *args (arguments) /  **kwargs(keywords arguments)](#argumentos-args-arguments---kwargskeywords-arguments)
       - [*args](#args)
       - [**kwargs](#kwargs)
-- [Lambda expressions Map and Filter](#lambda-expressions-map-and-filter)
+- [Map / Filter / Lambda expressions](#map--filter--lambda-expressions)
   - [Map(func,iterable)](#mapfunciterable)
   - [Filter(function, iterable)](#filterfunction-iterable)
   - [Lambda](#lambda)
@@ -1422,7 +1422,7 @@ Lo que no podemos hacer es colocar un nuevo elemento después del kwargs pq pyth
 
 ![not found](img/img-j-13.png)  
 
-# Lambda expressions Map and Filter
+#  Map / Filter / Lambda expressions
 
 ## Map(func,iterable)
 
