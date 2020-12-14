@@ -8,40 +8,40 @@
   - [Usos de python y librerías](#usos-de-python-y-librerías)
   - [Crear comentarios en Pyhon](#crear-comentarios-en-pyhon)
   - [Fundamental Data Types](#fundamental-data-types)
-    - [Algunas operaciones](#algunas-operaciones)
+    - [**Algunas operaciones**](#algunas-operaciones)
   - [Uso de variables](#uso-de-variables)
   - [Uso del método print()](#uso-del-método-print)
   - [String](#string)
-    - [Propiedades de los strings](#propiedades-de-los-strings)
-    - [Métodos de los strings](#métodos-de-los-strings)
-      - [Slicing](#slicing)
-      - [upper() lower() split()](#upper-lower-split)
-      - [format](#format)
-      - [Casefold](#casefold)
-      - [find](#find)
-      - [Capitalize](#capitalize)
+    - [**Propiedades de los strings**](#propiedades-de-los-strings)
+    - [**Métodos de los strings**](#métodos-de-los-strings)
+      - [**Slicing**](#slicing)
+      - [**upper() lower() split()**](#upper-lower-split)
+      - [**format**](#format)
+      - [**Casefold**](#casefold)
+      - [**find**](#find)
+      - [**Capitalize**](#capitalize)
   - [List](#list)
-    - [Métodos](#métodos)
-      - [len()](#len)
-      - [Slicing](#slicing-1)
-      - [Append() pop()](#append-pop)
-      - [Sort() sorted() reverse()](#sort-sorted-reverse)
-      - [Lista de elementos](#lista-de-elementos)
-      - [Count()](#count)
-      - [All() any()](#all-any)
-      - [Join()](#join)
-      - [Index()](#index)
+    - [**Métodos**](#métodos)
+      - [**len()**](#len)
+      - [**Slicing**](#slicing-1)
+      - [**Append() pop()**](#append-pop)
+      - [**Sort() sorted() reverse()**](#sort-sorted-reverse)
+      - [**Lista de elementos**](#lista-de-elementos)
+      - [**Count()**](#count)
+      - [**All() any()**](#all-any)
+      - [**Join()**](#join)
+      - [**Index()**](#index)
   - [Dictionaries](#dictionaries)
-    - [Métodos](#métodos-1)
-      - [keys() / values() / items()](#keys--values--items)
+    - [**Métodos**](#métodos-1)
+      - [**keys() / values() / items()**](#keys--values--items)
   - [Tuples](#tuples)
-    - [Métodos](#métodos-2)
-      - [Count() / index()](#count--index)
-      - [Sum()](#sum)
+    - [**Métodos**](#métodos-2)
+      - [**Count() / index()**](#count--index)
+      - [**Sum()**](#sum)
   - [Sets](#sets)
-    - [Métodos](#métodos-3)
-      - [Add()](#add)
-      - [Issubset()](#issubset)
+    - [**Métodos**](#métodos-3)
+      - [**Add()**](#add)
+      - [**Issubset()**](#issubset)
 - [In/Out with basic Files](#inout-with-basic-files)
   - [Crear un fichero - %%writefile](#crear-un-fichero---writefile)
   - [Abrir el fichero - open()](#abrir-el-fichero---open)
@@ -51,8 +51,8 @@
   - [close()](#close)
   - [With...as](#withas)
   - [open() - extendido](#open---extendido)
-    - ['a' (append) mode](#a-append-mode)
-    - [w (write) mode](#w-write-mode)
+    - [**'a' (append) mode**](#a-append-mode)
+    - [**w (write) mode**](#w-write-mode)
   - [File location](#file-location)
 - [Operadores](#operadores)
   - [Aritméticos](#aritméticos)
@@ -61,8 +61,35 @@
   - [Identidad](#identidad)
 - [Condicionales e Iteraciones](#condicionales-e-iteraciones)
   - [If -elif-else statement](#if--elif-else-statement)
-    - [Ternary operator](#ternary-operator)
+    - [**Ternary operator**](#ternary-operator)
   - [For loops](#for-loops)
+  - [**While loops**](#while-loops)
+    - [**While not**](#while-not)
+  - [Keywords importantes en los loops](#keywords-importantes-en-los-loops)
+    - [**Pass**](#pass)
+    - [**Continue**](#continue)
+    - [**Break**](#break)
+- [Useful operators](#useful-operators)
+  - [Range()](#range)
+  - [enumerate()](#enumerate)
+  - [zip()](#zip)
+  - [In / not in](#in--not-in)
+  - [Min() max()](#min-max)
+  - [Random library](#random-library)
+    - [**shuffle**](#shuffle)
+    - [Randint](#randint)
+  - [**Input**](#input)
+- [Methods and Functions](#methods-and-functions)
+  - [Métodos](#métodos-4)
+    - [**Argumentos vs parámetros**](#argumentos-vs-parámetros)
+    - [**Tipos de argumentos**](#tipos-de-argumentos)
+  - [Argumentos *args (arguments) /  **kwargs(keywords arguments)](#argumentos-args-arguments---kwargskeywords-arguments)
+      - [*args](#args)
+      - [**kwargs](#kwargs)
+- [Lambda expressions Map and Filter](#lambda-expressions-map-and-filter)
+  - [Map(func,iterable)](#mapfunciterable)
+  - [Filter(function, iterable)](#filterfunction-iterable)
+  - [Lambda](#lambda)
 
 # Course from zero to Hero - Udemy -
 
@@ -190,14 +217,14 @@ Son los tipos especificados en el core de python tales como :
 
 Tenemos otros tipos de datos como:  
 
-- ### Custom Types - Class
+- ### **Custom Types - Class**
   Podemos crear nuestros propios tipos de datos, para ello construimos clases.
-- ### Specialized Data Type
+- ### **Specialized Data Type**
   Son aquellos que están especificados en paquetes externos, los llamados `modules`.
-- ### None - type  
+- ### **None - type**
     Indica ausencia de valor
 
-### Algunas operaciones
+### **Algunas operaciones**
 
     ```
       # para hacer potencias de un número
@@ -270,7 +297,7 @@ Está habilitado el reverse index(indice reverso) así sin conocer la longitud d
 
 Tamaño de un str usamos la función len()
 
-### Propiedades de los strings
+### **Propiedades de los strings**
 
 - 1. Son inmutables, no podemos modificar un string
 
@@ -306,9 +333,9 @@ Tamaño de un str usamos la función len()
 
      ```
 
-### Métodos de los strings
+### **Métodos de los strings**
 
-#### Slicing
+#### **Slicing**
 
 - [start:stop:step] nos permite obtener un subString  
    stop - indica hasta dnd se extrae pero sin incluir ese caracter  
@@ -360,7 +387,7 @@ Tamaño de un str usamos la función len()
            '''
   ```
 
-#### upper() lower() split()
+#### **upper() lower() split()**
 
 - ```
     x = "hi this is a string"
@@ -370,7 +397,7 @@ Tamaño de un str usamos la función len()
     print(x.split('i')) #['h', ' th', 's ', 's a str', 'ng']
   ```
 
-#### format
+#### **format**
 
 - Format method
     ```
@@ -445,7 +472,7 @@ Tamaño de un str usamos la función len()
     ```
   {3} En este caso hace referencia al número total de dígitos que tendrá el número, no como en .format() que hace referencia al número de dígitos decimales
 
-#### Casefold
+#### **Casefold**
 - Es como un equalsIgnoreCase de java, elimina las distinciones entre mayúsculas y minúsculas en el momento de comparar strings.
     ```
       str1 = 'david'
@@ -468,7 +495,7 @@ Tamaño de un str usamos la función len()
         print('son diferentes')
       # son iguales
     ```
-#### find
+#### **find**
 - Sólo funciona en estrings, para saber si un string contiene a otro y si lo está nos devuelve la posición y si no un -1. Hace distinción entra minusculas y mayúsculas.
     ```
       str1 = 'david'
@@ -478,7 +505,7 @@ Tamaño de un str usamos la función len()
       str2.find('ello') #1
       str2.find('Hello') #-1
     ```
-#### Capitalize
+#### **Capitalize**
 - La primera letra de una palabra en mayúscula.
     ```
       def old_macdonald(name):
@@ -492,9 +519,9 @@ Tamaño de un str usamos la función len()
 ## List
 Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, string,obj...). Podemos tener distintos tipos de datos almacenados en un list.  
 
-### Métodos
+### **Métodos**
 
-#### len()
+#### **len()**
 - Conocer el número de elementos de la list.  
 
     ```
@@ -505,7 +532,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       # len()
       len(my_List)
     ```
-#### Slicing
+#### **Slicing**
 
 - [start:stop:step]  
   Funciona igual que en los strings.
@@ -530,7 +557,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       my_list_1 # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     ```
 
-#### Append() pop()
+#### **Append() pop()**
 
 - Nos permite añadir(append) o eliminar (pop) un elemento al final de la list.
   El método pop() no solo elimina el último elemento sino que también lo devuelve. Una función más es que puedes pasar el índice del elementos a eliminar, por defecto es el -1 (último elemento).
@@ -552,7 +579,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       my_list         # ['two', 'three', 'four', 'five', 'six']
     ```
 
-#### Sort() sorted() reverse()
+#### **Sort() sorted() reverse()**
 
 - Ninguno de los dos métodos devuelve nada, actúan sobre la list y la modifican
 
@@ -577,7 +604,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       print(list4)        # [5, 3, 4, 6, 1]
       print(listOrdenada) # [1, 3, 4, 5, 6]
     ```
-#### Lista de elementos
+#### **Lista de elementos**
 - Si quisiéramos obtener una lista de las letras que forman un string podemos hacer lo siguiente:
 
     ```
@@ -655,7 +682,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       l # [2, 20, 200, 4, 40, 400, 6, 60, 600]
     ```
 
-#### Count()
+#### **Count()**
 
 - Las veces q aparece un elemento en una lista
 
@@ -664,7 +691,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
       print(l.count(2)) # 2
     ```
-#### All() any()
+#### **All() any()**
 
 - Nos permite saber si una lista contiene todos (all) los valores o sólo algunos (any) de otra lista
 
@@ -686,7 +713,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
   La secuencia de comprobación es la siguiente:  
   primero hace un for (1) sacando cada “elem” de l1 y hace la comprobación en elem in l2 (2)
 
-#### Join()
+#### **Join()**
 
 - Permite concatenar los elementos de una lista mediante algún caracter, por ejemplo un espacio en blanco
 
@@ -696,7 +723,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       ' '.join(l) # 'hola david'
 
     ```
-#### Index()
+#### **Index()**
 
 - Nos devuelve la posición de una valor en la list, el primero que encuetra
     ```
@@ -745,9 +772,9 @@ Añadir / sobreescribir / borrar (del) elementos de un diccionario
       prices_lookup # {'apple': 3.3, 'oranges': 3.56, 'milk': 6.12}
 
     ```
-### Métodos
+### **Métodos**
 
-#### keys() / values() / items()
+#### **keys() / values() / items()**
 
 - Obtener todas las claves/ valores del diccionario y obtener una array de los pares clave-valor en forma de duplas.
 
@@ -777,11 +804,11 @@ Son muy similares a las listas pero tiene la diferencia que son inmutables.
       len(t) # 4
     ```
 
-### Métodos
+### **Métodos**
 
 Sólo hay dos métodos asociados a tuplas.
 
-#### Count() / index()
+#### **Count() / index()**
 
 - Count devulve cuantas veces se encuentra un elemento en la tupla y index cual es la posición de un elemento dado si aparece más de una vez nos devuelve el índice del primero que encuentra.
 
@@ -793,7 +820,7 @@ Sólo hay dos métodos asociados a tuplas.
 
     ```
 
-#### Sum()
+#### **Sum()**
 
 - Podemos sumar el contenido de las tuplas. Sólo para valores numéricos
 
@@ -826,9 +853,9 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
       s # {'a', 'e', 'l', 'p', 'r'}
     ```
 
-### Métodos
+### **Métodos**
 
-#### Add()
+#### **Add()**
 
 - Añadir nuevo elemento
     ```
@@ -836,7 +863,7 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
       s # {'a', 'e', 'l', 'p', 'r'}
     ```
 
-#### Issubset()
+#### **Issubset()**
 
 - Para saber si un set contiene a otro set.
 
@@ -955,7 +982,7 @@ El modo puede ser:
       '''
     ```
 
-### 'a' (append) mode
+### **'a' (append) mode**
 
 - Añade texto al final del documento
     ```
@@ -963,7 +990,7 @@ El modo puede ser:
           f.write('FOUR ON FOURTH')
     ```
 
-### w (write) mode
+### **w (write) mode**
 
 - Abrirá o creará en su defecto un archivo con ese nombre, si ya existe lo sobreescribe
     ```
@@ -1016,7 +1043,7 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
     # result is equal to 5
     ```
 
-### Ternary operator
+### **Ternary operator**
 
     ```
     b = True
@@ -1045,120 +1072,384 @@ Con un tercer parámetro (step)
 Podemos iterar un string como array de caracteres.
 
     ```
-    list2 = []
+      list2 = []
 
-    for caracter in 'David':
-        #print(f'{caracter.upper()}', end='') # DAVID
-        #list2.append(caracter) # ['D', 'a', 'v', 'i', 'd']
-        print(type(caracter)) # nos devuelve tipo string
+      for caracter in 'David':
+          #print(f'{caracter.upper()}', end='') # DAVID
+          #list2.append(caracter) # ['D', 'a', 'v', 'i', 'd']
+          print(type(caracter)) # nos devuelve tipo string
     ```
 
 Podemos iterar una list
 
+    ```
+        myList = [1,2,3,4,5,6,7,8,9,10]
+
+        for item in myList:
+          print(f'{item}', end=' - ') # 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 
+    ```
 Para conocer el índice de cada elemento lo podemos hacer así:
+
+    ```
+        myList = [1,2,3,4,5,6,7,8,9,10]
+
+        for index in range(0, len(myList)):
+          print(f'{myList[index]}', end=' - ') # 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 
+    ```
 
 Un truco para obtener el índice de cada elemento de cualquier iterable es transformarlo previamente a un enumerado – enumerate()
 
-Podemos iterar tuples
+    ```
+      myList = [1,2,3,4,5,6,7,8,9,10]
 
+      for (indice,valor) in enumerate(myList):
+        print(f'indice:{indice} => valor:{valor} ')
+      ''''
+        indice:0 => valor:1 
+        indice:1 => valor:2 
+        indice:2 => valor:3 
+        indice:3 => valor:4 
+        indice:4 => valor:5 
+        indice:5 => valor:6 
+        indice:6 => valor:7 
+        indice:7 => valor:8 
+        indice:8 => valor:9 
+        indice:9 => valor:10
+      ''''
+    ```
+
+Podemos iterar tuples  
+
+    ```
+        t = [(1,2),(3,4),(5,6),(7,8),(9,10)]
+
+            for (a,b) in t:
+                print(f'{a} - {b}')
+        '''
+          1 - 2
+          3 - 4
+          5 - 6
+          7 - 8
+          9 - 10
+        ''''
+    ```
 Un dictionary
 
-    Podemos obtener solo los valores con .values()
+    ```
+      d = {"k1":1, "k2":2, "k3":3}
 
+      for key,value in d.items():
+      print(f' {key} - {value} ', end='') 
+      # k1 - 1  k2 - 2  k3 - 3
+    ```
+Podemos obtener solo los valores con .values()
+
+    ```
+      d = {"k1":1, "k2":2, "k3":3}
+
+      for value in d.values():
+          print(f' {value} ', end='') 
+        # 1  2  3
+    ```
 Nested loops
 
+    ```
+        l= []
+        for x in [2,4,6]:
+          for y in [1,10,100]:
+            l.append(x*y)
+        # l = [2,20,200,4,40,400,6,60,600]
+    ```
 For loop reverse
 
-While loops
-Versión normal
+    ```
+      for i in range(len('david')-1,-1,-1):
+        print('david'[i], end='')
 
+      # divad
+    ```
+
+## **While loops**
+
+Versión normal
+ 
+    ```
+          x = 0
+
+      while x<5:
+          print(f' {x} ', end='')
+          x+=1
+    # 0  1  2  3  4  
+    ```
 Versión con else
 
-While not
+    ```
+          x = 0
 
-3 Keywords importantes en los loops
-Pass
-no hace nada, es decir en python si ejecutamos un loop el programa espera una identación y algo de código...si no hay nada arroja un error, EOF (end of file) para q el programa haga un salto se pone pass
+      while x<5:
+          print(f' {x} ', end='')
+          x+=1
+      else:
+        print(f' \nX no es menor q 5')
+    # 0  1  2  3  4  
+    # X no es menor q 5
+    ```
+### **While not**
+    ```
+    r = 0
 
-Continue
-Esta instrucción permite continuar el loop sin ejecutar el códi la ejecución del loop
+    while not r == 5:
+        print(r, end='')
+        r+=1 
+    # 01234
+    ```
 
-Break
-Detiene la ejecución del loop.
+## Keywords importantes en los loops
 
-Useful operators
+### **Pass**
 
-Range()
-Normalmente lo usamos en los loops, permite crear un rango (start,stop[, step]) con un inicio, final y opcionalmente unos saltos. Este rango puede ser convertido en un List.
+no hace nada, es decir en python si ejecutamos un loop el programa espera una identación y algo de código...si no hay nada arroja un error, EOF (end of file) para q el programa haga un salto se pone pass  
+![not found](img/img-j-2.png)  
 
-El tercer valor de range() el step puede ser negativo para hacer que el loop decrezca
+  
+      x = [1,2,3]
 
-enumerate()
+      for item in x:
+          # comment
+          pass
+
+### **Continue**
+
+Esta instrucción permite continuar cn la ejecución del loop sin ejecutar el código que hay por debajo de `continue`
+
+    for c in mystring:
+    if c == 'a':
+        continue
+    print(c)
+### **Break**
+
+Detiene la ejecución del loop donde está contenido.
+
+    x = 0
+    while x<5:
+        if x==2:
+            break
+        print(x)
+        x+=1
+    # 0
+    # 1
+# Useful operators
+
+## Range()
+
+Normalmente lo usamos en los loops, permite crear un rango (start,stop[, step]) con un inicio, final y opcionalmente unos saltos. Este rango puede ser convertido en un List.  
+
+    for num in range(0,10,2):
+        print(num, end='')
+    # 02468
+Generamos una list con la ayuda de range()
+
+    myList = list(range(0,10,2))
+    myList 
+    # [0, 2, 4, 6, 8] 
+    
+El tercer valor de `range()` el step puede ser negativo para hacer que el loop decrezca, para ello el primer valor del `range` tiene que ser el mayor  
+
+    for i in range(10,0,-1):
+        print(i, end=' ')
+    # 10 9 8 7 6 5 4 3 2 1
+
+## enumerate()
+
 Transforma los elementos en iterable y lo separa en tupples formadas por el elemento y su índice.
 
-zip()
-Permite unir listas y generar tupples con los elementos de cada lista coioncidentes en sus posiciones. Zip se ajusta a la lista más corta, si una lisa tiene pej 4 elementos el cuarto no aparecerá. Se puede castear a una lista de tuplas
+    for item in enumerate("abcde"):
+        print(f"{item}")
+    '''
+    (0, 'a')
+    (1, 'b')
+    (2, 'c')
+    (3, 'd')
+    (4, 'e')
+    '''
+## zip()
 
-In / not in
+Permite unir listas y generar tupples con los elementos de cada lista coincidentes en sus posiciones. Zip se ajusta a la lista más corta, si una lisa tiene pej 4 elementos el cuarto no aparecerá. Se puede castear a una lista de tuplas
+
+    list1 = [1,2,3]
+    list2 = ['a','b','c']
+    lista3 = ['alba','Boni','carlos']
+
+    t = zip(list1,list2, lista3)
+
+    print(t) # <zip object at 0x7f2172294aa0>
+
+    for item in t:
+        print(item)
+    #(1, 'a', 'alba')
+    #(2, 'b', 'Boni')
+    #(3, 'c', 'carlos')
+
+    list = list(zip(list1,list2, lista3))
+    list # [(1, 'a', 'alba'), (2, 'b', 'Boni'), (3, 'c', 'carlos')]
+
+## In / not in
+
 Permita saber si un elemento se encuentra en una lista, un diccionario
 
-Min() max()
+    'x' in [1,2,3,4] # False
+    1   in [1,2,3,4] # True
+    'A' in 'David'  # False 
+    'a' in 'David'  # True
+
+    d = {'name':'david', 'edad':36}
+
+    'david' in d.values() # True
+    'edad'  in d.keys()   # True
+
+## Min() max()
+
 Permite detectar el menor valor de una list.
 
-Random library
-shuffle
+    myList = [1,2,3,20,10,5]
+    min(myList) # 1
+    max(myList) # 20
+
+## Random library
+### **shuffle**
+
 Es una librería incluida en python que contienen multitud de funciones.
 Para usarla primero hay q importarla
 
-Esta función nos permitirá desordenar la lista aleatoriamente. Modifica nuestra lista, no devuelve otra
+    from random import shuffle  # de la libreria random importa la función shuffle
 
-Randint
+Esta función nos permitirá desordenar la lista aleatoriamente. `Modifica nuestra lista`, no devuelve otra
+
+    from random import shuffle
+    myList = [1,2,3,4,5,6,7,8,9,10]
+
+    shuffle(myList)
+    myList
+    # [9, 8, 3, 10, 2, 4, 6, 5, 7, 1] 
+
+### Randint
+
 Obtener un integer aleatorio entro de un rango concreto, incluyendo los limites inferior y superior.
 
-Input
+    from random import randint
+
+    randint(0,10)
+## **Input**
+
 Permite al usuario entrar datos. Devuelve un string, podemos castear con int() o float()
 
-Methods and Functions
-Métodos
+    result = input('enter your age: ')
+
+    int(result) #  30
+    float(result) #  30.0
+
+# Methods and Functions
+
+## Métodos
+
 Documentación de python https://docs.python.org/3/
 
-Con argumentos por defecto
+    def name_function():
+        '''
+        DOCSTRING: Information about the function
+        INPUT: no input...
+        OUTPUT: Hello
+        '''
+        print('Hello')
+
+![not found](img/img-j-3.png)  
+
+Con argumentos por defecto  
+
+![not found](img/img-j-4.png)  
 
 Return keyword
 
-Argumentos \*args (arguments) / \*\*kwargs(eywords arguments)
-Tenemos dos tipos de argumentos en las funciones, los argumentos posicionales
+![not found](img/img-j-6.png)  
+![not found](img/img-j-7.png)  
 
-De tal manera que si paso más parmetros que los definidos en la función voy a tener un error
 
-Para evitar eso usamos los \*args, internamente python transforma todos los argumentos pasados a la función como una tupla.
 
-El uso de \*\*kwargs nos contruye un dictionary con los argumentos pasados
+### **Argumentos vs parámetros**
 
-Una función puede aceptar como argumentos un \*args y un \*\*kwargs
+Diferncias enre argumento y parámetro:  
+  - Parámetro : es el nómbre que aparece en la definición de la función
+   
+         def add (param1, param2):
+  - argumento : es el valor que se le pasa a la función
+### **Tipos de argumentos** 
+
+Tenemos dos tipos de argumentos en las funciones, los argumentos posicionales (positional argument) y argumentos nombrados (keyword argument)   
+
+- Posicionales: Los argumentos posicionales deben aparecer al principio de una lista de argumentos o ser pasados como elementos de un iterable precedido por *.
+
+  ![not found](img/img-j-8.png)
+
+- Nombrados: es un argumento precedido por un identificador (por ejemplo, nombre=) en una llamada a una función o pasado como valor en un diccionario precedido por **.
+
+      complex(real=3, imag=5)
+      complex(**{'real': 3, 'imag': 5})
+
+si paso más parmetros que los definidos en la función voy a tener un error 
+
+![not found](img/img-j-9.png)
+
+## Argumentos *args (arguments) /  **kwargs(keywords arguments)  
+
+#### *args
+
+Para evitar eso usamos los `*args`, internamente python transforma todos los argumentos pasados a la función como una tupla.  
+
+![not found](img/img-j-10.png)
+
+#### **kwargs
+El uso de `**kwargs` nos contruye un dictionary con los argumentos pasados
+
+![not found](img/img-j-11.png)  
+
+Una función puede aceptar como argumentos un `*args` y un `**kwargs` 
+
+![not found](img/img-j-12.png)  
 
 Esto será útil cuando usemos librerías externas.
 
-Lo que no podemos hacer es colocar un nuevo elemento después del kwargs pq python lo coge como argumento posicional. Así que primero los argumentos y después los key word arguments
+Lo que no podemos hacer es colocar un nuevo elemento después del kwargs pq python lo coge como argumento posicional. Así que primero los argumentos y después los keyword arguments
 
-Lambda expressions Map and Filter
+![not found](img/img-j-13.png)  
 
-Definición:
-Las expresiones lambdas es como construir una función anónima, es una función que usaremos durante el código pero que no nos interesa definirla como tal.
-El contenido de la función lambda debe ser una única expresión en lugar de un bloque de acciones.
+# Lambda expressions Map and Filter
 
-Map(func,iterable)
-Es una función que nos permite mapear otra función sobre un objeto iterable. Cuando decimos mapear significa emparejar un elemento con otro, en este caso aplicamos una función a cada uno de los elementos que integran el objeto iterable(lista o tupla) devolviendo un nuevo iterador cuyos elementos son el resultado de dicha operación.
+## Map(func,iterable)
 
-Para ver lo que almacena el objeto map podemos hacer un for
+Es una función que nos permite mapear otra función sobre un objeto iterable. Cuando decimos mapear significa emparejar un elemento con otro, en este caso aplicamos una función a cada uno de los elementos que integran el objeto iterable(lista o tupla) devolviendo un nuevo iterador cuyos elementos son el resultado de dicha operación.  
 
-Si quisieramos obtener los resultados en forma de lista podemos hacer un cast del objeto map directamente
+![not found](img/img-j-14.png)  
+
+Para ver lo que almacena el objeto map podemos hacer un for  
+
+![not found](img/img-j-15.png)   
+
+Si quisieramos obtener los resultados en forma de lista podemos hacer un cast del objeto map directamente  
+![not found](img/img-j-16.png)    
 
 Otro ejemplo con strings
 
-Filter(function, iterable)
+![not found](img/img-j-17.png)   
+
+## Filter(function, iterable)
+
 Es muy parecido a map en el sentido que aplicará una función a cada uno de los elementos de un objeto iterable, con dos diferencias:
 1.La función que pasamos debe devolver True or False
-2.Nos devolverá un objeto filter únicamente con los elementos del iterable que devuelan True en la función.
+2.Nos devolverá un objeto filter únicamente con los elementos del iterable que devuelan True en la función.  
 
-Lambda
+![not found](img/img-j-18.png)    
+
+## Lambda
+
+Las expresiones lambdas es como construir una función anónima, es una función que usaremos durante el código pero que no nos interesa definirla como tal.
+El contenido de la función lambda debe ser una única expresión en lugar de un bloque de acciones.
