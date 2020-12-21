@@ -38,3 +38,7 @@ while not got_it:
             else:
                 print('warmER')
         player_guesses.append(num)
+
+
+name = 'davod'
+# %% 

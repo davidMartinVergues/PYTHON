@@ -9,6 +9,10 @@
   - [Crear comentarios en Pyhon](#crear-comentarios-en-pyhon)
   - [Fundamental Data Types](#fundamental-data-types)
     - [**Algunas operaciones**](#algunas-operaciones)
+    - [Funciones matemáticas](#funciones-matemáticas)
+      - [**round**](#round)
+      - [**abs**](#abs)
+      - [**bin / int**](#bin--int)
   - [Uso de variables](#uso-de-variables)
   - [Uso del método print()](#uso-del-método-print)
   - [String](#string)
@@ -20,27 +24,48 @@
       - [**Casefold**](#casefold)
       - [**find**](#find)
       - [**Capitalize**](#capitalize)
-  - [List](#list)
+      - [**replace**](#replace)
+  - [Ordered vs unordered](#ordered-vs-unordered)
+  - [List - (data structure)](#list---data-structure)
     - [**Métodos**](#métodos)
       - [**len()**](#len)
       - [**Slicing**](#slicing-1)
       - [**Append() pop()**](#append-pop)
+      - [**remove(element_value)**](#removeelement_value)
+      - [**clear()**](#clear)
+      - [**insert(index,value)**](#insertindexvalue)
+      - [**extend([])**](#extend)
       - [**Sort() sorted() reverse()**](#sort-sorted-reverse)
       - [**Lista de elementos**](#lista-de-elementos)
       - [**Count()**](#count)
       - [**All() any()**](#all-any)
       - [**Join()**](#join)
-      - [**Index()**](#index)
-  - [Dictionaries](#dictionaries)
+      - [**Index(value,start,stop) / in **](#indexvaluestartstop--in-)
+      - [**copy**](#copy)
+      - [**List unpacking**](#list-unpacking)
+  - [Dictionaries - dict (data structure)](#dictionaries---dict-data-structure)
     - [**Métodos**](#métodos-1)
+      - [get()](#get)
       - [**keys() / values() / items()**](#keys--values--items)
-  - [Tuples](#tuples)
+      - [**clear()**](#clear-1)
+      - [**copy()**](#copy-1)
+      - [**pop()**](#pop)
+      - [**update()**](#update)
+  - [Tuples - data structure -](#tuples---data-structure--)
     - [**Métodos**](#métodos-2)
       - [**Count() / index()**](#count--index)
       - [**Sum()**](#sum)
-  - [Sets](#sets)
+  - [Sets - data structure -](#sets---data-structure--)
     - [**Métodos**](#métodos-3)
       - [**Add()**](#add)
+      - [**clear() / copy()**](#clear--copy)
+      - [difference()](#difference)
+      - [discard()](#discard)
+      - [difference_update()](#difference_update)
+      - [intersection() o &](#intersection-o-)
+      - [isdisjoint()](#isdisjoint)
+      - [union() o  |](#union-o--)
+      - [issuperset()](#issuperset)
       - [**Issubset()**](#issubset)
 - [In/Out with basic Files](#inout-with-basic-files)
   - [Crear un fichero - %%writefile](#crear-un-fichero---writefile)
@@ -56,6 +81,7 @@
   - [File location](#file-location)
 - [Operadores](#operadores)
   - [Aritméticos](#aritméticos)
+  - [Asignación](#asignación)
   - [Comparación](#comparación)
   - [Lógicos](#lógicos)
   - [Identidad](#identidad)
@@ -210,6 +236,7 @@ Para poder ejectar código python necesitamos un intérprete que lee línea a l�
     comentario de bloque
   '''
 ```
+Las 3 comillas tb pueden servir para escribit un string de múltiples líneas, así q lo adecuado en py para comentarios de múltiples líneas es usar # antes de cada una
 
 ## Fundamental Data Types
 Son los tipos especificados en el core de python tales como :  
@@ -233,20 +260,41 @@ Tenemos otros tipos de datos como:
 
       # Para obtener la parte entera de una división decimal //
 
-      print(2//4 ) # 0
-      print(5//4 ) #  1
+      print(2//4 ) # 0 => 0.5
+      print(5//4 ) #  1  =>1.25
 
-      # Para obtener el resto de una división el módulo %
+      # Para obtener el resto de la división entera es el módulo %
 
       print(5 % 4) # 1
       print(6 % 4 )# 2
     ```
+### Funciones matemáticas
+#### **round**
+Permite redondear el número  
+
+    round(3.1) # 3
+    round(3.9) # 4
+#### **abs**
+Obtener el valor absolute de un valor
+
+    abs(3)  # 3 
+    abs(-3) # 3 
+#### **bin / int**
+representación binaria bin() 
+
+    bin(5) # '0b101'
+
+Pasar un número en base 'x' a integer (base 10). 
+El método funciona como: este número '0b101' en base 2 (binaria) pásalo a int
+
+    int('0b101', 2) # 5
+          
 ## Uso de variables
 
 Python usa tipado dinámico como JavaScript esto significa que no es necesario especificar el tipo de dato que contendrá dicha variable.
 Por ejemplo Java tiene un tipado estático porque requiere que especifiquemos durante la declaración el tipo de dato que contendrá la variable.  
  Podemos usar `type()` para saber el tipo de variable  
- Usamos la función `str()` para **castear** a string.
+ Usamos la función `str()` para **castear** a string, lo que llamamos `type conversion`. Podemos usar `int()` `float()` `bool` ...
 
 ```
   # Tipado dinámico
@@ -259,6 +307,13 @@ Por ejemplo Java tiene un tipado estático porque requiere que especifiquemos du
 
   print('mi variable ha cambiado de tipo, ahora es una list ' + str(type(my_dogs)) +' -> ' +str(my_dogs))
   # mi variable ha cambiado de tipo, ahora es una list <class 'list'> -> ['sammy', 'frankie']
+
+  # type conversion
+
+  number = 5
+  name = 'david'
+  print(name+number) # eso da error
+  print(name+str(number))
 ```
 
 ## Uso del método print()
@@ -308,7 +363,7 @@ Tamaño de un str usamos la función len()
        # 'str' object does not support item assignment por lo tanto strings inmutables
      ```
 
-- 2. Concatenables
+- 2. Concatenables, solo funciona con strings no le puedo concatenar un número, para ello debo castearlo a `str` previamente
 
      ```
        x = "hello world"
@@ -322,6 +377,12 @@ Tamaño de un str usamos la función len()
 
        name = 'P'+ name[1:]
        name #'Pavid'
+
+       number = 5
+       name = 'david'
+       print(name+number) # eso da error 
+       print(name+str(number)) # david5
+
      ```
 
 - 3. Multiplicables
@@ -423,8 +484,8 @@ Tamaño de un str usamos la función len()
 
       print('alineación: {0:=<15} {1:-^15} {2:.>15}'.format('izq', 'centro', 'drcha'))
       # alineación: izq============ ----centro----- ..........drcha
-      #podemos usar keyword
 
+      #podemos usar keyword
       print('me llamo {v} {m}, {d}'.format(d='David', m='Martín', v='Vergues'))
       #me llamo Vergues Martín, David
 
@@ -516,7 +577,30 @@ Tamaño de un str usamos la función len()
 
       old_macdonald('macdonald') #'MacDonald'
     ```
-## List
+#### **replace**
+- reemplazar partes del texto.
+
+      ```
+        quote= 'to be or not to be'
+        print(quote.replace('be','me'))
+        # to me or not to me
+      ```
+`Aplicando todos estos métodos sobre un string nunca alteramos el string original, son inmutables!, pero podemos asignar el resultado a una nueva variable`
+
+## Ordered vs unordered
+
+Por ejemplo una `list` es un objeto **ordenado** y un `dict` es un objeto **desordenado** (en python todo son objetos). El concepto ordenado/desordenado hace referencia a como se almacena la info en memoria.
+Los elementos de una lista se guardan en memoria uno al lado del otro tal como los vamos especificando, pero n una dict estos elementos se guardan en memeoria en diferentes puntos. Si hacemos un dict pequeño   
+
+      user = {
+        'nombre':'dabid', 
+        'edad':36
+      }  
+y lo imprimimos probrable los campos se impriman cn ese orden pero diccionarios de mayor tamaño muy probablemente los campos se presenten desordenados.  
+
+
+## List - (data structure)
+
 Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, string,obj...). Podemos tener distintos tipos de datos almacenados en un list.  
 
 ### **Métodos**
@@ -535,7 +619,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **Slicing**
 
 - [start:stop:step]  
-  Funciona igual que en los strings.
+  Funciona igual que en los strings. No altera el array original pero devuelve un nuevo array.
 
     ```
       my_List[-1]     # 3
@@ -557,10 +641,11 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       my_list_1 # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     ```
 
-#### **Append() pop()**
+ #### **Append() pop()**
 
 - Nos permite añadir(append) o eliminar (pop) un elemento al final de la list.
   El método pop() no solo elimina el último elemento sino que también lo devuelve. Una función más es que puedes pasar el índice del elementos a eliminar, por defecto es el -1 (último elemento).
+  A pop le podemos pasar el índice del elemento a borrar.
 
     ```
       my_list = ['one', 'two','three','four','five','six']
@@ -577,6 +662,44 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
       my_list.pop(0) # 'one'
       my_list         # ['two', 'three', 'four', 'five', 'six']
+    ```
+#### **remove(element_value)**
+- Nos permite borrar un elemento de a lista especificando el valor de dicho elemento. Cambia nuestra list, no devuelve el valor eliminado como sí lo hace pop()  
+
+    ```
+      list2 = ['david','martin','vergues']
+      list2.remove('david')
+      print(list2)   # ['martin', 'vergues']
+    ```
+#### **clear()**  
+- Vacia la lista 
+
+    ```
+      list2 = ['david','martin','vergues']
+      list2.clear()
+      print(list2) 
+    ```
+
+
+#### **insert(index,value)**
+- Nos permite introducir un elemento en la lista en un índice concreto
+
+    ```
+      list = [1,2,3,4]
+      list.insert(4,100)
+      print(list) #[0, 1, 2, 3,4,100]
+
+      list2 = [1,2,3,4]
+      list2.insert(0,5)
+      print(list2) # [5, 1, 2, 3, 4]
+    ```
+#### **extend([])**
+- Permite extender el array con nuevos elementos necesitamos pasarlos como un iterable, en lugar de hacer 'x' appends.
+
+    ```
+    list2 = [1,2,3,4]
+    list2.extend([0,5])
+    print(list2) # [1, 2, 3, 4, 0, 5]
     ```
 
 #### **Sort() sorted() reverse()**
@@ -629,14 +752,19 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       l # ['w', 'o', 'r', 'd']
     ```
 
-  Range
+- Range
 
     ```
       l=  [num for num in range(0,10)]
       l # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     ```
+     También podemos hacer lo siguiente:
+    ```
+      new_list = list(range(100))
+    ```
 
-  Podemos aplicar cambios a cada subelemento antes de incluirlo en la list, por ejemplo hacer el cuadrado de cada elemento **num**2\*\*
+
+- Podemos aplicar cambios a cada subelemento antes de incluirlo en la list, por ejemplo hacer el cuadrado de cada elemento **num** **2
 
     ```
       l=  [num**2 for num in range(0,10)]
@@ -671,7 +799,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
     ```
 
-  Nested loops
+- Nested loops
 
     ```
       l = []
@@ -723,33 +851,121 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       ' '.join(l) # 'hola david'
 
     ```
-#### **Index()**
+#### **Index(value,start,stop) / in **
 
 - Nos devuelve la posición de una valor en la list, el primero que encuetra
     ```
       l1 = [1,2,3]
       l1.index(3) # 2
     ```
-
-## Dictionaries
-
-Son mapas desordenados (no pueden ser ordenador) para almacenar objetos usando los pares **clave-valor**.
-Normalmente los usamos cuando queremos tener dos valores que están relacionados por ejemplo precios de productos, así no necesitamos saber el índice del producto para saber el precio.   
+  Podemos pasar parámetros adicionales, como el índice dónde empezamos a buscar y el índice dónde paramos la búsqueda
 
     ```
-        prices_lookup = {'apple':2.88, 'oranges':3.56, 'milk':6.12}
+    list5 =  ['a','b','c','d','e','f']
 
-        print('precio de las manzanas {:<10.5f} €'.format(prices_lookup['apple']))
-        # precio de las manzanas 2.88000    €
+    print(list5.index('e',3,5)) # 4
+    
+    ``` 
+  Cuando busco un valor que no existe en la lista este método me arroja un error  
 
-        prices_lookup # {'apple': 2.88, 'oranges': 3.56, 'milk': 6.12}
+    ```
+      list5 =  ['a','b','c','d','e','f']
+
+      print(list5.index('x',3,5)) # 4
+    ```  
+    ![not found](img/img-j-19.png)  
+
+- Para evitar este error usaremos la `keyword` `in` que nos permite saber si un valor está en una list o tb funciona con str.
+
+    ```
+      list5 =  ['a','b','c','d','e','f']
+      print('x' in list5) # False
+
+      # en str
+
+      print('d' in 'David') # True
+    ```  
+#### **copy**
+
+- Hace una copia de la lista. Nos crea una nueva list. Pero... si esta lista contiene n objeto (otra lista, dictionary,...) no genera uno nuevo si no que `copia la referencia` así si modifico valores de ese objeto en la nueva lista en la lista original quedan modificados también.
+
+    ```
+      list5 =  ['a','b','c','d','e','f', [1,2,3], {'fruta':'manzana','precio':5}]
+      list6 = list5.copy()
+      print(list5)
+      list6[6][0]=0
+      list6[0]='x'
+      print(list5)
+      print(list6)
+    ```  
+
+  ![not found](img/img-j-20.png)  
+
+#### **List unpacking**  
+- Nos permite extraer valores de una lista de diferentes modos
+
+    a,b,c, *other, d = [1,2,3,4,5,6,7,8,9]
+
+    print(a)     #1
+    print(b)     #2
+    print(c)     #3
+    print(other) # [4, 5, 6, 7, 8]
+    print(d)     # 8
+
+
+
+
+## Dictionaries - dict (data structure)
+
+Es una manera de mantener nuestros datos estructurados (`data structure`)
+
+Son mapas desordenados (no pueden ser ordenador) para almacenar objetos usando los pares **clave-valor**. 
+Normalmente los usamos cuando queremos tener dos valores que están relacionados por ejemplo precios de productos, así no necesitamos saber el índice del producto para saber el precio.  
+La clave de los diccionarios debe ser un elemento `inmutable`. Por lo que podemos usar booleans, num,... pero no una list. Aunque el 99 % de las veces la clave será un string.
+Otro punto es que las claves deben ser únicas, si se repiten serán sobreescritas por la última.
+
+    ``` 
+      d = {
+            123:[1,2,3],
+            True:[1,2,3],
+            [100]: True # este nos dará error
+            }
+    ```
+
+Otra manera de crear dictionaries, no muy común, es usando una in-built function `dict()`
+
+    ```
+      user2 = dict(name='Laura')
+      user2 # 
+    ```
+
+Para acceder  los valores se utiliza el corchete con la clave
+
+    ```
+      prices_lookup = {
+        'apple':2.88, 
+        'oranges':3.56, 
+        'milk':6.12
+       }
+
+      print('precio de las manzanas {:<10.5f} €'.format(prices_lookup['apple']))
+      # precio de las manzanas 2.88000    €
+
+      prices_lookup # {'apple': 2.88, 'oranges': 3.56, 'milk': 6.12}
 
     ```
 
 Dentro de los diccionarios podemos almacenar listas y otros diccionarios.
 
     ```
-      d = {'numbers':123,'list':[1,2,3],'dict':{'nombre':'david','apellido':'martin'}}
+      d = {
+        'numbers':123,
+        'list':[1,2,3],
+        'dict':{
+          'nombre':'david',
+          'apellido':'martin'
+          }
+        }
 
       d['numbers'] # 123
       d['list'][0] #1
@@ -772,11 +988,76 @@ Añadir / sobreescribir / borrar (del) elementos de un diccionario
       prices_lookup # {'apple': 3.3, 'oranges': 3.56, 'milk': 6.12}
 
     ```
+Una manera para saber si una clave existe en un dict es usar la keyword `in` como en las list y en los strings
+
+        user = {
+    'name': 'David',
+    'age' : 36
+    }
+
+    'name' in user # True
+
+Podemos usar `in` para checkear tanto las llaves como los valores  
+
+        user = {
+    'name': 'David',
+    'age' : 36
+    }
+
+    'name' in user.keys() # True
+    36 in user.values() # True
+
+
+Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchete `[valor]` el intérprete de py ns dará un error, así que para evitarlo podemos usar otra manera de acceder que es utilizando el método `get()`
+
+    user = {
+    'name': 'David',
+    'age' : 36
+    }
+
+    print(user['job'])  
+![not found](img/img-j-21.png)  
+
 ### **Métodos**
+
+#### get()
+
+- Nos permite acceder a claves del diccionario, si no existen nos devuelve un `None`
+
+    ```
+      print(user.get('job')) # None
+
+    ```
+- Así no evitamos que nos dé un **error**
+
+- Otra función de `get()` es especificar un valor por defecto a esa clave, pero este valor no se guardará en el dict
+
+    ```
+      user = {
+          'name': 'David',
+          'age' : 36
+      }
+
+      print(user.get('job','lab')) # lab
+
+      print(user) # {'name': 'David', 'age': 36}
+
+    ```
+- Ahora bien si resulta que sí contiene esa clave nos dará el valor contenido en el dict
+
+    ```
+      user = {
+          'name': 'David',
+          'age' : 36,
+          'job' : 'developer'
+      }
+
+      print(user.get('job','lab')) # developer
+    ```
 
 #### **keys() / values() / items()**
 
-- Obtener todas las claves/ valores del diccionario y obtener una array de los pares clave-valor en forma de duplas.
+- Obtener todas las claves (keys()) / valores (values() ) del diccionario y obtener una array de los pares clave-valor en forma de tuplas (items()).
 
     ```
       prices_lookup = {'apple':2.88, 'oranges':3.56, 'milk':6.12}
@@ -786,10 +1067,91 @@ Añadir / sobreescribir / borrar (del) elementos de un diccionario
 
       prices_lookup.items() # dict_items([('apple', 3.3), ('oranges', 3.56), ('milk', 6.12)])
     ```
+#### **clear()**
 
-## Tuples
+- Permite vaciar el diccionario.
 
-Son muy similares a las listas pero tiene la diferencia que son inmutables.
+    user.clear()
+    user # {}
+
+#### **copy()** 
+- Nos permite hacer copias de diccionarios pero si tenemos objetos dentro se copia la referencia, así que si modificamos uno de estos objetos en la copia del diccionario tb se alterará. 
+
+    ```
+    user = {
+        'name': 'David',
+        'age' : 36,
+        'hobbies': ['read', 'play'],
+        'job' : 'developer'
+    }
+    user2 = user.copy()
+    user2['hobbies'].append('swing')
+    print(user['hobbies']) # ['read', 'play', 'swing']
+    ```
+- Lo que no afecta es el clear se vaciará un diccionario y el oto se mantendrá inalterado
+
+    ```
+    user = {
+        'name': 'David',
+        'age' : 36,
+        'hobbies': ['read', 'play'],
+        'job' : 'developer'
+    }
+    user2 = user.copy()
+    user2['hobbies'].append('swing')
+    print(user['hobbies']) # ['read', 'play', 'swing']
+
+    user.clear()
+
+    print(user) # {}
+    print(user2) 
+    # {'name': 'David', 'age': 36, 'hobbies': ['read', 'play', 'swing'], 'job': 'developer'}
+    ```
+#### **pop()**
+- Permite eliminar un item (clave-valor) del diccionario, y nos devuelve el valor
+
+    ```
+    user = {
+        'name': 'David',
+        'age' : 36,
+        'hobbies': ['read', 'play'],
+        'job' : 'developer'
+    }
+    print(user.pop('job')) # developer
+    print(user) # {'name': 'David', 'age': 36, 'hobbies': ['read', 'play']}
+
+    ```
+#### **update()**
+- Permite actulizar un valor pasándole una clave
+
+    ```
+    user = {
+        'name': 'David',
+        'age' : 36,
+        'hobbies': ['read', 'play']
+    }
+
+    user.update( {'age':37} )
+    print(user) # {'name': 'David', 'age': 37, 'hobbies': ['read', 'play']}
+
+    ```
+- si esa clave no existe en el dict se añadirá  
+
+    ```
+    user = {
+        'name': 'David',
+        'age' : 36,
+        'hobbies': ['read', 'play']
+    }
+
+    user.update( {'job':'developer'} )
+    print(user) 
+    # {'name': 'David', 'age': 36, 'hobbies': ['read', 'play'], 'job': 'developer'}
+    ```
+           
+## Tuples - data structure -
+
+- Son muy similares a las listas pero tiene la diferencia que son `inmutables`.
 
     ```
       t = ('one',2,3, 2)
@@ -803,6 +1165,20 @@ Son muy similares a las listas pero tiene la diferencia que son inmutables.
       t[-1]  #3
       len(t) # 4
     ```
+Podemos usar la keyword `in`
+
+    2 in t # True
+
+Podemos usar tb `slicing` 
+
+    t = ('one',2,3, 2) 
+    new_tupple = t[1:3]
+    new_tupple #(2, 3)
+
+y  `unpack`
+
+     x,y,z,*others= (1,2,3,4,5)
+     print(others) #[4, 5] como una lista
 
 ### **Métodos**
 
@@ -813,7 +1189,7 @@ Sólo hay dos métodos asociados a tuplas.
 - Count devulve cuantas veces se encuentra un elemento en la tupla y index cual es la posición de un elemento dado si aparece más de una vez nos devuelve el índice del primero que encuentra.
 
     ```
-      t = ('one',2,3, 2)
+      t = ('one',2,3,2)
 
       t.count(2) # 2
       t.index('one') # 0
@@ -829,9 +1205,9 @@ Sólo hay dos métodos asociados a tuplas.
 
     ```
 
-## Sets
+## Sets - data structure -
 
-Son colecciones sin **un orden** y de elementos **no repetidos**.
+Son colecciones **unordered** y de elementos **no repetidos**.
 Podemos crear un set a partir de una list, de esta manera nos aseguramos que los elementos repetidos de la list no se guardan en el set
 
     ```
@@ -861,6 +1237,69 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
     ```
       s = set("paralel")
       s # {'a', 'e', 'l', 'p', 'r'}
+      s.add('z')
+      s # {'a', 'e', 'l', 'p', 'r', 'z'}
+
+    ```
+#### **clear() / copy()**
+- Lo de simpre
+
+#### difference()
+- Permite comparar dos sets y ontener las diferencias  
+
+    ```
+    my_set = {1,2,3,4,5}
+    your_set = {4,5,6,7,8,9,10}
+
+    print(my_set.difference(your_set))
+    ```
+#### discard()
+- Elimina un elemento del set, modifica el set
+
+    ```
+    my_set = {1,2,3,4,5}
+    my_set.discard(5)
+    print(my_set) # {1, 2, 3, 4}
+    ```
+#### difference_update()
+- Modifica el set con los elementos que difieren al compararlo con otro
+    
+    ```
+    my_set = {1,2,3,4,5}
+    your_set = {4,5,6,7,8,9,10}
+    my_set.difference_update(your_set)
+    print(my_set) # {1, 2, 3}
+    ```
+#### intersection() o & 
+- Nos da información de los elementos que coinciden entre dos sets
+    ```
+    print(my_set.intersection(your_set)) # {4,5}
+    print(my_set & your_set) # {4,5}
+    ```
+#### isdisjoint()
+- Nos devuele True (no coiniden elementos ) or False(hay elementos coincidentes) si hay elementos coincidentes entre dos sets
+    
+    ```
+    print(my_set.intersection(your_set)) # False el 4 y 5
+    ```
+#### union() o  |
+- Permite fusionar dos sets, sin incluir los elementos repetidos claro.
+
+    ```
+    new_set = my_set.union(your_set)
+    new_set = my_set | your_set
+    new_set # {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+    ```
+
+#### issuperset()
+- Es para evaluar lo opuesto al subset, si en nuestro set de mayor tamaño se incluye un set menor
+
+    ```
+    my_set = {4,5}
+    your_set = {4,5,6,7,8,9,10}
+    
+    print(your_set.issuperset(my_set)) # True
+
     ```
 
 #### **Issubset()**
@@ -1013,6 +1452,10 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
 
 ![not found](img/img-13.png)
 
+## Asignación
+
+![not found](img/img-22.png)
+
 ## Comparación
 
 ![not found](img/img-14.png)
@@ -1029,18 +1472,21 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
 
 # Condicionales e Iteraciones
 
-## If -elif-else statement
+ ## If -elif-else statement
 
     ```
-    result = 5
+      result = 6
 
-    if result<2 :
-        print('it < 2')
-    elif result ==5 :
-        print('result is equal to 5')
-    else :
-        print('result is bigger than 2')
-    # result is equal to 5
+      if result<2 :
+          print('it < 2')
+      elif result>2 and result < 5:
+          print('result is between 2 and 5')
+      elif result ==5 :
+          print('result is equal to 5')
+      elif result == 6 or result== 7:
+          print('result can be 6 r 7')
+      else :
+          print('result is bigger than 2')
     ```
 
 ### **Ternary operator**
@@ -1247,11 +1693,16 @@ Normalmente lo usamos en los loops, permite crear un rango (start,stop[, step]) 
     for num in range(0,10,2):
         print(num, end='')
     # 02468
+
 Generamos una list con la ayuda de range()
 
     myList = list(range(0,10,2))
     myList 
     # [0, 2, 4, 6, 8] 
+
+    si no especificamos un número de inicio, range empieza por el 0
+
+    print(list(range(100))) # genera una lista de 0 a 99
     
 El tercer valor de `range()` el step puede ser negativo para hacer que el loop decrezca, para ello el primer valor del `range` tiene que ser el mayor  
 
@@ -1453,3 +1904,4 @@ Es muy parecido a map en el sentido que aplicará una función a cada uno de los
 
 Las expresiones lambdas es como construir una función anónima, es una función que usaremos durante el código pero que no nos interesa definirla como tal.
 El contenido de la función lambda debe ser una única expresión en lugar de un bloque de acciones.
+
