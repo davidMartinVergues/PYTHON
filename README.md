@@ -1082,7 +1082,6 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 #### **clear()**
 
 - Permite vaciar el diccionario.
-
 ```python
     user.clear()
     user # {}
