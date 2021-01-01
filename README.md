@@ -20,6 +20,7 @@
     - [**Métodos de los strings**](#métodos-de-los-strings)
       - [**Slicing**](#slicing)
       - [**upper() lower() split()**](#upper-lower-split)
+  - [Ordered vs unordered](#ordered-vs-unordered)
   - [List - (data structure)](#list---data-structure)
     - [**Métodos**](#métodos)
       - [**len()**](#len)
@@ -585,11 +586,11 @@ Tamaño de un str usamos la función len()
 #### **replace**
 - reemplazar partes del texto.
 
-      ```python
-        quote= 'to be or not to be'
-        print(quote.replace('be','me'))
-        # to me or not to me
-      ```
+```python
+       quote= 'to be or not to be'
+       print(quote.replace('be','me'))
+       # to me or not to me
+```
 `Aplicando todos estos métodos sobre un string nunca alteramos el string original, son inmutables!, pero podemos asignar el resultado a una nueva variable`
 
 ## Ordered vs unordered
