@@ -930,24 +930,24 @@ Normalmente los usamos cuando queremos tener dos valores que están relacionados
 La clave de los diccionarios debe ser un elemento `inmutable`. Por lo que podemos usar booleans, num,... pero no una list. Aunque el 99 % de las veces la clave será un string.
 Otro punto es que las claves deben ser únicas, si se repiten serán sobreescritas por la última.
 
-    ```python 
+```python 
       d = {
             123:[1,2,3],
             True:[1,2,3],
             [100]: True # este nos dará error
             }
-    ```
+```
 
 Otra manera de crear dictionaries, no muy común, es usando una in-built function `dict()`
 
-    ```python
+```python
       user2 = dict(name='Laura')
       user2 # 
-    ```
+```
 
 Para acceder  los valores se utiliza el corchete con la clave
 
-    ```python
+```python
       prices_lookup = {
         'apple':2.88, 
         'oranges':3.56, 
@@ -959,11 +959,11 @@ Para acceder  los valores se utiliza el corchete con la clave
 
       prices_lookup # {'apple': 2.88, 'oranges': 3.56, 'milk': 6.12}
 
-    ```
+```
 
 Dentro de los diccionarios podemos almacenar listas y otros diccionarios.
 
-    ```python
+```python
       d = {
         'numbers':123,
         'list':[1,2,3],
@@ -976,11 +976,11 @@ Dentro de los diccionarios podemos almacenar listas y otros diccionarios.
       d['numbers'] # 123
       d['list'][0] #1
       print('me llamo {} {} '.format(d['dict']['nombre'], d['dict']['apellido'])) # me llamo david martin
-    ```
+```
 
 Añadir / sobreescribir / borrar (del) elementos de un diccionario
 
-    ```python
+```python
       prices_lookup = {'apple':2.88, 'oranges':3.56, 'milk':6.12}
 
       prices_lookup['melon'] = 5.86
@@ -992,8 +992,7 @@ Añadir / sobreescribir / borrar (del) elementos de un diccionario
       del prices_lookup['melon']
 
       prices_lookup # {'apple': 3.3, 'oranges': 3.56, 'milk': 6.12}
-
-    ```
+```
 Una manera para saber si una clave existe en un dict es usar la keyword `in` como en las list y en los strings
 
 ```python
