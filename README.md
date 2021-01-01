@@ -1082,10 +1082,11 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 #### **clear()**
 
 - Permite vaciar el diccionario.
-```python
-    user.clear()
-    user # {}
-```
+
+    ```python
+        user.clear()
+        user # {}
+    ```
 #### **copy()** 
 - Nos permite hacer copias de diccionarios pero si tenemos objetos dentro se copia la referencia, así que si modificamos uno de estos objetos en la copia del diccionario tb se alterará. 
 
