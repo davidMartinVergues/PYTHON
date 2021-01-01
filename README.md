@@ -250,7 +250,7 @@ Tenemos otros tipos de datos como:
 
 ### **Algunas operaciones**
 
-    ```python
+```python
       # para hacer potencias de un número
 
       print(2**3) # 8
@@ -264,28 +264,34 @@ Tenemos otros tipos de datos como:
 
       print(5 % 4) # 1
       print(6 % 4 )# 2
-    ```
+```
 ### Funciones matemáticas
 #### **round**
 Permite redondear el número  
 
+```python
     round(3.1) # 3
     round(3.9) # 4
+```
 #### **abs**
 Obtener el valor absolute de un valor
 
+```python
     abs(3)  # 3 
     abs(-3) # 3 
+```
 #### **bin / int**
 representación binaria bin() 
 
+```python
     bin(5) # '0b101'
-
+```
 Pasar un número en base 'x' a integer (base 10). 
 El método funciona como: este número '0b101' en base 2 (binaria) pásalo a int
 
+```python
     int('0b101', 2) # 5
-          
+``` 
 ## Uso de variables
 
 Hay q tener claro que en python no hay tipos primitivos, todo el python son objetos!
