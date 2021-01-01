@@ -1224,7 +1224,7 @@ Sólo hay dos métodos asociados a tuplas.
 Son colecciones **unordered** y de elementos **no repetidos**.
 Podemos crear un set a partir de una list, de esta manera nos aseguramos que los elementos repetidos de la list no se guardan en el set
 
-    ```python
+```python
       myList = [1,1,1,1,2,2,2,2,3,3,3]
 
       mySet2 = set(myList)
@@ -1234,56 +1234,57 @@ Podemos crear un set a partir de una list, de esta manera nos aseguramos que los
       A = set('qwerty')
       A.add('z')
       print(A) # {'t', 'z', 'w', 'y', 'q', 'r', 'e'}
-    ```
+```
 
 Si hacemos un set de un string éste guardará cada carácter por separado sin repeticiones.
 
-    ```python
+```python
       s = set("paralel")
       s # {'a', 'e', 'l', 'p', 'r'}
-    ```
+```
 
 ### **Métodos**
 
 #### **Add()**
 
 - Añadir nuevo elemento
-    ```python
+
+```python
       s = set("paralel")
       s # {'a', 'e', 'l', 'p', 'r'}
       s.add('z')
       s # {'a', 'e', 'l', 'p', 'r', 'z'}
 
-    ```
+```
 #### **clear() / copy()**
 - Lo de simpre
 
 #### difference()
 - Permite comparar dos sets y ontener las diferencias  
 
-    ```python
+```python
     my_set = {1,2,3,4,5}
     your_set = {4,5,6,7,8,9,10}
 
     print(my_set.difference(your_set))
-    ```
+```
 #### discard()
 - Elimina un elemento del set, modifica el set
 
-    ```python
+```python
     my_set = {1,2,3,4,5}
     my_set.discard(5)
     print(my_set) # {1, 2, 3, 4}
-    ```
+```
 #### difference_update()
 - Modifica el set con los elementos que difieren al compararlo con otro
     
-    ```python
+```python
     my_set = {1,2,3,4,5}
     your_set = {4,5,6,7,8,9,10}
     my_set.difference_update(your_set)
     print(my_set) # {1, 2, 3}
-    ```
+```
 #### intersection() o & 
 - Nos da información de los elementos que coinciden entre dos sets
     ```python
@@ -1332,26 +1333,26 @@ Como generar entrada y salida de datos usando un fichero .txt
 
 ## Crear un fichero - %%writefile
 
-    ```python
+```python
       %%writefile 'myFile2.txt'
       hello this is a text file
       this is a second line
       this is the third line
-    ```
+```
 Después de la sentencia `%%writefile 'myFile2.txt` podemos escribir el texto que contendrá el archivo.
 
 Éste se genera en el path donde se encuentra nuestro script de python. Para saber cual es nuestro path usamos el comando `pwd`.
 
-    ```python
+```python
       pwd
       #'/home/david/Programacion/PYTHON/Python_Course_from_Zero_to_hero/Code/1.Basics/1.Data structures and Objects'
-    ```
+```
 
 ## Abrir el fichero - open()
 
-    ```python
+```python
       myFile = open('myFile.txt')
-    ```
+```
 Una vez abierto el fichero se vuelca su contenido en una variable en mi caso **myFile**.  
 Aquí podemos cometer dos errores:
 
@@ -1364,10 +1365,10 @@ Aquí podemos cometer dos errores:
 
 El contenido del fichero lo tenemos en la variable, para leer su contenido usamos read()
 
-    ```python
+```python
       myFile.read()
       #'hello this is a text file \nthis is a second line\nthis is the third line\n'
-    ```
+```
 
 Este método funciona con un cursor de tal modo que cuando lo utilizamos por primera vez el cursor va desde el inicio al final del texto, así si volvemos a utilizar el método, como el cursor está al final, no nos devolverá nada.
 
@@ -1375,16 +1376,16 @@ Este método funciona con un cursor de tal modo que cuando lo utilizamos por pri
 
 Si queremos resetear este cursor utilizamos el método seek()
 
-    ```python
+```python
       myFile.seek(0)
 
-    ```
+```
 
 ## readlines()
 
 Permite guardar en una lista cada línea del texto. Tenemos que tener en cuenta que al final de cada línea hay un salto de línea \n
 
-    ```python
+```python
       listLines = myFile.readlines()
       listLines
 
@@ -1393,28 +1394,28 @@ Permite guardar en una lista cada línea del texto. Tenemos que tener en cuenta 
       'this is a second line\n',
       'this is the third line\n']
       '''
-    ```
+```
 
 ## close()
 
 Una vez terminamos el trabajo con el fichero debemos cerrarlo
 
-    ```python
+```python
       myFile.close()
       # si quiero volver a leerlo m da error
       myFile.read() # ValueError: I/O operation on closed file.
-    ```
+```
 
 ## With...as
 
 Si no nos queremos preocupar por cerrar archivos podemos utilizar esta sentencia que abrirá el archivo y después de hacer las operaciones pertinentes lo vuelve a cerrar automáticamente.
 
-    ```python
+```python
       with open('myFile.txt') as my_new_File:
           content = my_new_File.read()
 
       content # #'hello this is a text file \nthis is a second line\nthis is the third line\n'
-    ```
+```
 
 ## open() - extendido
 
@@ -1424,7 +1425,7 @@ Cuando abrimos un archivo la función acepta estos parámetros:
 El modo puede ser:  
 ![not found](img/img-10.png)
 
-    ```python
+```python
       with open('my_new_file.txt', mode='r') as f:
           print(f.read())
       '''
@@ -1433,7 +1434,7 @@ El modo puede ser:
       THREE ON THIRD
       FOUR ON FOURTH
       '''
-    ```
+```
 
 ### **'a' (append) mode**
 
@@ -1489,48 +1490,48 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
 ### ==  
 Chequea la igualdad en cuanto a valor  
 
-    ```python
+```python
       print(True == 1) #True True == bool(1)
       print('1' == 1 ) # False
       print([] == 1)   # False
       print(10 == 10.0) # True se hace un cast implícito int(10.0)
       print([1,2,3] == [1,2,3])   # True xq compara el valor y son dos list vacías
 
-    ```
+```
 ### is
 
-    ```python
+```python
       print(True is 1)            # False 
       print('1' is 1 )            # False
       print([] is 1)              # False
       print(10 is 10.0)           # False
       print([1,2,3] is [1,2,3])   # False
-    ```
+```
 Chequea la posición de memoria, si el espacio de memoria dnd se almacena el valor es el mismo, en definitiva comparo si ambas variables son el mismo objeto, comparas sus `id()` Hay que tener algo en cuenta, para integers pequeños python cachea sus valores y les da la misma posicion en memeria por eso  
 
-    ```python
+```python
     x =1000
     y = 1000
 
     print(x is y) #False
     print(id(x))  # 140548319852944
     print(id(y)) # 140548319854096
-    ```
+```
 en cambio  
 
-    ```python
+```python
     x =1
     y = 1
 
     print(x is y) #True
     print(id(x)) #94354877690624
     print(id(y)) #94354877690624
-    ```
+```
 # Condicionales e Iteraciones
 
  ## If -elif-else statement
 
-    ```python
+```python
       result = 6
 
       if result<2 :
@@ -1543,65 +1544,65 @@ en cambio
           print('result can be 6 r 7')
       else :
           print('result is bigger than 2')
-    ```
+```
 
 ### **Ternary operator**
 
-    ```python
+```python
     b = True
     r = "hello" if b else "GoodGbye"
     r # hello
-    ```
+```
 
 ## For loops
 
 El más sencillo, establecemos un rango.
 
-    ```python
+```python
     for num in range(0,10):
         print(num, end='')
     # 0123456789
-    ```
+```
 
 Con un tercer parámetro (step)
 
-    ```python
+```python
     for num in range(0,10,2):
         print(num, end='')
     # 02468
-    ```
+```
 
 Podemos iterar un string como array de caracteres.
 
-    ```python
+```python
       list2 = []
 
       for caracter in 'David':
           #print(f'{caracter.upper()}', end='') # DAVID
           #list2.append(caracter) # ['D', 'a', 'v', 'i', 'd']
           print(type(caracter)) # nos devuelve tipo string
-    ```
+```
 
 Podemos iterar una list
 
-    ```python
+```python
         myList = [1,2,3,4,5,6,7,8,9,10]
 
         for item in myList:
           print(f'{item}', end=' - ') # 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 
-    ```
+```
 Para conocer el índice de cada elemento lo podemos hacer así:
 
-    ```python
+```python
         myList = [1,2,3,4,5,6,7,8,9,10]
 
         for index in range(0, len(myList)):
           print(f'{myList[index]}', end=' - ') # 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 
-    ```
+```
 
 Un truco para obtener el índice de cada elemento de cualquier iterable es transformarlo previamente a un enumerado – enumerate()
 
-    ```python
+```python
       myList = [1,2,3,4,5,6,7,8,9,10]
 
       for (indice,valor) in enumerate(myList):
@@ -1618,11 +1619,11 @@ Un truco para obtener el índice de cada elemento de cualquier iterable es trans
         indice:8 => valor:9 
         indice:9 => valor:10
       ''''
-    ```
+```
 
 Podemos iterar tuples  
 
-    ```python
+```python
     d = (10, 20, 30)
 
     for x in d: 
@@ -1640,10 +1641,10 @@ Podemos iterar tuples
           7 - 8
           9 - 10
         ''''
-    ```
+```
 Un dictionary
 
-    ```python
+```python
       d = {"k1":10, "k2":20, "k3":30}
 
       for key,value in d.items():
@@ -1657,49 +1658,49 @@ Un dictionary
       for x in d: 
         print(f' {x} ', end='') 
         #k1  k2  k3 
-    ```
+```
 Podemos obtener solo los valores con .values()
 
-    ```python
+```python
       d = {"k1":1, "k2":2, "k3":3}
 
       for value in d.values():
           print(f' {value} ', end='') 
         # 1  2  3
-    ```
+```
 Nested loops
 
-    ```python
+```python
         l= []
         for x in [2,4,6]:
           for y in [1,10,100]:
             l.append(x*y)
         # l = [2,20,200,4,40,400,6,60,600]
-    ```
+```
 For loop reverse
 
-    ```python
+```python
       for i in range(len('david')-1,-1,-1):
         print('david'[i], end='')
 
       # divad
-    ```
+```
 
 ## **While loops**
 
 Versión normal
  
-    ```python
+```python
           x = 0
 
       while x<5:
           print(f' {x} ', end='')
           x+=1
     # 0  1  2  3  4  
-    ```
+```
 Versión con else
 
-    ```python
+```python
           x = 0
 
       while x<5:
@@ -1709,17 +1710,17 @@ Versión con else
         print(f' \nX no es menor q 5')
     # 0  1  2  3  4  
     # X no es menor q 5
-    ```
+```
 ### **While not**
 
-    ```python
+```python
     r = 0
 
     while not r == 5:
         print(r, end='')
         r+=1 
     # 01234
-    ```
+```
 
 ## Keywords importantes en los loops
 
