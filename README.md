@@ -20,12 +20,6 @@
     - [**Métodos de los strings**](#métodos-de-los-strings)
       - [**Slicing**](#slicing)
       - [**upper() lower() split()**](#upper-lower-split)
-      - [**format**](#format)
-      - [**Casefold**](#casefold)
-      - [**find**](#find)
-      - [**Capitalize**](#capitalize)
-      - [**replace**](#replace)
-  - [Ordered vs unordered](#ordered-vs-unordered)
   - [List - (data structure)](#list---data-structure)
     - [**Métodos**](#métodos)
       - [**len()**](#len)
@@ -85,6 +79,9 @@
   - [Comparación](#comparación)
   - [Lógicos](#lógicos)
   - [Identidad](#identidad)
+  - [is vs '=='](#is-vs-)
+    - [==](#)
+    - [is](#is)
 - [Condicionales e Iteraciones](#condicionales-e-iteraciones)
   - [If -elif-else statement](#if--elif-else-statement)
     - [**Ternary operator**](#ternary-operator)
@@ -230,7 +227,7 @@ Para poder ejectar código python necesitamos un intérprete que lee línea a l�
 
 ## Crear comentarios en Pyhon
 
-```
+```python
   # comentario monolínea
   '''
     comentario de bloque
@@ -253,7 +250,7 @@ Tenemos otros tipos de datos como:
 
 ### **Algunas operaciones**
 
-    ```
+    ```python
       # para hacer potencias de un número
 
       print(2**3) # 8
@@ -291,12 +288,14 @@ El método funciona como: este número '0b101' en base 2 (binaria) pásalo a int
           
 ## Uso de variables
 
+Hay q tener claro que en python no hay tipos primitivos, todo el python son objetos!
+
 Python usa tipado dinámico como JavaScript esto significa que no es necesario especificar el tipo de dato que contendrá dicha variable.
 Por ejemplo Java tiene un tipado estático porque requiere que especifiquemos durante la declaración el tipo de dato que contendrá la variable.  
  Podemos usar `type()` para saber el tipo de variable  
  Usamos la función `str()` para **castear** a string, lo que llamamos `type conversion`. Podemos usar `int()` `float()` `bool` ...
 
-```
+```python
   # Tipado dinámico
 
   my_dogs = 2
@@ -320,7 +319,7 @@ Por ejemplo Java tiene un tipado estático porque requiere que especifiquemos du
 
 Para imprimir contenido usamos el método print(), éste acepta un atributo para indicar que no haga salto de página end=’’.
 
-```
+```python
   for x in range(10):
     print(x, end='')
 
@@ -332,7 +331,7 @@ Para imprimir contenido usamos el método print(), éste acepta un atributo para
 Funcionan como arrays así que usando el índice podemos extraer letras del string.
 Está habilitado el reverse index(indice reverso) así sin conocer la longitud del string podemos extraer el último carácter(poner el índice en negativo: -1).
 
-```
+```python
   my_name = "david"
   my_name[0] # 'd'
   my_name[1] # 'a'
@@ -356,7 +355,7 @@ Tamaño de un str usamos la función len()
 
 - 1. Son inmutables, no podemos modificar un string
 
-     ```
+     ```python
        name = 'David'
        name[0]= 'P'
 
@@ -365,7 +364,7 @@ Tamaño de un str usamos la función len()
 
 - 2. Concatenables, solo funciona con strings no le puedo concatenar un número, para ello debo castearlo a `str` previamente
 
-     ```
+     ```python
        x = "hello world"
 
        y = ' is beatifull outside'
@@ -387,7 +386,7 @@ Tamaño de un str usamos la función len()
 
 - 3. Multiplicables
 
-     ```
+     ```python
       name = 'd'
 
       name\*10 # dddddddddddd
@@ -403,7 +402,7 @@ Tamaño de un str usamos la función len()
    step - divide en str en grupos de X carcateres y nos devuelve el
   primer caracter de cada grupo
 
-  ```
+  ```python
      # slicing [start:stop:step]
 
            my_string = "abcdefghijk"
@@ -450,7 +449,7 @@ Tamaño de un str usamos la función len()
 
 #### **upper() lower() split()**
 
-- ```
+- ```python
     x = "hi this is a string"
     print(x.upper()) #HI THIS IS A STRING
     print(x.lower()) #hi this is a string
@@ -461,7 +460,7 @@ Tamaño de un str usamos la función len()
 #### **format**
 
 - Format method
-    ```
+    ```python
       print('hello {}'.format('world')) #hello world
 
       name= 'David'
@@ -501,7 +500,7 @@ Tamaño de un str usamos la función len()
    Value => ponemos el valor del número  
    Width => tamaño que ocupará el número hecho string (nº de caracteres)  
    Precision => número de decimales que tendrá
-    ```
+    ```python
         result = 1.2987012987012987
 
         print('mi valor es {r:1.3f}'.format(r=result))
@@ -510,7 +509,7 @@ Tamaño de un str usamos la función len()
         #mi valor es      1.299
     ```
 - f-string = formated string literal
-    ```
+    ```python
       name = "David"
       age = 3
       print(f'hello, his name is {name} and he is {age} years old')
@@ -535,7 +534,7 @@ Tamaño de un str usamos la función len()
 
 #### **Casefold**
 - Es como un equalsIgnoreCase de java, elimina las distinciones entre mayúsculas y minúsculas en el momento de comparar strings.
-    ```
+    ```python
       str1 = 'david'
       str2 = 'DAVID'
 
@@ -546,7 +545,7 @@ Tamaño de un str usamos la función len()
       # son diferentes
     ```
   usando casefold()
-    ```
+    ```python
       str1 = 'david'
       str2 = 'DAVID'
 
@@ -558,7 +557,7 @@ Tamaño de un str usamos la función len()
     ```
 #### **find**
 - Sólo funciona en estrings, para saber si un string contiene a otro y si lo está nos devuelve la posición y si no un -1. Hace distinción entra minusculas y mayúsculas.
-    ```
+    ```python
       str1 = 'david'
       str2 = 'hello david'
 
@@ -568,7 +567,7 @@ Tamaño de un str usamos la función len()
     ```
 #### **Capitalize**
 - La primera letra de una palabra en mayúscula.
-    ```
+    ```python
       def old_macdonald(name):
           first_part = name[:3]
           second_part = name[3:]
@@ -580,7 +579,7 @@ Tamaño de un str usamos la función len()
 #### **replace**
 - reemplazar partes del texto.
 
-      ```
+      ```python
         quote= 'to be or not to be'
         print(quote.replace('be','me'))
         # to me or not to me
@@ -592,10 +591,12 @@ Tamaño de un str usamos la función len()
 Por ejemplo una `list` es un objeto **ordenado** y un `dict` es un objeto **desordenado** (en python todo son objetos). El concepto ordenado/desordenado hace referencia a como se almacena la info en memoria.
 Los elementos de una lista se guardan en memoria uno al lado del otro tal como los vamos especificando, pero n una dict estos elementos se guardan en memeoria en diferentes puntos. Si hacemos un dict pequeño   
 
+```python      
       user = {
         'nombre':'dabid', 
         'edad':36
-      }  
+      }
+```
 y lo imprimimos probrable los campos se impriman cn ese orden pero diccionarios de mayor tamaño muy probablemente los campos se presenten desordenados.  
 
 
@@ -608,7 +609,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **len()**
 - Conocer el número de elementos de la list.  
 
-    ```
+    ```python
       my_List = []
 
       my_List = ['string', 100, 20.3,1,2,3]
@@ -621,7 +622,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 - [start:stop:step]  
   Funciona igual que en los strings. No altera el array original pero devuelve un nuevo array.
 
-    ```
+    ```python
       my_List[-1]     # 3
       my_List[4:]     #  [2, 3]
       my_List[:3]     #  ['string', 100, 20.3]
@@ -631,7 +632,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
   Podemos concatenar list sumándolas
 
-    ```
+    ```python
       my_list_1 = [1,2,3,4,5]
       my_list_2 = [6,7,8,9,10]
 
@@ -647,7 +648,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
   El método pop() no solo elimina el último elemento sino que también lo devuelve. Una función más es que puedes pasar el índice del elementos a eliminar, por defecto es el -1 (último elemento).
   A pop le podemos pasar el índice del elemento a borrar.
 
-    ```
+    ```python
       my_list = ['one', 'two','three','four','five','six']
 
       my_list.append('eight')
@@ -666,7 +667,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **remove(element_value)**
 - Nos permite borrar un elemento de a lista especificando el valor de dicho elemento. Cambia nuestra list, no devuelve el valor eliminado como sí lo hace pop()  
 
-    ```
+    ```python
       list2 = ['david','martin','vergues']
       list2.remove('david')
       print(list2)   # ['martin', 'vergues']
@@ -674,7 +675,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **clear()**  
 - Vacia la lista 
 
-    ```
+    ```python
       list2 = ['david','martin','vergues']
       list2.clear()
       print(list2) 
@@ -684,7 +685,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **insert(index,value)**
 - Nos permite introducir un elemento en la lista en un índice concreto
 
-    ```
+    ```python
       list = [1,2,3,4]
       list.insert(4,100)
       print(list) #[0, 1, 2, 3,4,100]
@@ -696,7 +697,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **extend([])**
 - Permite extender el array con nuevos elementos necesitamos pasarlos como un iterable, en lugar de hacer 'x' appends.
 
-    ```
+    ```python
     list2 = [1,2,3,4]
     list2.extend([0,5])
     print(list2) # [1, 2, 3, 4, 0, 5]
@@ -706,7 +707,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 - Ninguno de los dos métodos devuelve nada, actúan sobre la list y la modifican
 
-    ```
+    ```python
       char_list = ['a','d','c','e','f','b']
       num_list = [10,2,4,1,0]
 
@@ -719,7 +720,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
   El método sorted() devuelve la lista ordenada pero no modifica la original.
 
-    ```
+    ```python
       list4 = [5,3,4,6,1]
 
       listOrdenada = sorted(list4)
@@ -730,7 +731,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **Lista de elementos**
 - Si quisiéramos obtener una lista de las letras que forman un string podemos hacer lo siguiente:
 
-    ```
+    ```python
       word = 'word'
 
       l = []
@@ -744,7 +745,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
   Pero una manera de hacerlo más fácil es:
   subelement **for** subelemento **in** element
 
-    ```
+    ```python
       word = 'word'
 
       l = [letter for letter in word]
@@ -754,26 +755,26 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 - Range
 
-    ```
+    ```python
       l=  [num for num in range(0,10)]
       l # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     ```
      También podemos hacer lo siguiente:
-    ```
+    ```python
       new_list = list(range(100))
     ```
 
 
 - Podemos aplicar cambios a cada subelemento antes de incluirlo en la list, por ejemplo hacer el cuadrado de cada elemento **num** **2
 
-    ```
+    ```python
       l=  [num**2 for num in range(0,10)]
       l # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
     ```
 
   Podemos añadir condiciones
 
-    ```
+    ```python
       l=  [num**2 for num in range(0,10) if num%2 ==0]
       l # [0, 4, 16, 36, 64]
 
@@ -781,7 +782,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
   incluso if else
 
-    ```
+    ```python
       l=  [num if num%2==0 else 'impar' for num in range(0,10)]
       l # [0, 'impar', 2, 'impar', 4, 'impar', 6, 'impar', 8, 'impar']
 
@@ -789,19 +790,18 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
   Incluso podemos añadir operaciones
 
-    ```
+    ```python
       celcius = [0,10,20,34.5]
 
       fahrenheit = [ ((9/5)*temp+32) for temp in celcius ]
 
       fahrenheit #[32.0, 50.0, 68.0, 94.1]
 
-
     ```
 
 - Nested loops
 
-    ```
+    ```python
       l = []
 
       for x in [2,4,6]:
@@ -814,7 +814,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 - Las veces q aparece un elemento en una lista
 
-    ```
+    ```python
       l = [0,2,2,10,20,34.5]
 
       print(l.count(2)) # 2
@@ -823,7 +823,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 - Nos permite saber si una lista contiene todos (all) los valores o sólo algunos (any) de otra lista
 
-    ```
+    ```python
       l1 = [1,2,3]
       l2 = [1,2,3,4,5,6]
       l3 = [1,2,45,6,8]
@@ -845,7 +845,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 - Permite concatenar los elementos de una lista mediante algún caracter, por ejemplo un espacio en blanco
 
-    ```
+    ```python
       l = ['hola','david']
 
       ' '.join(l) # 'hola david'
@@ -854,13 +854,13 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **Index(value,start,stop) / in **
 
 - Nos devuelve la posición de una valor en la list, el primero que encuetra
-    ```
+    ```python
       l1 = [1,2,3]
       l1.index(3) # 2
     ```
   Podemos pasar parámetros adicionales, como el índice dónde empezamos a buscar y el índice dónde paramos la búsqueda
 
-    ```
+    ```python
     list5 =  ['a','b','c','d','e','f']
 
     print(list5.index('e',3,5)) # 4
@@ -868,7 +868,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
     ``` 
   Cuando busco un valor que no existe en la lista este método me arroja un error  
 
-    ```
+    ```python
       list5 =  ['a','b','c','d','e','f']
 
       print(list5.index('x',3,5)) # 4
@@ -877,7 +877,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 - Para evitar este error usaremos la `keyword` `in` que nos permite saber si un valor está en una list o tb funciona con str.
 
-    ```
+    ```python
       list5 =  ['a','b','c','d','e','f']
       print('x' in list5) # False
 
@@ -889,7 +889,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 - Hace una copia de la lista. Nos crea una nueva list. Pero... si esta lista contiene n objeto (otra lista, dictionary,...) no genera uno nuevo si no que `copia la referencia` así si modifico valores de ese objeto en la nueva lista en la lista original quedan modificados también.
 
-    ```
+    ```python
       list5 =  ['a','b','c','d','e','f', [1,2,3], {'fruta':'manzana','precio':5}]
       list6 = list5.copy()
       print(list5)
@@ -903,7 +903,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 #### **List unpacking**  
 - Nos permite extraer valores de una lista de diferentes modos
-
+    
     a,b,c, *other, d = [1,2,3,4,5,6,7,8,9]
 
     print(a)     #1
@@ -924,7 +924,7 @@ Normalmente los usamos cuando queremos tener dos valores que están relacionados
 La clave de los diccionarios debe ser un elemento `inmutable`. Por lo que podemos usar booleans, num,... pero no una list. Aunque el 99 % de las veces la clave será un string.
 Otro punto es que las claves deben ser únicas, si se repiten serán sobreescritas por la última.
 
-    ``` 
+    ```python 
       d = {
             123:[1,2,3],
             True:[1,2,3],
@@ -934,14 +934,14 @@ Otro punto es que las claves deben ser únicas, si se repiten serán sobreescrit
 
 Otra manera de crear dictionaries, no muy común, es usando una in-built function `dict()`
 
-    ```
+    ```python
       user2 = dict(name='Laura')
       user2 # 
     ```
 
 Para acceder  los valores se utiliza el corchete con la clave
 
-    ```
+    ```python
       prices_lookup = {
         'apple':2.88, 
         'oranges':3.56, 
@@ -957,7 +957,7 @@ Para acceder  los valores se utiliza el corchete con la clave
 
 Dentro de los diccionarios podemos almacenar listas y otros diccionarios.
 
-    ```
+    ```python
       d = {
         'numbers':123,
         'list':[1,2,3],
@@ -974,7 +974,7 @@ Dentro de los diccionarios podemos almacenar listas y otros diccionarios.
 
 Añadir / sobreescribir / borrar (del) elementos de un diccionario
 
-    ```
+    ```python
       prices_lookup = {'apple':2.88, 'oranges':3.56, 'milk':6.12}
 
       prices_lookup['melon'] = 5.86
@@ -990,15 +990,18 @@ Añadir / sobreescribir / borrar (del) elementos de un diccionario
     ```
 Una manera para saber si una clave existe en un dict es usar la keyword `in` como en las list y en los strings
 
-        user = {
-    'name': 'David',
-    'age' : 36
+```python
+
+      user = {
+      'name': 'David',
+      'age' : 36
     }
 
     'name' in user # True
-
+```
 Podemos usar `in` para checkear tanto las llaves como los valores  
 
+```python
         user = {
     'name': 'David',
     'age' : 36
@@ -1006,16 +1009,19 @@ Podemos usar `in` para checkear tanto las llaves como los valores
 
     'name' in user.keys() # True
     36 in user.values() # True
-
+```
 
 Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchete `[valor]` el intérprete de py ns dará un error, así que para evitarlo podemos usar otra manera de acceder que es utilizando el método `get()`
 
+```python
     user = {
     'name': 'David',
     'age' : 36
     }
 
     print(user['job'])  
+```
+
 ![not found](img/img-j-21.png)  
 
 ### **Métodos**
@@ -1024,15 +1030,15 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 
 - Nos permite acceder a claves del diccionario, si no existen nos devuelve un `None`
 
-    ```
+    ```python
       print(user.get('job')) # None
 
     ```
-- Así no evitamos que nos dé un **error**
+- Así evitamos que nos dé un **error**
 
-- Otra función de `get()` es especificar un valor por defecto a esa clave, pero este valor no se guardará en el dict
+- Otra función de `get()` es especificar un valor por defecto a esa clave, `pero este valor no se guardará en el dict`
 
-    ```
+    ```python
       user = {
           'name': 'David',
           'age' : 36
@@ -1045,7 +1051,7 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
     ```
 - Ahora bien si resulta que sí contiene esa clave nos dará el valor contenido en el dict
 
-    ```
+    ```python
       user = {
           'name': 'David',
           'age' : 36,
@@ -1059,7 +1065,7 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 
 - Obtener todas las claves (keys()) / valores (values() ) del diccionario y obtener una array de los pares clave-valor en forma de tuplas (items()).
 
-    ```
+    ```python
       prices_lookup = {'apple':2.88, 'oranges':3.56, 'milk':6.12}
       prices_lookup.keys() # dict_keys(['apple', 'oranges', 'milk'])
 
@@ -1071,13 +1077,14 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 
 - Permite vaciar el diccionario.
 
+```python
     user.clear()
     user # {}
-
+```
 #### **copy()** 
 - Nos permite hacer copias de diccionarios pero si tenemos objetos dentro se copia la referencia, así que si modificamos uno de estos objetos en la copia del diccionario tb se alterará. 
 
-    ```
+    ```python
     user = {
         'name': 'David',
         'age' : 36,
@@ -1090,7 +1097,7 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
     ```
 - Lo que no afecta es el clear se vaciará un diccionario y el oto se mantendrá inalterado
 
-    ```
+    ```python
     user = {
         'name': 'David',
         'age' : 36,
@@ -1110,7 +1117,7 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 #### **pop()**
 - Permite eliminar un item (clave-valor) del diccionario, y nos devuelve el valor
 
-    ```
+    ```python
     user = {
         'name': 'David',
         'age' : 36,
@@ -1124,7 +1131,7 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 #### **update()**
 - Permite actulizar un valor pasándole una clave
 
-    ```
+    ```python
     user = {
         'name': 'David',
         'age' : 36,
@@ -1137,7 +1144,7 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
     ```
 - si esa clave no existe en el dict se añadirá  
 
-    ```
+    ```python
     user = {
         'name': 'David',
         'age' : 36,
@@ -1153,7 +1160,7 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 
 - Son muy similares a las listas pero tiene la diferencia que son `inmutables`.
 
-    ```
+    ```python
       t = ('one',2,3, 2)
 
       t.count(2) # 2
@@ -1171,15 +1178,17 @@ Podemos usar la keyword `in`
 
 Podemos usar tb `slicing` 
 
+```python
     t = ('one',2,3, 2) 
     new_tupple = t[1:3]
     new_tupple #(2, 3)
-
+```
 y  `unpack`
 
+```python
      x,y,z,*others= (1,2,3,4,5)
      print(others) #[4, 5] como una lista
-
+```
 ### **Métodos**
 
 Sólo hay dos métodos asociados a tuplas.
@@ -1188,7 +1197,7 @@ Sólo hay dos métodos asociados a tuplas.
 
 - Count devulve cuantas veces se encuentra un elemento en la tupla y index cual es la posición de un elemento dado si aparece más de una vez nos devuelve el índice del primero que encuentra.
 
-    ```
+    ```python
       t = ('one',2,3,2)
 
       t.count(2) # 2
@@ -1200,7 +1209,7 @@ Sólo hay dos métodos asociados a tuplas.
 
 - Podemos sumar el contenido de las tuplas. Sólo para valores numéricos
 
-    ```
+    ```python
     r = sum((10,10))  # 20
 
     ```
@@ -1210,7 +1219,7 @@ Sólo hay dos métodos asociados a tuplas.
 Son colecciones **unordered** y de elementos **no repetidos**.
 Podemos crear un set a partir de una list, de esta manera nos aseguramos que los elementos repetidos de la list no se guardan en el set
 
-    ```
+    ```python
       myList = [1,1,1,1,2,2,2,2,3,3,3]
 
       mySet2 = set(myList)
@@ -1224,7 +1233,7 @@ Podemos crear un set a partir de una list, de esta manera nos aseguramos que los
 
 Si hacemos un set de un string éste guardará cada carácter por separado sin repeticiones.
 
-    ```
+    ```python
       s = set("paralel")
       s # {'a', 'e', 'l', 'p', 'r'}
     ```
@@ -1234,7 +1243,7 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
 #### **Add()**
 
 - Añadir nuevo elemento
-    ```
+    ```python
       s = set("paralel")
       s # {'a', 'e', 'l', 'p', 'r'}
       s.add('z')
@@ -1247,7 +1256,7 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
 #### difference()
 - Permite comparar dos sets y ontener las diferencias  
 
-    ```
+    ```python
     my_set = {1,2,3,4,5}
     your_set = {4,5,6,7,8,9,10}
 
@@ -1256,7 +1265,7 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
 #### discard()
 - Elimina un elemento del set, modifica el set
 
-    ```
+    ```python
     my_set = {1,2,3,4,5}
     my_set.discard(5)
     print(my_set) # {1, 2, 3, 4}
@@ -1264,7 +1273,7 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
 #### difference_update()
 - Modifica el set con los elementos que difieren al compararlo con otro
     
-    ```
+    ```python
     my_set = {1,2,3,4,5}
     your_set = {4,5,6,7,8,9,10}
     my_set.difference_update(your_set)
@@ -1272,20 +1281,20 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
     ```
 #### intersection() o & 
 - Nos da información de los elementos que coinciden entre dos sets
-    ```
+    ```python
     print(my_set.intersection(your_set)) # {4,5}
     print(my_set & your_set) # {4,5}
     ```
 #### isdisjoint()
 - Nos devuele True (no coiniden elementos ) or False(hay elementos coincidentes) si hay elementos coincidentes entre dos sets
     
-    ```
+    ```python
     print(my_set.intersection(your_set)) # False el 4 y 5
     ```
 #### union() o  |
 - Permite fusionar dos sets, sin incluir los elementos repetidos claro.
 
-    ```
+    ```python
     new_set = my_set.union(your_set)
     new_set = my_set | your_set
     new_set # {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
@@ -1294,7 +1303,7 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
 #### issuperset()
 - Es para evaluar lo opuesto al subset, si en nuestro set de mayor tamaño se incluye un set menor
 
-    ```
+    ```python
     my_set = {4,5}
     your_set = {4,5,6,7,8,9,10}
     
@@ -1306,7 +1315,7 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
 
 - Para saber si un set contiene a otro set.
 
-    ```
+    ```python
       s = set("paralel")
 
       {'a', 'r'}.issubset(s) # True
@@ -1318,7 +1327,7 @@ Como generar entrada y salida de datos usando un fichero .txt
 
 ## Crear un fichero - %%writefile
 
-    ```
+    ```python
       %%writefile 'myFile2.txt'
       hello this is a text file
       this is a second line
@@ -1328,14 +1337,14 @@ Después de la sentencia `%%writefile 'myFile2.txt` podemos escribir el texto qu
 
 Éste se genera en el path donde se encuentra nuestro script de python. Para saber cual es nuestro path usamos el comando `pwd`.
 
-    ```
+    ```python
       pwd
       #'/home/david/Programacion/PYTHON/Python_Course_from_Zero_to_hero/Code/1.Basics/1.Data structures and Objects'
     ```
 
 ## Abrir el fichero - open()
 
-    ```
+    ```python
       myFile = open('myFile.txt')
     ```
 Una vez abierto el fichero se vuelca su contenido en una variable en mi caso **myFile**.  
@@ -1350,7 +1359,7 @@ Aquí podemos cometer dos errores:
 
 El contenido del fichero lo tenemos en la variable, para leer su contenido usamos read()
 
-    ```
+    ```python
       myFile.read()
       #'hello this is a text file \nthis is a second line\nthis is the third line\n'
     ```
@@ -1361,7 +1370,7 @@ Este método funciona con un cursor de tal modo que cuando lo utilizamos por pri
 
 Si queremos resetear este cursor utilizamos el método seek()
 
-    ```
+    ```python
       myFile.seek(0)
 
     ```
@@ -1370,7 +1379,7 @@ Si queremos resetear este cursor utilizamos el método seek()
 
 Permite guardar en una lista cada línea del texto. Tenemos que tener en cuenta que al final de cada línea hay un salto de línea \n
 
-    ```
+    ```python
       listLines = myFile.readlines()
       listLines
 
@@ -1385,7 +1394,7 @@ Permite guardar en una lista cada línea del texto. Tenemos que tener en cuenta 
 
 Una vez terminamos el trabajo con el fichero debemos cerrarlo
 
-    ```
+    ```python
       myFile.close()
       # si quiero volver a leerlo m da error
       myFile.read() # ValueError: I/O operation on closed file.
@@ -1395,7 +1404,7 @@ Una vez terminamos el trabajo con el fichero debemos cerrarlo
 
 Si no nos queremos preocupar por cerrar archivos podemos utilizar esta sentencia que abrirá el archivo y después de hacer las operaciones pertinentes lo vuelve a cerrar automáticamente.
 
-    ```
+    ```python
       with open('myFile.txt') as my_new_File:
           content = my_new_File.read()
 
@@ -1410,7 +1419,7 @@ Cuando abrimos un archivo la función acepta estos parámetros:
 El modo puede ser:  
 ![not found](img/img-10.png)
 
-    ```
+    ```python
       with open('my_new_file.txt', mode='r') as f:
           print(f.read())
       '''
@@ -1424,7 +1433,7 @@ El modo puede ser:
 ### **'a' (append) mode**
 
 - Añade texto al final del documento
-    ```
+    ```python
       with open('my_new_file.txt',mode='a') as f:
           f.write('FOUR ON FOURTH')
     ```
@@ -1432,7 +1441,7 @@ El modo puede ser:
 ### **w (write) mode**
 
 - Abrirá o creará en su defecto un archivo con ese nombre, si ya existe lo sobreescribe
-    ```
+    ```python
       with open('my_new_file2.txt', mode='w') as f:
         f.write('i created this file')
     ```
@@ -1454,7 +1463,7 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
 
 ## Asignación
 
-![not found](img/img-22.png)
+![not found](img/img-j-22.png)
 
 ## Comparación
 
@@ -1470,11 +1479,53 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
 
 ![not found](img/img-17.png)
 
+## is vs '=='
+
+### ==  
+Chequea la igualdad en cuanto a valor  
+
+    ```python
+      print(True == 1) #True True == bool(1)
+      print('1' == 1 ) # False
+      print([] == 1)   # False
+      print(10 == 10.0) # True se hace un cast implícito int(10.0)
+      print([1,2,3] == [1,2,3])   # True xq compara el valor y son dos list vacías
+
+    ```
+### is
+
+    ```python
+      print(True is 1)            # False 
+      print('1' is 1 )            # False
+      print([] is 1)              # False
+      print(10 is 10.0)           # False
+      print([1,2,3] is [1,2,3])   # False
+    ```
+Chequea la posición de memoria, si el espacio de memoria dnd se almacena el valor es el mismo, en definitiva comparo si ambas variables son el mismo objeto, comparas sus `id()` Hay que tener algo en cuenta, para integers pequeños python cachea sus valores y les da la misma posicion en memeria por eso  
+
+    ```python
+    x =1000
+    y = 1000
+
+    print(x is y) #False
+    print(id(x))  # 140548319852944
+    print(id(y)) # 140548319854096
+    ```
+en cambio  
+
+    ```python
+    x =1
+    y = 1
+
+    print(x is y) #True
+    print(id(x)) #94354877690624
+    print(id(y)) #94354877690624
+    ```
 # Condicionales e Iteraciones
 
  ## If -elif-else statement
 
-    ```
+    ```python
       result = 6
 
       if result<2 :
@@ -1491,7 +1542,7 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
 
 ### **Ternary operator**
 
-    ```
+    ```python
     b = True
     r = "hello" if b else "GoodGbye"
     r # hello
@@ -1501,7 +1552,7 @@ En python no existe la expresión ++x o x++ hay que escribirlo como x+=1
 
 El más sencillo, establecemos un rango.
 
-    ```
+    ```python
     for num in range(0,10):
         print(num, end='')
     # 0123456789
@@ -1509,7 +1560,7 @@ El más sencillo, establecemos un rango.
 
 Con un tercer parámetro (step)
 
-    ```
+    ```python
     for num in range(0,10,2):
         print(num, end='')
     # 02468
@@ -1517,7 +1568,7 @@ Con un tercer parámetro (step)
 
 Podemos iterar un string como array de caracteres.
 
-    ```
+    ```python
       list2 = []
 
       for caracter in 'David':
@@ -1528,7 +1579,7 @@ Podemos iterar un string como array de caracteres.
 
 Podemos iterar una list
 
-    ```
+    ```python
         myList = [1,2,3,4,5,6,7,8,9,10]
 
         for item in myList:
@@ -1536,7 +1587,7 @@ Podemos iterar una list
     ```
 Para conocer el índice de cada elemento lo podemos hacer así:
 
-    ```
+    ```python
         myList = [1,2,3,4,5,6,7,8,9,10]
 
         for index in range(0, len(myList)):
@@ -1545,7 +1596,7 @@ Para conocer el índice de cada elemento lo podemos hacer así:
 
 Un truco para obtener el índice de cada elemento de cualquier iterable es transformarlo previamente a un enumerado – enumerate()
 
-    ```
+    ```python
       myList = [1,2,3,4,5,6,7,8,9,10]
 
       for (indice,valor) in enumerate(myList):
@@ -1566,7 +1617,13 @@ Un truco para obtener el índice de cada elemento de cualquier iterable es trans
 
 Podemos iterar tuples  
 
-    ```
+    ```python
+    d = (10, 20, 30)
+
+    for x in d: 
+      print(f' {x} ', end='') 
+    #  10  20  30 
+    #------------------------  
         t = [(1,2),(3,4),(5,6),(7,8),(9,10)]
 
             for (a,b) in t:
@@ -1581,16 +1638,24 @@ Podemos iterar tuples
     ```
 Un dictionary
 
-    ```
-      d = {"k1":1, "k2":2, "k3":3}
+    ```python
+      d = {"k1":10, "k2":20, "k3":30}
 
       for key,value in d.items():
-      print(f' {key} - {value} ', end='') 
-      # k1 - 1  k2 - 2  k3 - 3
+        print(f' {key} - {value} ', end='') 
+      # k1 - 10  k2 - 20  k3 - 30
+   
+      for keys in d.keys(): # values()
+        print(f' {keys} ', end='')
+      
+      # Por defecto te da las keys
+      for x in d: 
+        print(f' {x} ', end='') 
+        #k1  k2  k3 
     ```
 Podemos obtener solo los valores con .values()
 
-    ```
+    ```python
       d = {"k1":1, "k2":2, "k3":3}
 
       for value in d.values():
@@ -1599,7 +1664,7 @@ Podemos obtener solo los valores con .values()
     ```
 Nested loops
 
-    ```
+    ```python
         l= []
         for x in [2,4,6]:
           for y in [1,10,100]:
@@ -1608,7 +1673,7 @@ Nested loops
     ```
 For loop reverse
 
-    ```
+    ```python
       for i in range(len('david')-1,-1,-1):
         print('david'[i], end='')
 
@@ -1619,7 +1684,7 @@ For loop reverse
 
 Versión normal
  
-    ```
+    ```python
           x = 0
 
       while x<5:
@@ -1629,7 +1694,7 @@ Versión normal
     ```
 Versión con else
 
-    ```
+    ```python
           x = 0
 
       while x<5:
@@ -1641,7 +1706,8 @@ Versión con else
     # X no es menor q 5
     ```
 ### **While not**
-    ```
+
+    ```python
     r = 0
 
     while not r == 5:
@@ -1657,25 +1723,28 @@ Versión con else
 no hace nada, es decir en python si ejecutamos un loop el programa espera una identación y algo de código...si no hay nada arroja un error, EOF (end of file) para q el programa haga un salto se pone pass  
 ![not found](img/img-j-2.png)  
 
-  
+```python  
       x = [1,2,3]
 
       for item in x:
           # comment
           pass
-
+```
 ### **Continue**
 
 Esta instrucción permite continuar cn la ejecución del loop sin ejecutar el código que hay por debajo de `continue`
 
+```python
     for c in mystring:
     if c == 'a':
         continue
     print(c)
+```
 ### **Break**
 
 Detiene la ejecución del loop donde está contenido.
 
+```python
     x = 0
     while x<5:
         if x==2:
@@ -1684,36 +1753,42 @@ Detiene la ejecución del loop donde está contenido.
         x+=1
     # 0
     # 1
+```
 # Useful operators
 
 ## Range()
 
 Normalmente lo usamos en los loops, permite crear un rango (start,stop[, step]) con un inicio, final y opcionalmente unos saltos. Este rango puede ser convertido en un List.  
 
+```python
     for num in range(0,10,2):
         print(num, end='')
     # 02468
-
+```
 Generamos una list con la ayuda de range()
 
+```python
     myList = list(range(0,10,2))
     myList 
     # [0, 2, 4, 6, 8] 
-
+```
     si no especificamos un número de inicio, range empieza por el 0
 
+```python
     print(list(range(100))) # genera una lista de 0 a 99
-    
+```
 El tercer valor de `range()` el step puede ser negativo para hacer que el loop decrezca, para ello el primer valor del `range` tiene que ser el mayor  
 
+```python
     for i in range(10,0,-1):
         print(i, end=' ')
     # 10 9 8 7 6 5 4 3 2 1
-
+```
 ## enumerate()
 
 Transforma los elementos en iterable y lo separa en tupples formadas por el elemento y su índice.
 
+```python
     for item in enumerate("abcde"):
         print(f"{item}")
     '''
@@ -1723,10 +1798,12 @@ Transforma los elementos en iterable y lo separa en tupples formadas por el elem
     (3, 'd')
     (4, 'e')
     '''
+```
 ## zip()
 
 Permite unir listas y generar tupples con los elementos de cada lista coincidentes en sus posiciones. Zip se ajusta a la lista más corta, si una lisa tiene pej 4 elementos el cuarto no aparecerá. Se puede castear a una lista de tuplas
 
+```python
     list1 = [1,2,3]
     list2 = ['a','b','c']
     lista3 = ['alba','Boni','carlos']
@@ -1743,11 +1820,13 @@ Permite unir listas y generar tupples con los elementos de cada lista coincident
 
     list = list(zip(list1,list2, lista3))
     list # [(1, 'a', 'alba'), (2, 'b', 'Boni'), (3, 'c', 'carlos')]
+```
 
 ## In / not in
 
 Permita saber si un elemento se encuentra en una lista, un diccionario
 
+```python
     'x' in [1,2,3,4] # False
     1   in [1,2,3,4] # True
     'A' in 'David'  # False 
@@ -1757,14 +1836,16 @@ Permita saber si un elemento se encuentra en una lista, un diccionario
 
     'david' in d.values() # True
     'edad'  in d.keys()   # True
-
+```
 ## Min() max()
 
 Permite detectar el menor valor de una list.
 
+```python
     myList = [1,2,3,20,10,5]
     min(myList) # 1
     max(myList) # 20
+```
 
 ## Random library
 ### **shuffle**
@@ -1772,32 +1853,38 @@ Permite detectar el menor valor de una list.
 Es una librería incluida en python que contienen multitud de funciones.
 Para usarla primero hay q importarla
 
+```python
     from random import shuffle  # de la libreria random importa la función shuffle
-
+```
 Esta función nos permitirá desordenar la lista aleatoriamente. `Modifica nuestra lista`, no devuelve otra
 
+```python
     from random import shuffle
     myList = [1,2,3,4,5,6,7,8,9,10]
 
     shuffle(myList)
     myList
     # [9, 8, 3, 10, 2, 4, 6, 5, 7, 1] 
-
+```
 ### Randint
 
 Obtener un integer aleatorio entro de un rango concreto, incluyendo los limites inferior y superior.
 
+```python
     from random import randint
 
     randint(0,10)
+```
 ## **Input**
 
 Permite al usuario entrar datos. Devuelve un string, podemos castear con int() o float()
 
+```python
     result = input('enter your age: ')
 
     int(result) #  30
     float(result) #  30.0
+```
 
 # Methods and Functions
 
@@ -1805,6 +1892,7 @@ Permite al usuario entrar datos. Devuelve un string, podemos castear con int() o
 
 Documentación de python https://docs.python.org/3/
 
+```python
     def name_function():
         '''
         DOCSTRING: Information about the function
@@ -1812,6 +1900,7 @@ Documentación de python https://docs.python.org/3/
         OUTPUT: Hello
         '''
         print('Hello')
+```
 
 ![not found](img/img-j-3.png)  
 
@@ -1830,8 +1919,9 @@ Return keyword
 
 Diferncias enre argumento y parámetro:  
   - Parámetro : es el nómbre que aparece en la definición de la función
-   
+```python   
          def add (param1, param2):
+```
   - argumento : es el valor que se le pasa a la función
 ### **Tipos de argumentos** 
 
@@ -1843,8 +1933,10 @@ Tenemos dos tipos de argumentos en las funciones, los argumentos posicionales (p
 
 - Nombrados: es un argumento precedido por un identificador (por ejemplo, nombre=) en una llamada a una función o pasado como valor en un diccionario precedido por **.
 
+```python
       complex(real=3, imag=5)
       complex(**{'real': 3, 'imag': 5})
+```
 
 si paso más parmetros que los definidos en la función voy a tener un error 
 
