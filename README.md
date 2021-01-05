@@ -9,18 +9,30 @@
   - [Crear comentarios en Pyhon](#crear-comentarios-en-pyhon)
   - [Fundamental Data Types](#fundamental-data-types)
     - [**Algunas operaciones**](#algunas-operaciones)
+      - [potencias](#potencias)
+      - [Parte entera de una división decimal](#parte-entera-de-una-división-decimal)
+      - [Resto de una división entera](#resto-de-una-división-entera)
     - [Funciones matemáticas](#funciones-matemáticas)
       - [**round**](#round)
       - [**abs**](#abs)
       - [**bin / int**](#bin--int)
   - [Uso de variables](#uso-de-variables)
   - [Uso del método print()](#uso-del-método-print)
+  - [Ordered vs unordered](#ordered-vs-unordered)
   - [String](#string)
     - [**Propiedades de los strings**](#propiedades-de-los-strings)
     - [**Métodos de los strings**](#métodos-de-los-strings)
       - [**Slicing**](#slicing)
+      - [**strip()**](#strip)
       - [**upper() lower() split()**](#upper-lower-split)
-  - [Ordered vs unordered](#ordered-vs-unordered)
+      - [**format**](#format)
+        - [Float formatting](#float-formatting)
+        - [f-string = formated string literal](#f-string--formated-string-literal)
+      - [**Casefold**](#casefold)
+      - [**find**](#find)
+      - [**Capitalize**](#capitalize)
+      - [**replace**](#replace)
+      - [generar el alfabeto (inglés)](#generar-el-alfabeto-inglés)
   - [List - (data structure)](#list---data-structure)
     - [**Métodos**](#métodos)
       - [**len()**](#len)
@@ -62,6 +74,15 @@
       - [union() o  |](#union-o--)
       - [issuperset()](#issuperset)
       - [**Issubset()**](#issubset)
+- [Python Modules](#python-modules)
+  - [Python Collections Module](#python-collections-module)
+    - [Counter](#counter)
+      - [Métodos](#métodos-4)
+        - [elements()](#elements)
+        - [most_common()](#most_common)
+        - [substract([iterable-or-mapping])](#substractiterable-or-mapping)
+    - [defaultdict](#defaultdict)
+    - [OrderedDict](#ordereddict)
 - [In/Out with basic Files](#inout-with-basic-files)
   - [Crear un fichero - %%writefile](#crear-un-fichero---writefile)
   - [Abrir el fichero - open()](#abrir-el-fichero---open)
@@ -87,7 +108,6 @@
   - [If -elif-else statement](#if--elif-else-statement)
     - [**Ternary operator**](#ternary-operator)
   - [For loops](#for-loops)
-  - [**While loops**](#while-loops)
     - [**While not**](#while-not)
   - [Keywords importantes en los loops](#keywords-importantes-en-los-loops)
     - [**Pass**](#pass)
@@ -103,17 +123,25 @@
     - [**shuffle**](#shuffle)
     - [Randint](#randint)
   - [**Input**](#input)
+    - [Validación input](#validación-input)
 - [Methods and Functions](#methods-and-functions)
-  - [Métodos](#métodos-4)
+  - [Métodos](#métodos-5)
     - [**Argumentos vs parámetros**](#argumentos-vs-parámetros)
     - [**Tipos de argumentos**](#tipos-de-argumentos)
   - [Argumentos *args (arguments) /  **kwargs(keywords arguments)](#argumentos-args-arguments---kwargskeywords-arguments)
       - [*args](#args)
-      - [**kwargs](#kwargs)
-- [Map / Filter / Lambda expressions](#map--filter--lambda-expressions)
-  - [Map(func,iterable)](#mapfunciterable)
-  - [Filter(function, iterable)](#filterfunction-iterable)
-  - [Lambda](#lambda)
+      - [**kwargs(keywords arguments)](#kwargskeywords-arguments)
+- [Scoope](#scoope)
+  - [LEGB Rule](#legb-rule)
+  - [global keyword](#global-keyword)
+  - [nonlocal keyword](#nonlocal-keyword)
+- [Map(func,iterable)](#mapfunciterable)
+- [Filter(function, iterable)](#filterfunction-iterable)
+- [Lambda](#lambda)
+- [OOP - Object Oriented Programming](#oop---object-oriented-programming)
+  - [Creación de una clase](#creación-de-una-clase)
+  - [Añadimos los métodos](#añadimos-los-métodos)
+    - [constructor __init__](#constructor-init)
 
 # Course from zero to Hero - Udemy -
 
@@ -251,22 +279,30 @@ Tenemos otros tipos de datos como:
 
 ### **Algunas operaciones**
 
+#### potencias
+
 ```python
       # para hacer potencias de un número
-
       print(2**3) # 8
-
+```
+#### Parte entera de una división decimal
+```python
       # Para obtener la parte entera de una división decimal //
 
       print(2//4 ) # 0 => 0.5
       print(5//4 ) #  1  =>1.25
+```
 
+#### Resto de una división entera
+```python
       # Para obtener el resto de la división entera es el módulo %
 
       print(5 % 4) # 1
       print(6 % 4 )# 2
 ```
+
 ### Funciones matemáticas
+
 #### **round**
 Permite redondear el número  
 
@@ -282,6 +318,7 @@ Obtener el valor absolute de un valor
     abs(-3) # 3 
 ```
 #### **bin / int**
+
 representación binaria bin() 
 
 ```python
@@ -332,6 +369,20 @@ Para imprimir contenido usamos el método print(), éste acepta un atributo para
 
   # 0123456789
 ```
+
+## Ordered vs unordered
+
+Por ejemplo una `list` es un objeto **ordenado** y un `dict` es un objeto **desordenado** (en python todo son objetos). El concepto ordenado/desordenado hace referencia a como se almacena la info en memoria.
+Los elementos de una lista se guardan en memoria uno al lado del otro tal como los vamos especificando, pero n una dict los elementos se guardan en diferentes puntos de la memoria. Si hacemos un dict pequeño   
+
+```python      
+      user = {
+        'nombre':'dabid', 
+        'edad':36
+      }
+```
+y lo imprimimos probablemente los campos se impriman cn ese orden pero diccionarios de mayor tamaño muy probablemente los campos se presenten en distinto orden.  
+
 
 ## String
 
@@ -410,134 +461,159 @@ Tamaño de un str usamos la función len()
   primer caracter de cada grupo
 
   ```python
-     # slicing [start:stop:step]
+    # slicing [start:stop:step]
 
-           my_string = "abcdefghijk"
+        my_string = "abcdefghijk"
 
-           print(' substring desde el índice 0 hasta el final [::] => '+my_string[::])
-           print(' substring desde el índice 2 hasta el final => '+my_string[2:])
-           print(' substring desde el índice 0 hasta el índice 3 (NO incluido)) => '+my_string[:3])
-           print(' substring desde el índice 2 hasta al 5(No incluido) => '+my_string[2:5])
+        print(' substring desde el índice 0 hasta el final [::] => '+my_string[::])
+        print(' substring desde el índice 2 hasta el final => '+my_string[2:])
+        print(' substring desde el índice 0 hasta el índice 3 (NO incluido)) => '+my_string[:3])
+        print(' substring desde el índice 2 hasta al 5(No incluido) => '+my_string[2:5])
 
-           # uso del tercer parámetro, divide en str en grupos de X carcateres y nos devuelve el primer caracter de cada grupo
+        # uso del tercer parámetro, divide en str en grupos de X carcateres y nos devuelve el primer caracter de cada grupo
 
-           # por ejemplo si ponemos 2 ab - cd - ef - gh - ij - k null
+        # por ejemplo si ponemos 2 ab - cd - ef - gh - ij - k null
 
-           print(' substring dividido en grupos de a 2 => '+my_string[::2])
+        print(' substring dividido en grupos de a 2 => '+my_string[::2])
 
-           # por ejemplo si ponemos 3 abc - def - ghi - jk null
+        # por ejemplo si ponemos 3 abc - def - ghi - jk null
 
-           print(' substring dividido en grupos de a 3 => '+my_string[::3])
+        print(' substring dividido en grupos de a 3 => '+my_string[::3])
 
-           # lo mismo pero de un subString cd - ef
+        # lo mismo pero de un subString cd - ef
 
-           print(' substring del 2 al 5 dividido en grupos de a 2 => '+my_string[2:6:2])
+        print(' substring del 2 al 5 dividido en grupos de a 2 => '+my_string[2:6:2])
 
-           # utilizando el 3 como negativo -1 invierte el string kjihgfedcba
+        # utilizando el 3 como negativo -1 invierte el string kjihgfedcba
 
-           print('separador de grupo en - empieza por el final(INVIERTE EL STRING) => '+my_string[::-1])
+        print('separador de grupo en - empieza por el final(INVIERTE EL STRING) => '+my_string[::-1])
 
-           # utilizando el 3 como negativo -1 Ab - Cd - Ef - Gh - Ij - K null <-
+        # utilizando el 3 como negativo -1 Ab - Cd - Ef - Gh - Ij - K null <-
 
-           print(' usando el separador de grupo en - empieza a contar por el final=> '+my_string[::-2])
+        print(' usando el separador de grupo en - empieza a contar por el final=> '+my_string[::-2])
 
-           '''
-             substring desde el índice 0 hasta el final [::]              => abcdefghijk
-             substring desde el índice 2 hasta el final                   =>   cdefghijk
-             substring desde el índice 0 hasta el índice 3 (NO incluido)) => abc
-             substring desde el índice 2 hasta al 5(No incluido)          =>   cde
-             substring dividido en grupos de a 2                          => acegik
-             substring dividido en grupos de a 3                          => adgj
-             substring  del 2 al 5 dividido en grupos de a 2               => ce
-             separador de grupo en - empieza por el final(INVIERTE EL STRING) => kjihgfedcba
-             usando el separador de grupo en - empieza a contar por el final=> kigeca
-           '''
+        '''
+            substring desde el índice 0 hasta el final [::]              => abcdefghijk
+            substring desde el índice 2 hasta el final                   =>   cdefghijk
+            substring desde el índice 0 hasta el índice 3 (NO incluido)) => abc
+            substring desde el índice 2 hasta al 5(No incluido)          =>   cde
+            substring dividido en grupos de a 2                          => acegik
+            substring dividido en grupos de a 3                          => adgj
+            substring  del 2 al 5 dividido en grupos de a 2               => ce
+            separador de grupo en - empieza por el final(INVIERTE EL STRING) => kjihgfedcba
+            usando el separador de grupo en - empieza a contar por el final=> kigeca
+        '''
   ```
+#### **strip()**
+Permite eliminar los espacios en blanco por delante y detrás de un string. Puede aceptar como argumento los caracteres a eliminar 
+
+```python
+string = '  xoxo love xoxo   '
+
+# eliminamos los espacios en blanco
+print(string.strip()) # xoxo love xoxo
+
+# los siguientes caracteres serán eliminados
+#  <whitespace>,x,o,e 
+print(string.strip(' xoe'))  #lov
+
+# el argumento no contiene espacios en blanco 
+#ni ningún otro caracter coincidente en el string
+# así q el string se mantiene igual
+print(string.strip('stx')) #  xoxo love xoxo 
+
+string = 'android is awesome'
+print(string.strip('an')) # droid is awesome
+
+```
 
 #### **upper() lower() split()**
 
-- ```python
+```python
     x = "hi this is a string"
     print(x.upper()) #HI THIS IS A STRING
     print(x.lower()) #hi this is a string
     print(x.split()) #['hi', 'this', 'is', 'a', 'string']
     print(x.split('i')) #['h', ' th', 's ', 's a str', 'ng']
-  ```
+```
 
 #### **format**
 
-- Format method
-    ```python
-      print('hello {}'.format('world')) #hello world
+```python
+print('hello {}'.format('world')) #hello world
 
-      name= 'David'
-      apellido1 = 'Martin'
-      apellido2 = 'Vergues'
+name= 'David'
+apellido1 = 'Martin'
+apellido2 = 'Vergues'
 
-      print('me llamo {} {} {}'.format('David', 'Martin', 'Vergues'))
-      #me llamo David Martin Vergues
+print('me llamo {} {} {}'.format('David', 'Martin', 'Vergues'))
+#me llamo David Martin Vergues
 
-      print('me llamo {2} {1}, {0}'.format('David', 'Martín', 'Vergues'))
-      #me llamo Vergues Martín, David
+print('me llamo {2} {1}, {0}'.format('David', 'Martín', 'Vergues'))
+#me llamo Vergues Martín, David
 
-      #podemos especificar el número de caracteres q ocupara cada string y si cómo estará alineado
+#podemos especificar el número de caracteres q ocupara cada string y si cómo estará alineado
 
-      print('alineación: {0:<15} {1:^15} {2:>15}'.format('izq', 'centro', 'drcha'))
-      # izq                 centro                drcha
-      # 0 el primer valor 'izq'
-      # < indica hacia la izq
-      # 15 número de esacios a ocupar
+print('alineación: {0:<15} {1:^15} {2:>15}'.format('izq', 'centro', 'drcha'))
+# izq                 centro                drcha
+# 0 el primer valor 'izq'
+# < indica hacia la izq
+# 15 número de esacios a ocupar
 
-      print('alineación: {0:=<15} {1:-^15} {2:.>15}'.format('izq', 'centro', 'drcha'))
-      # alineación: izq============ ----centro----- ..........drcha
+print('alineación: {0:=<15} {1:-^15} {2:.>15}'.format('izq', 'centro', 'drcha'))
+# alineación: izq============ ----centro----- ..........drcha
 
-      #podemos usar keyword
-      print('me llamo {v} {m}, {d}'.format(d='David', m='Martín', v='Vergues'))
-      #me llamo Vergues Martín, David
+#podemos usar keyword
+print('me llamo {v} {m}, {d}'.format(d='David', m='Martín', v='Vergues'))
+#me llamo Vergues Martín, David
 
-      #podemos usar referencias a variables
-      print('me llamo {2} {1}, {0} y tengo {3}'.format(name,apellido1,apellido2, '35'))
-      #me llamo Vergues Martin, David y tengo 35
+#podemos usar referencias a variables
+print('me llamo {2} {1}, {0} y tengo {3}'.format(name,apellido1,apellido2, '35'))
+#me llamo Vergues Martin, David y tengo 35
 
-      #podemos truncar los strings con la notación del punto
-      print('me llamo {0:.3} '.format(name)) #me llamo Dav
-    ```
-- Float formatting
+#podemos truncar los strings con la notación del punto
+print('me llamo {0:.3} '.format(name)) #me llamo Dav
+```
+* 
+  ##### Float formatting
   {value:width.precision f}  
    Value => ponemos el valor del número  
    Width => tamaño que ocupará el número hecho string (nº de caracteres)  
    Precision => número de decimales que tendrá
+
     ```python
-        result = 1.2987012987012987
+    result = 1.2987012987012987
 
-        print('mi valor es {r:1.3f}'.format(r=result))
-        #mi valor es 1.299
-        print('mi valor es {r:10.3f}'.format(r=result))
-        #mi valor es      1.299
+    print('mi valor es {r:1.3f}'.format(r=result))
+    #mi valor es 1.299
+    print('mi valor es {r:10.3f}'.format(r=result))
+    #mi valor es      1.299
     ```
-- f-string = formated string literal
+* 
+  ##### f-string = formated string literal
+  
     ```python
-      name = "David"
-      age = 3
-      print(f'hello, his name is {name} and he is {age} years old')
-      # hello, his name is David and he is 3 years old
+    name = "David"
+    age = 3
+    print(f'hello, his name is {name} and he is {age} years old')
+    # hello, his name is David and he is 3 years old
 
-      result = 1.459029
-      result2 = 1.45
+    result = 1.459029
+    result2 = 1.45
 
-      print(f'este es mi resultado => {result:1.2f}')
-      # este es mi resultado => 1.46
+    print(f'este es mi resultado => {result:1.2f}')
+    # este es mi resultado => 1.46
 
-      print(f'este es mi resultado => {result2:1.4f}')
-      # con notación de .format() este es mi resultado => 1.4500
+    print(f'este es mi resultado => {result2:1.4f}')
+    # con notación de .format() este es mi resultado => 1.4500
 
-      print(f'este es mi resultado => {result2:<{10}.{3}}')
-      # con notación de f-string este es mi resultado =>  1.45
+    print(f'este es mi resultado => {result2:<{10}.{3}}')
+    # con notación de f-string este es mi resultado =>  1.45
 
-      print(f'este es mi resultado => {result2:^{10}.{3}}')
-      # con notación de f-string este es mi resultado =>    1.45
+    print(f'este es mi resultado => {result2:^{10}.{3}}')
+    # con notación de f-string este es mi resultado =>    1.45
     ```
-  {3} En este caso hace referencia al número total de dígitos que tendrá el número, no como en .format() que hace referencia al número de dígitos decimales
+    {3} En este caso hace referencia al número total de dígitos que tendrá el número, no como en .format() que hace referencia al número de dígitos decimales
 
 #### **Casefold**
 - Es como un equalsIgnoreCase de java, elimina las distinciones entre mayúsculas y minúsculas en el momento de comparar strings.
@@ -591,21 +667,17 @@ Tamaño de un str usamos la función len()
        print(quote.replace('be','me'))
        # to me or not to me
 ```
-`Aplicando todos estos métodos sobre un string nunca alteramos el string original, son inmutables!, pero podemos asignar el resultado a una nueva variable`
+#### generar el alfabeto (inglés)
 
-## Ordered vs unordered
+importamos la librerio string
 
-Por ejemplo una `list` es un objeto **ordenado** y un `dict` es un objeto **desordenado** (en python todo son objetos). El concepto ordenado/desordenado hace referencia a como se almacena la info en memoria.
-Los elementos de una lista se guardan en memoria uno al lado del otro tal como los vamos especificando, pero n una dict estos elementos se guardan en memeoria en diferentes puntos. Si hacemos un dict pequeño   
+```python
+import string
 
-```python      
-      user = {
-        'nombre':'dabid', 
-        'edad':36
-      }
+string.ascii_lowercase
+#'abcdefghijklmnopqrstuvwxyz'
 ```
-y lo imprimimos probrable los campos se impriman cn ese orden pero diccionarios de mayor tamaño muy probablemente los campos se presenten desordenados.  
-
+`Aplicando todos estos métodos sobre un string nunca alteramos el string original, son inmutables!, pero podemos asignar el resultado a una nueva variable`
 
 ## List - (data structure)
 
@@ -616,38 +688,38 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 #### **len()**
 - Conocer el número de elementos de la list.  
 
-    ```python
-      my_List = []
+```python
+    my_List = []
 
-      my_List = ['string', 100, 20.3,1,2,3]
+    my_List = ['string', 100, 20.3,1,2,3]
 
-      # len()
-      len(my_List)
-    ```
+    # len()
+    len(my_List)
+```
 #### **Slicing**
 
 - [start:stop:step]  
   Funciona igual que en los strings. No altera el array original pero devuelve un nuevo array.
 
-    ```python
-      my_List[-1]     # 3
-      my_List[4:]     #  [2, 3]
-      my_List[:3]     #  ['string', 100, 20.3]
-      my_List[::2]    #  ['string', 20.3, 2]
-      my_List*2       # ['string', 100, 20.3, 1, 2, 3, 'string', 100, 20.3, 1, 2, 3]
-    ```
+```python
+    my_List[-1]     # 3
+    my_List[4:]     #  [2, 3]
+    my_List[:3]     #  ['string', 100, 20.3]
+    my_List[::2]    #  ['string', 20.3, 2]
+    my_List*2       # ['string', 100, 20.3, 1, 2, 3, 'string', 100, 20.3, 1, 2, 3]
+```
 
   Podemos concatenar list sumándolas
 
-    ```python
-      my_list_1 = [1,2,3,4,5]
-      my_list_2 = [6,7,8,9,10]
+```python
+    my_list_1 = [1,2,3,4,5]
+    my_list_2 = [6,7,8,9,10]
 
-      my_list_1+=my_list_2
+    my_list_1+=my_list_2
 
-      my_list_2 # [6, 7, 8, 9, 10]
-      my_list_1 # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    ```
+    my_list_2 # [6, 7, 8, 9, 10]
+    my_list_1 # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
 
  #### **Append() pop()**
 
@@ -655,75 +727,75 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
   El método pop() no solo elimina el último elemento sino que también lo devuelve. Una función más es que puedes pasar el índice del elementos a eliminar, por defecto es el -1 (último elemento).
   A pop le podemos pasar el índice del elemento a borrar.
 
-    ```python
-      my_list = ['one', 'two','three','four','five','six']
+```python
+    my_list = ['one', 'two','three','four','five','six']
 
-      my_list.append('eight')
+    my_list.append('eight')
 
-      my_list # ['one', 'two', 'three', 'four', 'five', 'six', 'eight']
+    my_list # ['one', 'two', 'three', 'four', 'five', 'six', 'eight']
 
-      element_deleted = my_list.pop()
+    element_deleted = my_list.pop()
 
-      element_deleted # 'eight'
+    element_deleted # 'eight'
 
-      my_list # ['one', 'two', 'three', 'four', 'five', 'six']
+    my_list # ['one', 'two', 'three', 'four', 'five', 'six']
 
-      my_list.pop(0) # 'one'
-      my_list         # ['two', 'three', 'four', 'five', 'six']
-    ```
+    my_list.pop(0) # 'one'
+    my_list         # ['two', 'three', 'four', 'five', 'six']
+```
 #### **remove(element_value)**
 - Nos permite borrar un elemento de a lista especificando el valor de dicho elemento. Cambia nuestra list, no devuelve el valor eliminado como sí lo hace pop()  
 
-    ```python
-      list2 = ['david','martin','vergues']
-      list2.remove('david')
-      print(list2)   # ['martin', 'vergues']
-    ```
+```python
+    list2 = ['david','martin','vergues']
+    list2.remove('david')
+    print(list2)   # ['martin', 'vergues']
+```
 #### **clear()**  
 - Vacia la lista 
 
-    ```python
-      list2 = ['david','martin','vergues']
-      list2.clear()
-      print(list2) 
-    ```
+```python
+    list2 = ['david','martin','vergues']
+    list2.clear()
+    print(list2) 
+```
 
 
 #### **insert(index,value)**
 - Nos permite introducir un elemento en la lista en un índice concreto
 
-    ```python
-      list = [1,2,3,4]
-      list.insert(4,100)
-      print(list) #[0, 1, 2, 3,4,100]
+```python
+    list = [1,2,3,4]
+    list.insert(4,100)
+    print(list) #[0, 1, 2, 3,4,100]
 
-      list2 = [1,2,3,4]
-      list2.insert(0,5)
-      print(list2) # [5, 1, 2, 3, 4]
-    ```
+    list2 = [1,2,3,4]
+    list2.insert(0,5)
+    print(list2) # [5, 1, 2, 3, 4]
+```
 #### **extend([])**
 - Permite extender el array con nuevos elementos necesitamos pasarlos como un iterable, en lugar de hacer 'x' appends.
 
-    ```python
+```python
     list2 = [1,2,3,4]
     list2.extend([0,5])
     print(list2) # [1, 2, 3, 4, 0, 5]
-    ```
+```
 
 #### **Sort() sorted() reverse()**
 
 - Ninguno de los dos métodos devuelve nada, actúan sobre la list y la modifican
 
-    ```python
-      char_list = ['a','d','c','e','f','b']
-      num_list = [10,2,4,1,0]
+```python
+    char_list = ['a','d','c','e','f','b']
+    num_list = [10,2,4,1,0]
 
-      char_list.sort()
-      num_list.reverse()
+    char_list.sort()
+    num_list.reverse()
 
-      print(char_list) # ['a', 'b', 'c', 'd', 'e', 'f']
-      print(num_list)  # [0, 1, 4, 2, 10]
-    ```
+    print(char_list) # ['a', 'b', 'c', 'd', 'e', 'f']
+    print(num_list)  # [0, 1, 4, 2, 10]
+```
 
   El método sorted() devuelve la lista ordenada pero no modifica la original.
 
@@ -926,7 +998,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 Es una manera de mantener nuestros datos estructurados (`data structure`)
 
-Son mapas desordenados (no pueden ser ordenador) para almacenar objetos usando los pares **clave-valor**. 
+Son mapas desordenados (no pueden ser ordenados) para almacenar objetos usando los pares **clave-valor**. 
 Normalmente los usamos cuando queremos tener dos valores que están relacionados por ejemplo precios de productos, así no necesitamos saber el índice del producto para saber el precio.  
 La clave de los diccionarios debe ser un elemento `inmutable`. Por lo que podemos usar booleans, num,... pero no una list. Aunque el 99 % de las veces la clave será un string.
 Otro punto es que las claves deben ser únicas, si se repiten serán sobreescritas por la última.
@@ -1328,6 +1400,176 @@ Si hacemos un set de un string éste guardará cada carácter por separado sin r
       {'a', 'r'}.issubset(s) # True
     ```
 
+# Python Modules
+source:  https://stackabuse.com/introduction-to-pythons-collections-module/
+## Python Collections Module
+
+Las colecciones son contenedores para almacenar datos ejemplos de collections son las list, set, tuple, dict, etc Estas son las llamadas built-in collections, colecciones propias de python. 
+Se han desarrollado varios módulos que proporcionan estructuras de datos adicionales para almacenar colecciones de datos. Uno de esos módulos es el `Collection Module` de Python.
+
+Este módulo contiene varios tipos de estructura de datos las más conocidas son:
+1. Counter
+2. namedtuple
+3. OrderedDict
+4. defaultdict
+5. deque
+6. ChainMap
+
+Para poder usarlos tenemos que importarlos
+```python
+from collections import defaultdict
+from collections import Counter
+#...
+```  
+### Counter
+Es una subclase de dictionary. Acepta como argumento un objeto iterable o un map y devuelve un dictionary. 
+En este dictionary tenemos como:
+- __clave__ los elementos del objeto iterable/map 
+- __valor__ las veces que aparece este elemento en el objeto map/iterable 
+
+Para acceder a los elementos usamos
+
+```python
+from collections import Counter
+
+iterable_obj = 'aaaaabbbbbccc'
+
+count = Counter(iterable_obj)
+
+count['a'] # 5
+```
+```python
+from collections import Counter
+
+iterable_obj = 'aaaaabbbbbccc'
+
+count = Counter(iterable_obj)
+
+count
+# Counter({'a': 5, 'b': 5, 'c': 3})
+```
+Podemos crear un counter directamente
+```python
+from collections import Counter
+
+count = Counter({'david':3,'martin':5})
+
+count
+# Counter({'david': 3, 'martin': 5})
+```
+#### Métodos
+
+Counter como es subclase de dict tiene todos los métodos de éste y además tres adicionales:
+
+##### elements()
+
+Nos devuelve los elementos que componen el Counter, tenemos que castearlo a list.
+
+```python
+from collections import Counter
+
+count = Counter({'david':2,'martin':2})
+
+print((count.elements())) # <itertools.chain object at 0x7f3ea4a7ab50>
+print(list(count.elements())) # count = Counter({'david':2,'martin':2})
+
+```
+##### most_common()
+
+Permite ordenar el dictionary resultante, poniendo primero la clave con mayor número de repeticiones
+
+```python
+from collections import Counter
+
+iterable_obj = 'aaaaabbbbbccc'
+count = Counter(iterable_obj)
+
+print(count.most_common()) 
+# [('a', 5), ('b', 5), ('c', 3)]
+```
+##### substract([iterable-or-mapping])
+
+Permite restar conteo a las diferentes elementos del counter
+
+```python
+from collections import Counter
+
+iterable_obj = 'aaaaabbbbbccc'
+count = Counter(iterable_obj)
+
+count.subtract({'a':1,'b':1})
+
+print(count)
+ # Counter({'a': 4, 'b': 4, 'c': 3})
+print(list(count.elements()))
+# ['a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'c', 'c', 'c']
+```
+
+### defaultdict
+
+El defaultdict funciona exactamente como un diccionario de Python, excepto que no arroja KeyError cuando intenta acceder a una clave inexistente.
+
+En su lugar, inicializa la clave con el elemento del tipo de datos que pasa como argumento en la creación de defaultdict. El tipo de datos se llama `default_factory`.
+
+Cuando creas un defaultdict tenemos que pasarle como argumento un data type.
+
+```python
+from collections import defaultdict
+
+nums = defaultdict(int)
+nums['one'] = 1
+nums['two'] = 2
+
+print(nums['three']) # 0
+
+```
+En este ejemplo, int se pasa como `default_factory`. A continuación, se definen los valores para las dos claves, a saber, 'uno' y 'dos', pero en la siguiente línea intentamos acceder a una clave que aún no se ha definido.
+
+En un diccionario normal, esto forzará un KeyError. Pero defaultdict inicializa la nueva clave con el valor predeterminado de `default_factory`, que es 0 para int. Por lo tanto, cuando se ejecute el programa, se imprimirá 0.
+
+- Ejemplo 1 - contar nombres
+  
+  ```python
+  from collections import defaultdict
+
+  count = defaultdict(int)
+  names_list = "Mike John Mike Anna Mike John John Mike Mike Britney Smith Anna Smith".split()
+  for names in names_list:
+      count[names] +=1
+
+  print(count)  
+  #defaultdict(<class 'int'>, {'Mike': 5, 'Britney': 1, 'John': 3, 'Smith': 2, 'Anna': 2})
+  ```
+- Ejemplo 2 - conteo de mayúsculas minúsculas
+
+  ```python
+  from collections import defaultdict
+  count = defaultdict(int)
+
+  def up_low(s):
+      for letter in s:
+          if letter.isupper():
+              count['upper']+=1
+          elif letter.islower():
+              count['lower']+=1
+          else:
+              continue
+      print(f'Original String : {s} \n No. of Upper case characters : {count["upper"]} \n No. of Lower case Characters :{count["lower"]} ')
+  
+  s = 'Hello Mr. Rogers, how are you this fine Tuesday?'
+  up_low(s)
+  ```
+
+### OrderedDict
+
+
+
+
+  
+
+
+
+
 # In/Out with basic Files
 
 Como generar entrada y salida de datos usando un fichero .txt
@@ -1564,6 +1806,13 @@ El más sencillo, establecemos un rango.
         print(num, end='')
     # 0123456789
 ```
+cuando creo la variable `item` para el loop, ésta sobrevive fuera del loop y como el último elemento es 3 sige conteniendo su valor.
+
+```python
+for item in (1,2,3):
+    print(item, end="")
+print(item, end="") # 1233
+```
 
 Con un tercer parámetro (step)
 
@@ -1573,7 +1822,7 @@ Con un tercer parámetro (step)
     # 02468
 ```
 
-Podemos iterar un string como array de caracteres.
+Podemos iterar un **string** como array de caracteres.
 
 ```python
       list2 = []
@@ -1584,7 +1833,7 @@ Podemos iterar un string como array de caracteres.
           print(type(caracter)) # nos devuelve tipo string
 ```
 
-Podemos iterar una list
+Podemos iterar una **list**
 
 ```python
         myList = [1,2,3,4,5,6,7,8,9,10]
@@ -1600,7 +1849,6 @@ Para conocer el índice de cada elemento lo podemos hacer así:
         for index in range(0, len(myList)):
           print(f'{myList[index]}', end=' - ') # 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 - 
 ```
-
 Un truco para obtener el índice de cada elemento de cualquier iterable es transformarlo previamente a un enumerado – enumerate()
 
 ```python
@@ -1608,7 +1856,7 @@ Un truco para obtener el índice de cada elemento de cualquier iterable es trans
 
       for (indice,valor) in enumerate(myList):
         print(f'indice:{indice} => valor:{valor} ')
-      ''''
+      '''
         indice:0 => valor:1 
         indice:1 => valor:2 
         indice:2 => valor:3 
@@ -1619,10 +1867,10 @@ Un truco para obtener el índice de cada elemento de cualquier iterable es trans
         indice:7 => valor:8 
         indice:8 => valor:9 
         indice:9 => valor:10
-      ''''
+      '''
 ```
 
-Podemos iterar tuples  
+Podemos iterar **tuples**  
 
 ```python
     d = (10, 20, 30)
@@ -1643,11 +1891,14 @@ Podemos iterar tuples
           9 - 10
         ''''
 ```
-Un dictionary
+Un **dictionary**
+
+Cuando queremos iterar un dictionary, éstos tienen 3 métodos importante : `.values()` `.keys()` `.items()` este último nos devuelve los pares clave-valor en forma de tuples
 
 ```python
       d = {"k1":10, "k2":20, "k3":30}
 
+      # como nos devuelve una tuple, se puede hacer unpack y asignar a variables esos pares valor 
       for key,value in d.items():
         print(f' {key} - {value} ', end='') 
       # k1 - 10  k2 - 20  k3 - 30
@@ -1687,7 +1938,7 @@ For loop reverse
       # divad
 ```
 
-## **While loops**
+anaconda## **While loops**
 
 Versión normal
  
@@ -1739,7 +1990,7 @@ no hace nada, es decir en python si ejecutamos un loop el programa espera una id
 ```
 ### **Continue**
 
-Esta instrucción permite continuar cn la ejecución del loop sin ejecutar el código que hay por debajo de `continue`
+Esta instrucción permite continuar cn la ejecución del loop sin ejecutar el código que hay por debajo de `continue` (vuelve al loop)
 
 ```python
     for c in mystring:
@@ -1793,7 +2044,7 @@ El tercer valor de `range()` el step puede ser negativo para hacer que el loop d
 ```
 ## enumerate()
 
-Transforma los elementos en iterable y lo separa en tupples formadas por el elemento y su índice.
+Solo se puede aplicar a objetos iterables y su función es crear un índice para cada elemento del objeto iterable, cada elemento del objeto es separado en tuples formadas por el valor del elemento y su índice.
 
 ```python
     for item in enumerate("abcde"):
@@ -1893,32 +2144,59 @@ Permite al usuario entrar datos. Devuelve un string, podemos castear con int() o
     float(result) #  30.0
 ```
 
+### Validación input
+
+Hantes de hacer el cast del input nos debemos de asegurar que es convertible.
+
+
+
 # Methods and Functions
 
 ## Métodos
 
-Documentación de python https://docs.python.org/3/
+Documentación de python https://docs.python.org/3/  
+
+Para crear una función usamos la keyword `def`(define).  
+Para llamar a la función debemos usar los paréntesis (name_function())
+
+En python a diferencia de JavaScript tenemos que definir previamente la función para poderla ejecutar.  
+
+El `DOCSTRING` tiene que ir dentro de la función
+```python
+# Primero la definimos
+def name_function():
+    '''
+    DOCSTRING
+    Info: Information about the function
+    INPUT: no input...
+    OUTPUT: Hello
+    '''
+    print('Hello')
+# ahora la podemos ejecutar
+name_function()
+```
+
+Podemos usar la función `help()` sobre una función para conocer info sobre ella `help(name_function)` 
+otra manera de acceder a esta información es usando `magic method` 
 
 ```python
-    def name_function():
-        '''
-        DOCSTRING: Information about the function
-        INPUT: no input...
-        OUTPUT: Hello
-        '''
-        print('Hello')
+help(name_function)
+
+print(name_function.__doc__)
 ```
 
 ![not found](img/img-j-3.png)  
 
-Con argumentos por defecto  
+- Con argumentos por defecto  
+  
+  ![not found](img/img-j-4.png)  
 
-![not found](img/img-j-4.png)  
+- Return keyword  
+  
+  **Automáticamente return sale de la función.**
 
-Return keyword
-
-![not found](img/img-j-6.png)  
-![not found](img/img-j-7.png)  
+  ![not found](img/img-j-6.png)  
+  ![not found](img/img-j-7.png)  
 
 
 
@@ -1927,9 +2205,11 @@ Return keyword
 Diferncias enre argumento y parámetro:  
   - Parámetro : es el nómbre que aparece en la definición de la función
 ```python   
-         def add (param1, param2):
+def add (param1, param2):
 ```
   - argumento : es el valor que se le pasa a la función
+
+
 ### **Tipos de argumentos** 
 
 Tenemos dos tipos de argumentos en las funciones, los argumentos posicionales (positional argument) y argumentos nombrados (keyword argument)   
@@ -1938,12 +2218,12 @@ Tenemos dos tipos de argumentos en las funciones, los argumentos posicionales (p
 
   ![not found](img/img-j-8.png)
 
-- Nombrados: es un argumento precedido por un identificador (por ejemplo, nombre=) en una llamada a una función o pasado como valor en un diccionario precedido por **.
+- Nombrados o keyword argument: es un argumento precedido por un identificador (por ejemplo, nombre=) en una llamada a una función o pasado como valor en un diccionario precedido por **. No confundir con argumentos por defecto que es similar pero se usan en la difinición de la función. Aquí sirven si no recordamos el orden de los parámetros usamos la asignación en el momento de la llamada a la función.
 
-```python
-      complex(real=3, imag=5)
-      complex(**{'real': 3, 'imag': 5})
-```
+    ```python
+    complex(real=3, imag=5)
+    complex(**{'real': 3, 'imag': 5})
+    ```
 
 si paso más parmetros que los definidos en la función voy a tener un error 
 
@@ -1953,12 +2233,15 @@ si paso más parmetros que los definidos en la función voy a tener un error
 
 #### *args
 
-Para evitar eso usamos los `*args`, internamente python transforma todos los argumentos pasados a la función como una tupla.  
+con `*args` estamos diciendo que la función acepta tantos argumentos posicionales como queramos pasarle,
+ internamente python mete todos los argumentos pasados a la función en una tupla.  
 
 ![not found](img/img-j-10.png)
 
-#### **kwargs
-El uso de `**kwargs` nos contruye un dictionary con los argumentos pasados
+#### **kwargs(keywords arguments)
+
+Transforma en un dictionary cualquier número de keyword arguments pasados a la función.
+El uso de `**kwargs` nos construye un dictionary con los argumentos pasados
 
 ![not found](img/img-j-11.png)  
 
@@ -1972,11 +2255,77 @@ Lo que no podemos hacer es colocar un nuevo elemento después del kwargs pq pyth
 
 ![not found](img/img-j-13.png)  
 
-#  Map / Filter / Lambda expressions
+# Scoope
 
-## Map(func,iterable)
+cuando creamos una variable esta se guarda en lo q llamamos `namespace`. Cada una de estas variables tiene un scope. El scope hace referencia a la visibilidad de ese variable por otras partes  de tu código, desde donde es accesible cada variable/función de nuestro programa.  
+Básicamente en py tenemos un scoope global, el propio script y un scoope local que es el q se genera cuando creamos una función.
 
-Es una función que nos permite mapear otra función sobre un objeto iterable. Cuando decimos mapear significa emparejar un elemento con otro, en este caso aplicamos una función a cada uno de los elementos que integran el objeto iterable(lista o tupla) devolviendo un nuevo iterador cuyos elementos son el resultado de dicha operación.  
+```python
+# scoope global o global namespace
+x = 0 
+
+def some_func():
+  # scoope local o namespace local
+  x = 20
+  return x
+
+print(x)            # 0
+print(some_func()) #  20
+```
+## LEGB Rule
+Orden que sigue py para determinar el scoope:
+
+1. L = local(dentro de la función)
+2. E = Enclosing function locals (si la función está contenido en otra función) 
+3. G = global
+4. B = built-in python function (son las funiones propias de py)
+
+Cada vez que creamos una función `def some_function():...` definimos un nuevo scope, delimitado por la identación, dentro del global.
+
+Ejemplo de enclosing function:
+
+```python
+# global
+name = 'this is a global string'
+
+def greet():
+  # enclosing function
+  name = 'david'
+  def hello():
+  # local
+    print('hello '+name)
+  hello()
+
+greet() # hello david
+```
+Coge el nombre de la función que encierra a hello()
+
+## global keyword
+
+Nos permite acceder a una variable global desde dentro de una función (scoope local)
+
+```python
+
+total = 0
+
+def count():
+  global total
+  total+=1
+  return total
+
+count()
+count()
+print(count()) #3
+
+```
+
+## nonlocal keyword
+
+ 
+
+# Map(func,iterable)
+
+Es una función que nos permite mapear otra función sobre un objeto iterable. Cuando decimos mapear significa emparejar un elemento con otro, en este caso aplicamos una función a cada uno de los elementos que integran el objeto iterable(lista o tupla) devolviendo un nuevo iterador tipo `map` cuyos elementos son el resultado de dicha operación.  
 
 ![not found](img/img-j-14.png)  
 
@@ -1991,16 +2340,152 @@ Otro ejemplo con strings
 
 ![not found](img/img-j-17.png)   
 
-## Filter(function, iterable)
+# Filter(function, iterable)
 
-Es muy parecido a map en el sentido que aplicará una función a cada uno de los elementos de un objeto iterable, con dos diferencias:
-1.La función que pasamos debe devolver True or False
-2.Nos devolverá un objeto filter únicamente con los elementos del iterable que devuelan True en la función.  
+Es muy parecido a map en el sentido que aplicará una función a cada uno de los elementos de un objeto iterable, con dos diferencias:  
+
+1. La función que pasamos debe devolver True or False
+2. Nos devolverá un objeto filter únicamente con los elementos del iterable que devuelan True en la función.  
 
 ![not found](img/img-j-18.png)    
 
-## Lambda
+# Lambda
 
 Las expresiones lambdas es como construir una función anónima, es una función que usaremos durante el código pero que no nos interesa definirla como tal.
 El contenido de la función lambda debe ser una única expresión en lugar de un bloque de acciones.
 
+```python
+def square(num):
+    result= num**2
+    return result 
+```
+Dada la función de arriba vamos a transformarla en una `lambda`, para ello usamos la keyword `lambda` y eliminamos def y el nombre
+
+```python
+lambda num: num**2
+```
+Esto se lee como entre un valor **num** y se devuelve el cuadrado de éste
+```python
+# mal escrito
+lambda (num): return num**2
+```
+Podemos usarla así en nuestro código o asignarla a una variable lo que no es muy habitual  
+
+```python
+square = lambda num: num**2
+
+square(3) # 9
+```
+Lo que se hace más habitualmente es usarla junto a otras funciones tipo map o filter
+
+```python
+list(map(lambda num: num**2, [1,2,3]))
+# [1, 4, 9]
+```
+```python
+list(filter(lambda num: num%2==0, [1,2,3]))
+# [2]
+```
+```python
+list(map(lambda name: name[0], ['david','nuri','laura']))
+# ['d', 'n', 'l']
+```
+# OOP - Object Oriented Programming
+
+La sintaxi para definir una clase es:
+
+## Creación de una clase
+```python
+class NameOfClase():
+  
+  #-------contructor
+  def __init__(self, param1,param2):
+    self.param1 = param1
+    self.param2 = param2
+  #------FIN contructor
+
+  #------Métodos
+
+  def some_method(self):
+    #some action
+    print(self.param1)
+```
+Respecto otros lenguajes cambia el uso de la keyword `self` ésta se usa para concretar q el parámetro pasado al contructor formará parte del objeto mismo (de la instancia de la clase) y no es una variable global.
+
+De hecho el resto de lenguajes también tienen este parámetro pero se le pasa autométicamente al constructor sin que lo tengamos que especificar, es el `this` de java o javascript.
+
+Entonces lo que estamos haciendo es decirle estos argumentos que le estoy pasando quiero que formen parte del contenido del objeto.
+
+Lo mismo sucede con los métodos, debemos pasar siempre `self` para poder utilizar los parámetros propios del objeto.
+
+Una vez creada la clase  para instanciarla:
+
+```python
+# creación de la clase
+class Sample():
+    pass
+# instanciación 
+s = Sample()
+# 
+type(s)
+# __main__.Sample
+```
+La keyword `__main__` significa que nuestra instancia está asociada a un tipo de clase que se encuentra en nuestro main script.
+
+Si queremos definir un atributo de clase, auqellos que son comunes para todas las instancias de la clase, se debe definir antes del constructor y sin usar self.
+
+Para acceder a este atributo desde dentro de la clase usamos igualmente self.
+
+## Añadimos los métodos 
+
+### constructor __init__
+
+Se ejecuta cuando instanciamos la clase, siempre empieza con la keyword `self` que permite conectar este método a la instancia de la clase y nos permite referirnos al propio objeto, posteriormente le pasamos los atributos que queramos
+
+
+```python
+class Dog():
+
+    # class attribute
+    species= 'mammal'
+
+    # constructor
+    def __init__ (self,breed,name,spots):
+        self.breed = breed
+        self.name = name
+        self.spots = spots
+
+    # definimos métodos 
+    def bark(self,number):
+        print(f'woof! my name is {self.name} and the number is {number} and i\'m ownn to species {self.species}')
+    
+```
+Para acceder a los atributos de clase usamos notación de punto con la clase o con self : `Circle.pi` o `self.pi`
+Como el atributo number no forma parte del objeto no usamos self para referirnos a el.
+
+En el costuctor podemos pasar valores por defecto Dentro del constructor podemos poner un poco de lógica tb
+
+```python
+import math
+class Circle():
+    # class attribute
+    pi = math.pi
+    # constructor
+    def __init__(self,radius=1):
+        self.radius= radius
+        self.area = self.pi*self.radius**2
+        # Circle.pi*self.radius**2
+        
+    # class method    
+    def printPi():
+        print(Circle.pi)
+
+    # instance method
+    def get_Circumference(self):
+        return 2* self.pi*self.radius 
+        # 2* Circle.pi*self.radius 
+
+    def get_area(self):
+        return self.area 
+```
+Para referirnos a atributos de clase dentro de métodos de un objeto, se les pasa `self`como parámetro, tenemos que utilizar self.attributeName si el método es de clase, no se pasa self como parámetro, entonces tenemos que usar el NombreClase.attribute
