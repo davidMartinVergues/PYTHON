@@ -142,6 +142,21 @@
   - [Creación de una clase](#creación-de-una-clase)
   - [Añadimos los métodos](#añadimos-los-métodos)
     - [constructor __init__](#constructor-init)
+  - [Encapsulación](#encapsulación)
+  - [Herencia](#herencia)
+  - [Polimorfismo](#polimorfismo)
+  - [Abstracción](#abstracción)
+  - [Métodos especiales or magic methods or dunder methods](#métodos-especiales-or-magic-methods-or-dunder-methods)
+    - [String representation  __str()__](#string-representation--str)
+    - [tamaño del objeto  __len__](#tamaño-del-objeto--len)
+    - [del method __del__](#del-method-del)
+- [Modules and Packages](#modules-and-packages)
+  - [PIP](#pip)
+  - [PyPI (python package index)](#pypi-python-package-index)
+  - [Escribiendo nuestros propios Módulos y paquetes](#escribiendo-nuestros-propios-módulos-y-paquetes)
+    - [creando un módulo](#creando-un-módulo)
+    - [creando un paquete](#creando-un-paquete)
+- [__name__](#name)
 
 # Course from zero to Hero - Udemy -
 
@@ -2392,11 +2407,35 @@ list(map(lambda name: name[0], ['david','nuri','laura']))
 ```
 # OOP - Object Oriented Programming
 
-La sintaxi para definir una clase es:
+![not found](img/img-j-25.png)
+
+Repetimos la idea de que todo en python es un objeto, es decir todo está definido como una clase así que todos ellos tienen nos métodos asociados. 
+
+Todos los objetos tiene métodos y atributos, a los cuales se puede acceder con notaión de punto.
 
 ## Creación de una clase
+
+Podemos definir una clase como :
 ```python
-class NameOfClase():
+class MyClass:
+  pass
+```
+o 
+
+```python
+class MyClass():
+  pass
+```
+Ambas funcionan pero lo más correcto es escribirlo sin '()', los paréntesis solo se usan cuando queremos indicar que nuestra clase deriva de una clase base
+
+```python
+class MyClass(BaseClass):
+  pass
+```
+Un ejemplo:
+
+```python
+class NameOfClase:
   
   #-------contructor
   def __init__(self, param1,param2):
@@ -2422,7 +2461,7 @@ Una vez creada la clase  para instanciarla:
 
 ```python
 # creación de la clase
-class Sample():
+class Sample:
     pass
 # instanciación 
 s = Sample()
@@ -2444,7 +2483,7 @@ Se ejecuta cuando instanciamos la clase, siempre empieza con la keyword `self` q
 
 
 ```python
-class Dog():
+class Dog:
 
     # class attribute
     species= 'mammal'
@@ -2467,7 +2506,7 @@ En el costuctor podemos pasar valores por defecto Dentro del constructor podemos
 
 ```python
 import math
-class Circle():
+class Circle:
     # class attribute
     pi = math.pi
     # constructor
@@ -2477,8 +2516,15 @@ class Circle():
         # Circle.pi*self.radius**2
         
     # class method    
-    def printPi():
+    @classmethod
+    def printPi(cls):
+        cls(10)
         print(Circle.pi)
+
+    @staticmethod
+      def printPi():
+        print(Circle.pi)
+
 
     # instance method
     def get_Circumference(self):
@@ -2488,4 +2534,398 @@ class Circle():
     def get_area(self):
         return self.area 
 ```
-Para referirnos a atributos de clase dentro de métodos de un objeto, se les pasa `self`como parámetro, tenemos que utilizar self.attributeName si el método es de clase, no se pasa self como parámetro, entonces tenemos que usar el NombreClase.attribute
+Método de clase:
+
+Son los métodos que podemos usar sin instanciar un objeto.
+Para definir un método de clase tenemos que usar los `decorators` son tags para indicar diferentes cosos, en este caso el tag a utilizar es `@classmethod` y como argumento en lugar de pasar self, que hace referencia al objeto, pasamos `cls` que hace referencia a la clase. Con cls podemos usarlo para instanciar un nuevo objeto dentro del método.
+
+Método statico:
+
+Es la misma idea q un class method pero con la diferencia de que en los static no reciben como parámetro `cls`
+
+Para referirnos a atributos de clase dentro de métodos de un objeto, se les pasa `self`como parámetro, tenemos que utilizar self.attributeName si el método es de clase, no se pasa self como parámetro, entonces tenemos que usar el NombreClase.attribute. 
+
+## Encapsulación
+
+Usando OOP en Python, podemos restringir el acceso a métodos y variables. Esto evita que los datos se modifiquen directamente, lo que se denomina encapsulación. En Python, denotamos atributos privados usando un doble guión bajo como prefijo, es decir, con `__`.
+
+```python
+class Sample:
+    def __init__(self,name='anonimo', age= 0):
+        self.__name = name
+        self.__age = age
+    def greet(self):
+        return f'hello! my name is {self.__name} an i am {self.__age}'
+
+s1 = Sample('david',10)
+```
+vemos como no he sido capaz de modificar el nombre, lo mismo con métodos
+```python
+s1.__name = 'ffff'
+s1.greet()
+# 'hello! my name is david an i am 10'
+```
+Aunque le hemos asiganado el string 'ffff' sigue poniendo el nombre original
+## Herencia
+Es cuando creamos una clase usando otra que ya ha sido definida previamente. 
+Eso nos permite reutilizar código ya que la clase hija hereda las propiedades (métodos y atributos) de la clase padre.
+
+Pasamos la clase madre y luego en el constructor de la hija ejecutamos el métdo `__init__` de la madre.
+
+```python
+
+# CLASE MADRE
+
+class Animal:
+
+    def __init__(self, name):
+        self.name = name
+        print('animal created, with name '+ self.name)
+
+    def who_i_am(self):
+        return f'my name is {self.name}'
+
+    def eat(self):
+        print('i am eating')
+
+#   CLASE HIJA
+class Dog (Animal):
+    def __init__(self, name, age):
+        # constructor del padre
+        Animal.__init__(self,name)
+        # atributo propio de la clase hija
+        self.age = age
+        print(f'dog created, with name {self.name} and i am {self.age } years old')
+     # overwrite method
+    def who_i_am(self):
+        return f'{Animal.who_i_am(self)} and i am {self.age}')
+
+```
+La clase hija Dog hereda el atributo name, aunq no haya hecho un `self.name`. 
+
+Para llamar métodos de la clase base podemos usar el nombre (Animal) o usar `super()`, si lo hacemos con super hay algunas diferencias:
+
+1. cuando usas el nombre de la clase base, como en `Animal.__init__(self)` tienes que pasar self (el objeto que está siendo inicializado) como primer argumento. Cuando usas `super().__init__()` en cambio ese argumento no se pone porque super() ya retorna el objeto adecuado que será pasado implícitamente como primer parámetro.
+  
+2. También hay diferencias en el caso de la herencia múltiple (una clase que hereda de dos o más clases). En ese caso super() te permite invocar un método de cualquiera de sus clases base sin necesidad de especificar cuál de las clases base lo contiene (super() buscaría cuál de ellas es). Si dos o más clases de las que heredas implementan el mismo método, super() invocará el de la primera que encuentre, siguiendo el Method resolution order (MRO), que habitualmente es el orden en que se declararon las clases base (aunque la cosa se puede complicar si estas a su vez heredaron de otras y hay "herencia en diamante").
+
+Para averiguar el orden pdemos usar `nombreObjeto.__mro__`
+
+el ejemplo con **super()**
+
+```python
+class Dog (Animal):
+    def __init__(self, name, age):
+        
+        super().__init__(name)
+        self.age = age
+        print(f'dog created, with name {self.name} and i am {self.age } years old')
+    def who_i_am(self):
+       return f'{super().who_i_am()} and i am {self.age}'
+```
+
+## Polimorfismo
+
+Está muy relacionado con la herencia. Ya que se base en proveer de un funcionalidad en la clase base y en las clases derivadas sobreescribirán ese método para darle una funcionalidad más específica.
+
+Hay varios tipo de polimorfismo:
+
+1. Sobrecarga
+
+Cuando dos clases totalmente independientes tienen una funcionalidad(método) con el mismo nombre, si esto sucede podemos un mismo objeto para ejecutar dicho método  
+
+```python
+
+# DOS CLASES NO RELACIONADAS
+class Dog:
+    def __init__(self, name):
+        self.name = name
+    def speak(self):
+        return f'{self.name} says, WOOF! '
+
+
+class Cat():
+    def __init__(self, name):
+        self.name = name
+    def speak(self):
+        return f'{self.name} says, MEOW! '
+
+# creamos los objetos 
+niko = Dog('niko')
+felix = Cat('felix')
+```
+podemos iterarlo usando el mismo objeto
+```python
+for pet in [niko,felix]:
+    print(type(pet))
+    print(pet.speak())
+'''
+<class '__main__.Dog'>
+niko says, WOOF! 
+<class '__main__.Cat'>
+felix says, MEOW! 
+'''
+```
+o usarlo en una función 
+
+```python
+# scoope global
+
+def pet_speak(pet):
+    print(pet.speak())
+
+pet_speak(felix)
+# felix says, MEOW! 
+```
+
+Lo más habitual es que se utilice el polimorfismo con clases abstractas.
+
+## Abstracción
+
+es una clase que no puede ser instanciada y que contiene al menos un métodos abstracto (declarados pero sin implementación, éstos tendrán que ser imlementados por las clases derivadas).
+
+Las clases abstractas se usan como clases base para otras clases que derivan de ellas. Con atributos y métodos que puedan compartir cn las sublcases y con  métodos abstractos para q éstas los implementen 
+
+Para crear una clase abstarcta en python debemos importar la clase `ABC` (Abstract Base Class) del modulo `abc` y hacer q la clase herede esta clase. 
+
+```python
+
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+
+    def __init__(self,name):
+        self.name = name
+
+    @abstractmethod
+    def speak(self):
+        pass
+        #raise NotImplementedError('SUBCLASS MUST IMPLEMENTED THIS ABSTRACT METHOD')
+```
+si intentamos instanciar la clase ns saltará el error
+
+![not found](img/img-j-23.png)
+
+Ahora podemos crear una nueva clase que herede de la abstracta, no hace falta q creemos un constructor, lo hereda de la abstracta
+
+```python
+
+class Dog(Animal):
+
+    def speak(self):
+        return f'{self.name} says WOOF!'
+
+```python
+my_dog = Dog('django')
+```
+```python
+my_dog.name # django
+```
+```python
+my_dog.speak() # 'django says WOOF!'
+```
+
+## Métodos especiales or magic methods or dunder methods
+
+Estos métodos nos permiten usar las built-in functions de python en nuestras clases.
+Hay una convención para escribir estos métodos mágicos, van entre  `__magicMethod__`, por ejemplo `__init__`
+
+### String representation  __str()__
+
+Este se usa para mostrar en pantalla nuestro objeto, es la representación en string de nuestro objeto. Para ello debemos sobreescribir el método `__str()__` de nuestra clase. Si no lo sobreescribimos nos devuele el id de la memoria dnd se almacena el onjeto.
+
+### tamaño del objeto  __len__
+
+Nos da la idea de "tamaño" de nuestro objeto
+
+### del method __del__
+
+Todos los bjetos en python responden a una acción delete ejecutada por la keyword `del`, podemos sobreescribir este método para que haga algo al eliminar nuestro objeto 
+
+```python
+
+class Book:
+    def __init__(self,title,author,pages):
+        self.title = title
+        self.author= author
+        self.pages = pages
+    
+    # magic methods
+    def __str__(self):
+        return f'{self.title} by {self.author} with {self.pages} pages'
+    
+    def __len__(self):
+        return self.pages
+    
+    def __del__(self):
+        print('A book object has been deleted')
+```
+
+```python
+b = Book('Python rocks','david',500)
+
+print(b) # Python rocks by david with 500 pages
+
+len(b) # 500
+
+del b # A book object has been deleted
+
+b
+
+'''
+---------------------------------------------------------------------------
+NameError          Traceback (most recent call last)
+<ipython-input-14-89e6c98d9288> in <module>
+----> 1 b
+
+NameError: name 'b' is not defined
+'''
+
+```
+
+# Modules and Packages 
+
+## PIP
+
+Es un gestor de paquetes para python tipo npm para nodeJS. Se instala cuando instalamos anaconda.
+
+## PyPI (python package index)
+
+Es un repositorio open-source de paquetes de terceros para python.
+Para instalar estor paquetes usamos `pip install `
+
+Instalamos un paquete como ejemplo:
+
+1. colorama
+  Espara poder poner texto en distintos colores
+  en la terminal
+  ```
+  pip install colorama
+  ```
+  ```python
+  from colorama import init
+
+  init()
+
+  from colorama import Fore
+
+  print(Fore.RED+ "some red text")
+  ```
+
+## Escribiendo nuestros propios Módulos y paquetes
+
+En primer lugar un módulo es un archivo .py que contiene un script hecho en python y que lo importamos en otro script. 
+En cambio un paquete es una colección de módulos, es una carpeta que contiene uno o más módulos.
+
+### creando un módulo
+
+Tenemos un script llamado `myprogram.py` y otro `mymodule.py`.
+
+En mymodule tenemos las siguiente función:
+
+```python
+
+def my_func():
+    print('hello from my python module ')
+
+```
+y en el programa importamos este módulo. Hay dos maneras
+
+```python
+
+import mymodule
+
+mymodule.my_func()
+
+```
+ó
+
+```python
+
+from mymodule import my_func
+
+my_func()
+
+```
+### creando un paquete
+
+Para que python reconozca el directorio como un package tenemos que crear en la carpeta principal y en las subcarpetas un archivo `__init__.py`.
+
+No es necesario escribir nada en ese archivo, sólo estar resente.
+
+![not found](img/img-j-24.png)
+
+Una vez creado el package tenemos que importarlo y tenemos varias opciones:
+
+1. importamos el módulo deseado
+   
+   1. del package principal principal 
+      ```python
+
+      from MyMainPackage import some_main_script
+
+      some_main_script.report_main()
+      # hey! i am in some_main_script in main package 
+
+      ```
+   2. del subPackage
+      ```python
+
+      from MyMainPackage.SubPackage import my_sub_script
+
+      my_sub_script.sub_report()
+      # hey! i am a function inside mysubPackage 
+      ```
+2.  podemos importar una función concreta 
+
+    ```python
+
+    from MyMainPackage.SubPackage import my_sub_script
+
+    my_sub_script.sub_report()
+    # hey! i am a function inside mysubPackage 
+    ```
+3. podemos importar funciones directamente desde el módulo
+   1. Para ello usamos el archivo `__init__.py` en eĺ hacemos los imports de las funciones que queramos  
+   
+      ```python
+      from .some_main_script import report_main
+      from .SubPackage.my_sub_script import sub_report
+      ```
+    2. Y en el archivo del programa importamos el package directamente y ya puedo usar las funciones del archivo `__init__.py`   
+   
+        ```python
+        import MyMainPackage
+
+        MyMainPackage.report_main()
+        MyMainPackage.sub_report()
+        ```
+    3. o bien puedo importar las funciones  
+    
+        ```python
+        from  MyMainPackage import  report_main, sub_report
+
+        report_main()
+        sub_report()
+        ```
+# __name__
+
+Igual que tenemos buil-in function tipo print() también hay built-in varibales, y una de ellas es `__name__` .
+
+Cuando ejecutamos un script directamente este variable se le asigna el string `__main__`
+
+Se usa con un propósito organizativo del código, sería algo así:
+
+```python
+
+def func():
+  pass
+
+def func2():
+  pass
+
+if __name__ == '__main__':
+    func2()
+    func()  
+```
+
