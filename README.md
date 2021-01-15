@@ -43,15 +43,16 @@
       - [**insert(index,value)**](#insertindexvalue)
       - [**extend([])**](#extend)
       - [**Sort() sorted() reverse()**](#sort-sorted-reverse)
-      - [**Lista de elementos**](#lista-de-elementos)
+      - [**Lista de elementos o comprehension**](#lista-de-elementos-o-comprehension)
       - [**Count()**](#count)
       - [**All() any()**](#all-any)
       - [**Join()**](#join)
-      - [**Index(value,start,stop) / in **](#indexvaluestartstop--in-)
+      - [**Index(value,start,stop)/in**](#indexvaluestartstopin)
       - [**copy**](#copy)
       - [**List unpacking**](#list-unpacking)
   - [Dictionaries - dict (data structure)](#dictionaries---dict-data-structure)
     - [**Métodos**](#métodos-1)
+      - [comprehension](#comprehension)
       - [get()](#get)
       - [**keys() / values() / items()**](#keys--values--items)
       - [**clear()**](#clear-1)
@@ -113,10 +114,9 @@
     - [**Pass**](#pass)
     - [**Continue**](#continue)
     - [**Break**](#break)
-- [Useful operators](#useful-operators)
+- [Buil-in function útiles](#buil-in-function-útiles)
   - [Range()](#range)
   - [enumerate()](#enumerate)
-  - [zip()](#zip)
   - [In / not in](#in--not-in)
   - [Min() max()](#min-max)
   - [Random library](#random-library)
@@ -137,19 +137,28 @@
   - [nonlocal keyword](#nonlocal-keyword)
 - [Map(func,iterable)](#mapfunciterable)
 - [Filter(function, iterable)](#filterfunction-iterable)
+- [Reduce(function, iterable, [initial_value] )](#reducefunction-iterable-initial_value-)
+- [zip()](#zip)
 - [Lambda](#lambda)
 - [OOP - Object Oriented Programming](#oop---object-oriented-programming)
+  - [Introspección de objetos](#introspección-de-objetos)
+    - [isinstance() y issubclass](#isinstance-y-issubclass)
+    - [dir()](#dir)
   - [Creación de una clase](#creación-de-una-clase)
-  - [Añadimos los métodos](#añadimos-los-métodos)
-    - [constructor __init__](#constructor-init)
-  - [Encapsulación](#encapsulación)
-  - [Herencia](#herencia)
-  - [Polimorfismo](#polimorfismo)
-  - [Abstracción](#abstracción)
+    - [Añadimos los métodos](#añadimos-los-métodos)
+      - [constructor __init__](#constructor-init)
+  - [Características de la Programación Objetos](#características-de-la-programación-objetos)
+    - [Encapsulación](#encapsulación)
+    - [Herencia](#herencia)
+      - [Herencia múltuple](#herencia-múltuple)
+    - [Polimorfismo](#polimorfismo)
+    - [Abstracción](#abstracción)
   - [Métodos especiales or magic methods or dunder methods](#métodos-especiales-or-magic-methods-or-dunder-methods)
     - [String representation  __str()__](#string-representation--str)
     - [tamaño del objeto  __len__](#tamaño-del-objeto--len)
     - [del method __del__](#del-method-del)
+- [Functional Programing](#functional-programing)
+  - [¿Que es?](#que-es)
 - [Modules and Packages](#modules-and-packages)
   - [PIP](#pip)
   - [PyPI (python package index)](#pypi-python-package-index)
@@ -157,6 +166,11 @@
     - [creando un módulo](#creando-un-módulo)
     - [creando un paquete](#creando-un-paquete)
 - [__name__](#name)
+- [Decorators](#decorators)
+  - [First class citizens](#first-class-citizens)
+  - [HOC - Higher Order Function](#hoc---higher-order-function)
+  - [Decorators syntaxi](#decorators-syntaxi)
+  - [Para que usamos los decorators](#para-que-usamos-los-decorators)
 
 # Course from zero to Hero - Udemy -
 
@@ -297,23 +311,23 @@ Tenemos otros tipos de datos como:
 #### potencias
 
 ```python
-      # para hacer potencias de un número
-      print(2**3) # 8
+# para hacer potencias de un número
+print(2**3) # 8
 ```
 #### Parte entera de una división decimal
 ```python
-      # Para obtener la parte entera de una división decimal //
+# Para obtener la parte entera de una división decimal //
 
-      print(2//4 ) # 0 => 0.5
-      print(5//4 ) #  1  =>1.25
+print(2//4 ) # 0 => 0.5
+print(5//4 ) #  1  =>1.25
 ```
 
 #### Resto de una división entera
 ```python
-      # Para obtener el resto de la división entera es el módulo %
+# Para obtener el resto de la división entera es el módulo %
 
-      print(5 % 4) # 1
-      print(6 % 4 )# 2
+print(5 % 4) # 1
+print(6 % 4 )# 2
 ```
 
 ### Funciones matemáticas
@@ -322,28 +336,28 @@ Tenemos otros tipos de datos como:
 Permite redondear el número  
 
 ```python
-    round(3.1) # 3
-    round(3.9) # 4
+round(3.1) # 3
+round(3.9) # 4
 ```
 #### **abs**
 Obtener el valor absolute de un valor
 
 ```python
-    abs(3)  # 3 
-    abs(-3) # 3 
+abs(3)  # 3 
+abs(-3) # 3 
 ```
 #### **bin / int**
 
 representación binaria bin() 
 
 ```python
-    bin(5) # '0b101'
+bin(5) # '0b101'
 ```
 Pasar un número en base 'x' a integer (base 10). 
 El método funciona como: este número '0b101' en base 2 (binaria) pásalo a int
 
 ```python
-    int('0b101', 2) # 5
+int('0b101', 2) # 5
 ``` 
 ## Uso de variables
 
@@ -799,7 +813,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
 
 #### **Sort() sorted() reverse()**
 
-- Ninguno de los dos métodos devuelve nada, actúan sobre la list y la modifican
+- sort() y reverse()  actúan sobre la list y la modifican
 
 ```python
     char_list = ['a','d','c','e','f','b']
@@ -822,7 +836,28 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       print(list4)        # [5, 3, 4, 6, 1]
       print(listOrdenada) # [1, 3, 4, 5, 6]
     ```
-#### **Lista de elementos**
+
+Tanto a sort() o sorted podemos indicar en base a que elemento se hace la ordenación y si queremos q sea reversa. Siempre que el iterable sea una tupla o un dictionari 
+
+```python
+student_tuples = [
+    ('john', 'A', 15),
+    ('jane', 'B', 12),
+    ('dave', 'B', 10),
+]
+
+sorted(student_tuples, key=lambda student: student[2])
+# sort by age
+#   [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+```
+si queremos modificar la list original 
+
+```python
+student_tuples.sort(key=lambda student: student[2])   # sort by age
+
+```
+
+#### **Lista de elementos o comprehension**
 - Si quisiéramos obtener una lista de las letras que forman un string podemos hacer lo siguiente:
 
     ```python
@@ -892,6 +927,13 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       fahrenheit #[32.0, 50.0, 68.0, 94.1]
 
     ```
+    ```python
+      s = ['a','b','c','b','d','m','n','n']
+
+      l = list({ c for c in s if s.count(c)>1 })
+
+      l # ['b','n']
+    ```
 
 - Nested loops
 
@@ -945,7 +987,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
       ' '.join(l) # 'hola david'
 
     ```
-#### **Index(value,start,stop) / in **
+#### **Index(value,start,stop)/in**
 
 - Nos devuelve la posición de una valor en la list, el primero que encuetra
     ```python
@@ -965,7 +1007,7 @@ Secuencia ordenada de elementos que pueden ser de diferentes tipos(numbers, stri
     ```python
       list5 =  ['a','b','c','d','e','f']
 
-      print(list5.index('x',3,5)) # 4
+      print(list5.index('x',3,5)) # error
     ```  
     ![not found](img/img-j-19.png)  
 
@@ -1019,11 +1061,11 @@ La clave de los diccionarios debe ser un elemento `inmutable`. Por lo que podemo
 Otro punto es que las claves deben ser únicas, si se repiten serán sobreescritas por la última.
 
 ```python 
-      d = {
-            123:[1,2,3],
-            True:[1,2,3],
-            [100]: True # este nos dará error
-            }
+d = {
+      123:[1,2,3],
+      True:[1,2,3],
+      [100]: True # este nos dará error
+      }
 ```
 
 Otra manera de crear dictionaries, no muy común, es usando una in-built function `dict()`
@@ -1118,6 +1160,21 @@ Si intentamos acceder a una clave que no existe, mediante la sintaxi del corchet
 ![not found](img/img-j-21.png)  
 
 ### **Métodos**
+
+#### comprehension
+
+```python
+
+simple_dict = {
+  'a':2,
+  'b':3
+}
+
+lista = { key:value**2 for key,value in simple_dict.items()  }
+
+print(lista)# {'a': 4, 'b': 9}
+
+```
 
 #### get()
 
@@ -1311,6 +1368,13 @@ Sólo hay dos métodos asociados a tuplas.
 
 Son colecciones **unordered** y de elementos **no repetidos**.
 Podemos crear un set a partir de una list, de esta manera nos aseguramos que los elementos repetidos de la list no se guardan en el set
+
+Tiene esta apariencia:
+
+```python
+
+my_set = {1,2,3,4}
+```
 
 ```python
       myList = [1,1,1,1,2,2,2,2,3,3,3]
@@ -1580,7 +1644,7 @@ En un diccionario normal, esto forzará un KeyError. Pero defaultdict inicializa
 
 
 
-  
+  source: https://stackabuse.com/introduction-to-pythons-collections-module/
 
 
 
@@ -2027,7 +2091,7 @@ Detiene la ejecución del loop donde está contenido.
     # 0
     # 1
 ```
-# Useful operators
+# Buil-in function útiles
 
 ## Range()
 
@@ -2072,29 +2136,6 @@ Solo se puede aplicar a objetos iterables y su función es crear un índice para
     (4, 'e')
     '''
 ```
-## zip()
-
-Permite unir listas y generar tupples con los elementos de cada lista coincidentes en sus posiciones. Zip se ajusta a la lista más corta, si una lisa tiene pej 4 elementos el cuarto no aparecerá. Se puede castear a una lista de tuplas
-
-```python
-    list1 = [1,2,3]
-    list2 = ['a','b','c']
-    lista3 = ['alba','Boni','carlos']
-
-    t = zip(list1,list2, lista3)
-
-    print(t) # <zip object at 0x7f2172294aa0>
-
-    for item in t:
-        print(item)
-    #(1, 'a', 'alba')
-    #(2, 'b', 'Boni')
-    #(3, 'c', 'carlos')
-
-    list = list(zip(list1,list2, lista3))
-    list # [(1, 'a', 'alba'), (2, 'b', 'Boni'), (3, 'c', 'carlos')]
-```
-
 ## In / not in
 
 Permita saber si un elemento se encuentra en una lista, un diccionario
@@ -2353,7 +2394,7 @@ Si quisieramos obtener los resultados en forma de lista podemos hacer un cast de
 
 Otro ejemplo con strings
 
-![not found](img/img-j-17.png)   
+![not found](img/img-j-17.png)
 
 # Filter(function, iterable)
 
@@ -2363,6 +2404,78 @@ Es muy parecido a map en el sentido que aplicará una función a cada uno de los
 2. Nos devolverá un objeto filter únicamente con los elementos del iterable que devuelan True en la función.  
 
 ![not found](img/img-j-18.png)    
+
+# Reduce(function, iterable, [initial_value] )
+
+Nos permite aplicar una función a un iterable y reducir sus items a un único valor `acumulativo`. Ese único valor se obtiene dependiendo de la función pasada. 
+
+Para usarlo tenemos que importarlo.
+
+```python
+from functools import reduce
+```
+
+Funcionamiento:
+
+1. se pasa a la función los dos primeros elementos de la secuencia y se obtiene el resultado.
+2. El siguiente paso es aplicar la misma función al resultado obtenido anteriormente y el número que sigue al segundo elemento y el resultado se almacena nuevamente.
+3. Este proceso continúa hasta que no quedan más elementos en el contenedor.
+    El resultado final devuelto se devuelve y se imprime en la consola.
+
+```python
+def accumulator(a, b):
+    return a+b
+   
+
+result = reduce(accumulator,['d'+'a'+'v'+'i'+'d'])
+
+print(result) # david
+```
+
+```python
+def accumulator(a, b):
+    return a+b
+   
+
+result = reduce(accumulator,[1,2,3],10)
+
+print(result) #16 =  6 + 10
+```
+
+```python
+def accumulator(a, b):
+    return a if a>b else b
+   
+
+result = reduce(accumulator,[1,2,3,4])
+
+print(result) # 4
+```
+Podemos definir un valor inicial 
+
+
+# zip()
+
+Permite unir listas y generar tupples con los elementos de cada lista coincidentes en sus posiciones. Zip se ajusta a la lista más corta, si una lisa tiene pej 4 elementos el cuarto no aparecerá. Se puede castear a una lista de tuplas
+
+```python
+    list1 = [1,2,3]
+    list2 = ['a','b','c']
+    lista3 = ['alba','Boni','carlos']
+
+    t = zip(list1,list2, lista3)
+
+    print(t) # <zip object at 0x7f2172294aa0>
+
+    for item in t:
+        print(item)
+    #(1, 'a', 'alba')
+    #(2, 'b', 'Boni')
+    #(3, 'c', 'carlos')
+
+    list = list(zip(list1,list2, lista3))
+    list # [(1, 'a', 'alba'), (2, 'b', 'Boni'), (3, 'c', 'carlos')]
+```
 
 # Lambda
 
@@ -2376,14 +2489,12 @@ def square(num):
 ```
 Dada la función de arriba vamos a transformarla en una `lambda`, para ello usamos la keyword `lambda` y eliminamos def y el nombre
 
+Esto se lee como entra un valor **num** y se devuelve el cuadrado de éste
+
 ```python
 lambda num: num**2
 ```
-Esto se lee como entre un valor **num** y se devuelve el cuadrado de éste
-```python
-# mal escrito
-lambda (num): return num**2
-```
+
 Podemos usarla así en nuestro código o asignarla a una variable lo que no es muy habitual  
 
 ```python
@@ -2405,6 +2516,12 @@ list(filter(lambda num: num%2==0, [1,2,3]))
 list(map(lambda name: name[0], ['david','nuri','laura']))
 # ['d', 'n', 'l']
 ```
+
+```python
+reduce(lambda x , y : x+y, [1,2,3] )
+# 6
+```
+
 # OOP - Object Oriented Programming
 
 ![not found](img/img-j-25.png)
@@ -2413,6 +2530,78 @@ Repetimos la idea de que todo en python es un objeto, es decir todo está defini
 
 Todos los objetos tiene métodos y atributos, a los cuales se puede acceder con notaión de punto.
 
+## Introspección de objetos
+
+Son función propia de python me permite analizar el objeto,comprobar que un objeto es instancia de una clase concreta, conocer sus métdos,...
+
+### isinstance() y issubclass
+
+Todo en python es un objeto, eso es así porque todo hereda de la clase `object`
+
+```python
+
+class Animal:
+
+    def __init__(self, name):
+        self.name = name
+        print('animal created, with name '+ self.name)
+
+#   CLASE HIJA
+class Dog (Animal):
+    def __init__(self, name, age):
+        Animal.__init__(self,name)
+        self.age = age
+        print(f'dog created, with name {self.name} and i am {self.age } years old')
+
+my_naimal = Animal('max')
+my_dog = Dog('max',10)
+
+isinstance(my_dog,Dog) # True
+isinstance(my_dog,Animal) # True
+isinstance(my_dog,object) # True
+
+issubclass(Dog,Animal) # True
+issubclass(Animal,Dog) # Flase
+
+
+```
+### dir()
+Nos da información de todos los métodos y atributos del objeto
+
+```python
+dir(my_naimal)
+'''
+['__class__',
+ '__delattr__',
+ '__dict__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__gt__',
+ '__hash__',
+ '__init__',
+ '__init_subclass__',
+ '__le__',
+ '__lt__',
+ '__module__',
+ '__ne__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ '__weakref__',
+ 'age',
+ 'name',
+ 'talk']
+ '''
+```
 ## Creación de una clase
 
 Podemos definir una clase como :
@@ -2475,9 +2664,9 @@ Si queremos definir un atributo de clase, auqellos que son comunes para todas la
 
 Para acceder a este atributo desde dentro de la clase usamos igualmente self.
 
-## Añadimos los métodos 
+### Añadimos los métodos 
 
-### constructor __init__
+#### constructor __init__
 
 Se ejecuta cuando instanciamos la clase, siempre empieza con la keyword `self` que permite conectar este método a la instancia de la clase y nos permite referirnos al propio objeto, posteriormente le pasamos los atributos que queramos
 
@@ -2545,7 +2734,9 @@ Es la misma idea q un class method pero con la diferencia de que en los static n
 
 Para referirnos a atributos de clase dentro de métodos de un objeto, se les pasa `self`como parámetro, tenemos que utilizar self.attributeName si el método es de clase, no se pasa self como parámetro, entonces tenemos que usar el NombreClase.attribute. 
 
-## Encapsulación
+## Características de la Programación Objetos
+
+### Encapsulación
 
 Usando OOP en Python, podemos restringir el acceso a métodos y variables. Esto evita que los datos se modifiquen directamente, lo que se denomina encapsulación. En Python, denotamos atributos privados usando un doble guión bajo como prefijo, es decir, con `__`.
 
@@ -2566,7 +2757,7 @@ s1.greet()
 # 'hello! my name is david an i am 10'
 ```
 Aunque le hemos asiganado el string 'ffff' sigue poniendo el nombre original
-## Herencia
+### Herencia
 Es cuando creamos una clase usando otra que ya ha sido definida previamente. 
 Eso nos permite reutilizar código ya que la clase hija hereda las propiedades (métodos y atributos) de la clase padre.
 
@@ -2605,11 +2796,37 @@ La clase hija Dog hereda el atributo name, aunq no haya hecho un `self.name`.
 
 Para llamar métodos de la clase base podemos usar el nombre (Animal) o usar `super()`, si lo hacemos con super hay algunas diferencias:
 
-1. cuando usas el nombre de la clase base, como en `Animal.__init__(self)` tienes que pasar self (el objeto que está siendo inicializado) como primer argumento. Cuando usas `super().__init__()` en cambio ese argumento no se pone porque super() ya retorna el objeto adecuado que será pasado implícitamente como primer parámetro.
+1. cuando usas el nombre de la clase base, como en `Animal.__init__(self)` tienes que pasar self (el objeto que está siendo instanciado) como primer argumento. Cuando usas `super().__init__()` en cambio ese argumento no se pone porque super() ya retorna el objeto adecuado que será pasado implícitamente como primer parámetro. 
   
-2. También hay diferencias en el caso de la herencia múltiple (una clase que hereda de dos o más clases). En ese caso super() te permite invocar un método de cualquiera de sus clases base sin necesidad de especificar cuál de las clases base lo contiene (super() buscaría cuál de ellas es). Si dos o más clases de las que heredas implementan el mismo método, super() invocará el de la primera que encuentre, siguiendo el Method resolution order (MRO), que habitualmente es el orden en que se declararon las clases base (aunque la cosa se puede complicar si estas a su vez heredaron de otras y hay "herencia en diamante").
+2. También hay diferencias en el caso de la herencia múltiple (una clase que hereda de dos o más clases). En ese caso super() te permite invocar un método de cualquiera de sus clases base sin necesidad de especificar cuál de las clases base lo contiene (super() buscaría cuál de ellas es). Si dos o más clases de las que heredas implementan el mismo método, super() invocará el de la primera que encuentre, siguiendo el Method resolution order (**MRO**), que habitualmente es el orden en que se declararon las clases base (aunque la cosa se puede complicar si estas a su vez heredaron de otras y hay "herencia en diamante").
 
-Para averiguar el orden pdemos usar `nombreObjeto.__mro__`
+Herencia en diamente sería este ejemplo:
+
+```python
+class A:
+  num= 10
+
+class B(A):
+  pass
+
+class C(A):
+  pass
+
+class D(B,C):
+  pass
+
+'''
+  A
+|   \
+B   C
+ \D/
+'''
+```
+
+Para averiguar el orden pdemos usar `nombreObjeto.__mro__` o `nombreObjeto.mro()`
+Tiene ese orden por cómo paso las clase `class D(B,C)`primero paso la B así que empieza a buscar primero por la propia (D) y luego va a la B y así...
+
+![not found](img/img-j-26.png)
 
 el ejemplo con **super()**
 
@@ -2624,15 +2841,54 @@ class Dog (Animal):
        return f'{super().who_i_am()} and i am {self.age}'
 ```
 
-## Polimorfismo
+#### Herencia múltuple
+Prmite heredar de más de una clase
+
+```python
+class User:
+  def sign_in(self):
+    print('logged in')
+
+class Wizard(User):
+
+  def __init__(self,name,power):
+    self.name = name
+    self.power = power
+  
+  def attack(self):
+    print(f'attacking with power of {self.power}')
+
+class Archer(User):
+
+  def __init__(self,name,arrows):
+    self.name = name
+    self.arrows = arrows
+  
+  def check_arrows(self):
+    print(f'arrows left {self.arrows}')
+
+  def run(self):
+    print('run very fast')     
+
+# Herencia múltiple
+
+class Hybrid(Wizard, Archer):
+
+  def __init__(self,name,power, arrows):
+    Wizard.__init__(self,name,power)
+    Archer.__init__(self,name,arrows)
+
+```
+
+### Polimorfismo
 
 Está muy relacionado con la herencia. Ya que se base en proveer de un funcionalidad en la clase base y en las clases derivadas sobreescribirán ese método para darle una funcionalidad más específica.
 
 Hay varios tipo de polimorfismo:
 
-1. Sobrecarga
+1. Sobrecarga de métodos en clases distintas
 
-Cuando dos clases totalmente independientes tienen una funcionalidad(método) con el mismo nombre, si esto sucede podemos un mismo objeto para ejecutar dicho método  
+Cuando dos clases totalmente independientes tienen una funcionalidad(método) con el mismo nombre, si esto sucede podemos usar un mismo objeto para ejecutar dicho método  
 
 ```python
 
@@ -2666,7 +2922,30 @@ niko says, WOOF!
 felix says, MEOW! 
 '''
 ```
-o usarlo en una función 
+2. Sobrecarga de métodos en clases en herencia
+La diferencia con el punto de arriba es q en este caso las clases están relacionadas así que existe un proceso de sobreescritura de métodos.
+
+```python
+class Animal:
+
+    def __init__(self, name):
+        self.name = name
+        print('animal created, with name '+ self.name)
+    def talk(self):
+        pass
+
+#   CLASE HIJA
+class Dog (Animal):
+    def __init__(self, name, age):
+        Animal.__init__(self,name)
+        self.age = age
+        print(f'dog created, with name {self.name} and i am {self.age } years old')
+    # overwriting method 
+    def talk(self):
+        pass
+
+```
+3. Polymorphism with a Function and objects:
 
 ```python
 # scoope global
@@ -2677,10 +2956,9 @@ def pet_speak(pet):
 pet_speak(felix)
 # felix says, MEOW! 
 ```
-
 Lo más habitual es que se utilice el polimorfismo con clases abstractas.
 
-## Abstracción
+### Abstracción
 
 es una clase que no puede ser instanciada y que contiene al menos un métodos abstracto (declarados pero sin implementación, éstos tendrán que ser imlementados por las clases derivadas).
 
@@ -2733,6 +3011,12 @@ Hay una convención para escribir estos métodos mágicos, van entre  `__magicMe
 ### String representation  __str()__
 
 Este se usa para mostrar en pantalla nuestro objeto, es la representación en string de nuestro objeto. Para ello debemos sobreescribir el método `__str()__` de nuestra clase. Si no lo sobreescribimos nos devuele el id de la memoria dnd se almacena el onjeto.
+Estos nos permite usar estos métodos de la siguiente manera
+
+```python
+print(my_dog.__str__()) # <__main__.Dog object at 0x7fc7e32e78d0>
+print(str(my_dog)) # <__main__.Dog object at 0x7fc7e32e78d0>
+```
 
 ### tamaño del objeto  __len__
 
@@ -2782,6 +3066,38 @@ NameError: name 'b' is not defined
 '''
 
 ```
+# Functional Programing
+
+## ¿Que es?
+
+Organiza el código en datos y funciones. Se basa en el concepto de **pure function**.
+
+- Pure function
+
+Tiede dos características:
+
+1. para un mismo input devuelve siempre el mismo output
+2. no tiene ningún efecto colateral, no afecta al resto del código
+   
+Un ejemplo de programación funcional sería:
+
+```python
+
+# definimos nuestra función
+def multiply_by2(li):
+    #return [num*2 for num in li]
+    return list(map(lambda num:num*2,li ))
+
+# Data
+my_list = [1,2,3]
+# Funtion
+print(multiply_by2(my_list)) # [2, 4, 6]
+
+# comprobamos q no hemos afectado a los datos
+print(my_list) # [1,2,3]
+
+```
+
 
 # Modules and Packages 
 
@@ -2929,3 +3245,120 @@ if __name__ == '__main__':
     func()  
 ```
 
+# Decorators
+
+## First class citizens
+
+Se usan junto con funciones. En python las funciones son lo que llamas `first class citizens` esto es que actuan como variables, tienen un nombre que hace de apuntado a una localización de memoria, incluso se pueden pasar como argumento de otra función.
+
+Si yo tengo 
+
+```python
+def hello():
+  return 'hellllooo'
+# así almaceno la referencia hacia el espacio de memoria dnd se encuentra la función
+greet = hello
+# así guardo el resultado ('hellooo') en la variable greet2
+greet2 = hello()
+```
+Ahora quiero eliminar la función hello()
+
+```python
+del hello
+```
+Python elimina la referencia hello pero la función sigue estando en el espacio de memoria pq hay otra referencia (greet) que está apuntando.
+ 
+Una vez explicado esto con los `decorators` nos permiten potenciar las funciones, dotarlas de funciones extra.
+
+## HOC - Higher Order Function
+
+Las funcoines de alto grado son aquellas que acceptan otras funciones como argumento. Por ejemplo `map()` sería una HOC
+
+## Decorators syntaxi
+
+Potencian funciones tipo `HOC`
+Tienen esta sintaxis:
+1. una función HOC (my_decorator)
+2. En ésta definimos otra función que ejecuta la función pasada por agumento (wrap_func)
+3. Devolvemos la wrap_func
+
+```python
+def my_decorator(func):
+
+    def wrap_func(str, emoji):
+        print('*********')
+        func(str, emoji)
+        print('*********')
+    return wrap_func
+```
+Esta estructura es reconocida por python y la podemos emplear como decorator poniendo una @ delante
+
+```python
+@my_decorator
+def hello(greeting, emoji):
+    print(greeting, emoji)
+
+print(hello('hellooo', ':)'))
+
+'''
+*********
+hellooo :)
+*********
+'''
+```
+
+El decorator funciona como si ejecutara la función wrap_func, por lo que imprime los asteríscos y ejecuta mi función (hello).
+
+Si lo hicieramos manual sería algo así:
+
+```python
+my_decorator(hello)()
+```
+ejecutamos lo q devuelve my_decorator
+
+Lo más habitual es que la sintaxi para definir el decorator y no tener q ir modificando según el número de argumentos q le pasamos a la función es usando `*args` and `**kwars`:
+
+Patrón decorator:
+
+```python
+def my_decorator2(func):
+
+    def wrap_func(*args, **kwargs):
+        print('*********')
+        func(*args, **kwargs)
+        print('*********')
+    return wrap_func
+
+
+@my_decorator2
+def hello(greeting, emoji=':p'):
+    print(greeting, emoji)
+
+print(hello('hellooo'))
+'''
+*********
+hellooo :p
+*********
+'''
+```
+
+## Para que usamos los decorators
+
+```python
+from time import  time
+
+def performance(fn):
+    def wrapper(*args,**kwargs):
+        t1 = time()
+        fn(*args,**kwargs)
+        t2 = time()
+        print(f'it took {t2-t1}')
+    return wrapper
+
+@performance
+def long_time():
+    for x in range(100000000):
+        x*5
+
+long_time()
+```
