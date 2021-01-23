@@ -123,8 +123,8 @@
     - [**Argumentos vs parámetros**](#argumentos-vs-parámetros)
     - [**Tipos de argumentos**](#tipos-de-argumentos)
   - [Argumentos \*args (arguments) / \*\*kwargs(keywords arguments)](#argumentos-args-arguments--kwargskeywords-arguments)
-    - [\*args](#args)
-    - [\*\*kwargs(keywords arguments)](#kwargskeywords-arguments)
+      - [\*args](#args)
+      - [\*\*kwargs(keywords arguments)](#kwargskeywords-arguments)
 - [Scoope](#scoope)
   - [LEGB Rule](#legb-rule)
   - [global keyword](#global-keyword)
@@ -168,6 +168,9 @@
   - [Decorators syntaxi](#decorators-syntaxi)
   - [Para que usamos los decorators](#para-que-usamos-los-decorators)
 - [Errores y gestión de excepciones](#errores-y-gestión-de-excepciones)
+- [Unit testing](#unit-testing)
+  - [Pylint](#pylint)
+  - [unittest](#unittest)
 
 # Course from zero to Hero - Udemy -
 
@@ -3658,3 +3661,119 @@ def ask_for_int():
             break
 
 ```
+# Unit testing
+
+Hay varias librerías dedicadas a ello pero dos de las más habituales son:
+
+- Pylint
+  Revisa tu código y nos reporta posibles errores
+
+- unittest
+  Permite testear nuestro programa comproando si obtenemos los outputs deseados. 
+
+## Pylint
+
+instalamos pylint
+
+```
+pip install pylint
+```
+escribimos algo de código
+
+```python
+a = 1
+b = 2
+print(a)
+print(B) # tenemos un error
+
+```
+
+Para analizar el código con pylint tecleamos en terminal
+
+```
+pylint simple1.py -r y
+```
+Y no imprime en consola un report con errores de estilo, de sintaxi,...
+
+![not found](img/img-j-27.png)
+
+Para mejorar el código:
+
+```python
+
+'''
+a very simple script
+'''
+    
+def myfunc():
+    '''
+    simple function
+    '''
+    first = 1
+    second = 2
+    print(first)
+    print(second)
+    
+myfunc()
+
+```
+
+## unittest
+
+Es una libreria built-in python, por lo que debemos importarla para poder utilizarla. 
+
+Para escribir test unitarios y probar nuestro programa debemos crear una clase en un script a parte. Esta clase heredará de `unittest.testCase`.
+
+ Debemos también importar el script que queramos testear.
+
+ ```python
+def cap_text(text):
+    '''
+    input a string
+    Output a string capitalized
+    '''
+    return text.capitalize()
+
+ ```
+
+Escribimos nnuestros test en un script a parte
+
+
+```python
+import unittest
+import cap
+
+class Test_cap(unittest.TestCase):
+    
+    def test_cap(self):
+        text = 'python'
+        result = cap.cap_text(text)
+        self.assertEqual(result,'Python')
+
+    def test_multiple_words(self):
+        text = 'monty python'
+        result = cap.cap_text(text)
+        self.assertEqual(result,'Monty Python')
+
+if __name__ == '__main__':
+    unittest.main()
+```
+
+Ejecutamos el test
+
+![not fond](img/img-j-28.png)
+
+arreglamos el error 
+
+ ```python
+def cap_text(text):
+    '''
+    input a string
+    Output a string capitalized
+    '''
+    return text.title()
+
+ ```
+
+ ![not found](img/img-j-29.png)
+
