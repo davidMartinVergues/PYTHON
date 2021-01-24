@@ -168,9 +168,17 @@
   - [Decorators syntaxi](#decorators-syntaxi)
   - [Para que usamos los decorators](#para-que-usamos-los-decorators)
 - [Errores y gestión de excepciones](#errores-y-gestión-de-excepciones)
+  - [Lanzar nuestras propias excepciones](#lanzar-nuestras-propias-excepciones)
 - [Unit testing](#unit-testing)
   - [Pylint](#pylint)
   - [unittest](#unittest)
+  - [!not found](#-1)
+- [pygame](#pygame)
+  - [Estructura del archivo](#estructura-del-archivo)
+  - [Ventana de juego](#ventana-de-juego)
+  - [Fijar tamaño, titulo, icono](#fijar-tamaño-titulo-icono)
+  - [Establecemos el fondo de la ventana de juego](#establecemos-el-fondo-de-la-ventana-de-juego)
+  - [mostramos Info](#mostramos-info)
 
 # Course from zero to Hero - Udemy -
 
@@ -3246,6 +3254,12 @@ Es un gestor de paquetes para python tipo npm para nodeJS. Se instala cuando ins
 
 ## PyPI (python package index)
 
+Si queremos usar pip fuera del entorno de `anaconda` tenemos que usarlo como:
+```
+pip3 install nombrePaquete
+```
+Esto es xq en linux el comando pip hace referencia a python2 y nosotros ya tenemos instalado python 3.
+
 Es un repositorio open-source de paquetes de terceros para python.
 Para instalar estor paquetes usamos `pip install `
 
@@ -3619,8 +3633,68 @@ hey you have an OS error
 i always run
 '''
 ```
+Si queremos saber de qué tipo es el error que nos está generando el código podemos utilizar la función 
+`{sys.exc_info()`. Es de tipo tupla y contiene `(type, value, traceback)` 
 
-Para saber el tipo de error que nos está arrojando podemos utilizar la función `sys.exc_info()`
+Para capturar cualquier error y poder imprimir una explicación podemos utilizar en el bloque except la clase base de la q heredan el resto de excepciones `BaseException` or `Exception` con la sugiente sintaxi `except BaseException as err:` en este caso err contiene una explcación del error.
+
+Si como usuarios debemos crear una clase que genere errores heredará de `Exception` no de `BaseException`.
+
+```python
+try:
+    result = 10+'10'
+except BaseException as err:
+    print('something went wrong!\n')
+    print(f'sys.exc_info() es una => {type(sys.exc_info())}')
+    print(f'{sys.exc_info()}\n')
+    print(f'{err} \n')
+else:
+    print('add went well')
+    print(result)
+
+print('el programa sigue...')
+
+'''
+something went wrong!
+
+sys.exc_info() es una => <class 'tuple'>
+(
+  <class 'TypeError'>, 
+  TypeError("unsupported operand type(s) for +: 'int' and 'str'"), 
+  <traceback object at 0x7f089108fc30>
+)
+
+unsupported operand type(s) for +: 'int' and 'str' 
+
+el programa sigue..
+
+'''
+
+```
+
+También podemos combinar diferentes tipos de errores en except
+
+```python
+def dividir(x,y):
+    try:
+        return x/y
+    except (TypeError, ZeroDivisionError) as err:
+        print(err)
+
+dividir(5,'0')
+'''
+unsupported operand type(s) for /: 'int' and 'str'
+'''
+```
+
+```python
+dividir(5,0)
+'''
+division by zero
+'''
+```
+
+
 
 ```python
 
@@ -3645,7 +3719,7 @@ cualquier otro tipo de error
 '''
 ```
 
-Este ejemplo nos permite mediante la cpmbinación de `while` y `try-except` preguntar tantas veces por un número hasta que facilitemos uno correcto
+Este ejemplo nos permite mediante la combinación de `while` y `try-except` preguntar tantas veces por un número hasta que facilitemos uno correcto
 
 ```python
 def ask_for_int():
@@ -3661,6 +3735,18 @@ def ask_for_int():
             break
 
 ```
+
+## Lanzar nuestras propias excepciones
+
+Para lanzar una excepción usamos la keyword `raise()`
+
+```python
+raise Exception('hey cut it out')
+```
+
+![not found](img/img-j-30.png)
+
+
 # Unit testing
 
 Hay varias librerías dedicadas a ello pero dos de las más habituales son:
@@ -3776,4 +3862,137 @@ def cap_text(text):
  ```
 
  ![not found](img/img-j-29.png)
+---
+---
+
+# pygame
+
+source [video youtube](https://www.youtube.com/watch?v=FfWpgLFMI7w&t=4370s)  
+
+Instalamos el móduo `pygame`para crear juegos con python
+
+```
+pip install pygame
+```
+## Estructura del archivo
+
+Tendremos dos partes bien diferenciadas:
+
+1. Donde hacemos los imports y cargamos las imagenes q necesitaremos durante el juego
+   ```python
+    # Imports
+    import pygame
+    import os
+    import time
+    import random
+    #--------FIN IMPORTS
+
+    # habilitamos fuentes 
+    pygame.font.init()
+    #-------------------
+    # create The screen
+    WIDTH,HEIGHT = 750,750
+    SCREEN = pygame.display.set_mode((WIDTH,HEIGHT))
+    ## title and icon on windows game
+    pygame.display.set_caption('Space Invaders')
+    icon = pygame.image.load(os.path.join('utils','ufo.png'))
+    pygame.display.set_icon(icon)
+    #-----------------------------------
+
+    # Load images
+    ## LOAD ENEMY IMAGES
+    RED_SPACE_SHIP = pygame.image.load(os.path.join("utils","enemy_1.png"))
+    GREEN_SPACE_SHIP = pygame.image.load(os.path.join("utils","enemy_2.png"))
+    BLUE_SPACE_SHIP = pygame.image.load(os.path.join("utils","enemy_3.png"))
+    ## LOAD PLAYER SHIP
+    PLAYER_SHIP = pygame.image.load(os.path.join("utils","player.png"))
+    ## lASER ENEMY
+    RED_LASER = pygame.image.load(os.path.join('utils','pixel_laser_red.png'))
+    GREEN_LASER = pygame.image.load(os.path.join('utils','pixel_laser_green.png'))
+    BLUE_LASER = pygame.image.load(os.path.join('utils','pixel_laser_blue.png'))
+    ## PLAYER laser
+    PLAYER_LASER = pygame.image.load(os.path.join('utils','bullet.png'))
+    ## BACKGROUND IMAGES
+    BG = pygame.transform.scale(pygame.image.load(os.path.join('utils','background.png')), (WIDTH,HEIGHT))
+    #-----------------END LOAD IMAGES
+   ``` 
+
+2. Definimos una función `main()` que contendrá la lógica del juego y que llamaremos al final del script.
+   ```python
+    def main():
+        run = True
+        FPS = 60
+
+        level = 1
+        lives= 5
+        main_font = pygame.font.SysFont('comcsans',50)
+        
+        clock = pygame.time.Clock()
+        
+        def redraw_window():
+            SCREEN.blit(BG,(0,0))
+            pygame.display.update()
+        
+        while run:
+            clock.tick(FPS) # para q se actualiza a la vez q el refresco de panatalla
+            redraw_window()
+            
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
+
+    main()
+   ```  
+
+## Ventana de juego
+
+## Fijar tamaño, titulo, icono
+
+```python
+import pygame
+import os
+
+# create The screen
+WIDTH,HEIGHT = 750,750
+SCREEN = pygame.display.set_mode((WIDTH,HEIGHT))
+## title and icon on windows game
+pygame.display.set_caption('Space Invaders')
+icon = pygame.image.load(os.path.join('utils','ufo.png'))
+pygame.display.set_icon(icon)
+#-----------------------------------
+```
+## Establecemos el fondo de la ventana de juego
+
+Creamos una función que llamaremos repetidamente para mostar la imagen de fondo.
+
+- blit()
+  llamamos al método `blit()`de la pantalla para dibujar la imagen de fondo (BG) a cogiendo como coordenadas (X=0,y=0) como la imagen puede q no coincida en tamaño la transformamos
+- display.update()
+  Hace q la imagen se muestre en la ventana  
+
+```python
+BG = pygame.transform.scale(pygame.image.load(os.path.join('utils','background.png')), (WIDTH,HEIGHT))
+
+def redraw_window():
+    SCREEN.blit(BG,(0,0))
+    pygame.display.update()
+```
+
+## mostramos Info
+
+Para ello necesitamos habilitar fuentes , lo hacemos justo después de los imports.
+
+```python
+pygame.font.init()
+```
+Generamos un reloj, para contabilizar el tiempo
+
+```python
+clock = pygame.time.Clock()
+```
+
+
+
+
 
