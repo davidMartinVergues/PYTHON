@@ -163,6 +163,7 @@
     - [creando un paquete](#creando-un-paquete)
   - [**name**](#name)
 - [Decorators](#decorators)
+  - [Que es un decorator](#que-es-un-decorator)
   - [First class citizens](#first-class-citizens)
   - [HOC - Higher Order Function](#hoc---higher-order-function)
   - [Decorators syntaxi](#decorators-syntaxi)
@@ -172,7 +173,11 @@
 - [Unit testing](#unit-testing)
   - [Pylint](#pylint)
   - [unittest](#unittest)
-  - [!not found](#-1)
+- [Generators](#generators)
+  - [Iteradores](#iteradores)
+  - [Generadores](#generadores)
+    - [next()](#next)
+    - [iter()](#iter)
 - [pygame](#pygame)
   - [Estructura del archivo](#estructura-del-archivo)
   - [Ventana de juego](#ventana-de-juego)
@@ -249,6 +254,18 @@ Bajaremos un paqueta q se llama anaconda compuesto por python y una serie de lib
    ![not found](img/img-5.png)
 
 Y nos tiene q dar la misma respuesta.
+
+Para actualizar anaconda 
+
+```python 
+conda deactivate 
+```
+```python 
+conda update anaconda
+```
+```python 
+conda update anaconda-navigator
+```
 
 ## Instalamos el tema para Jupyter
 
@@ -2401,7 +2418,7 @@ Lo que no podemos hacer es colocar un nuevo elemento después del kwargs pq pyth
 
 # Scoope
 
-cuando creamos una variable esta se guarda en lo q llamamos `namespace`. Cada una de estas variables tiene un scope. El scope hace referencia a la visibilidad de ese variable por otras partes de tu código, desde donde es accesible cada variable/función de nuestro programa.  
+cuando creamos una variable esta se guarda en lo q llamamos `namespace`. Cada una de estas variables tiene un scope. El scope hace referencia a la visibilidad de ese variable a otras partes de tu código, desde donde es accesible cada variable/función de nuestro programa.  
 Básicamente en py tenemos un scoope global, el propio script y un scoope local que es el q se genera cuando creamos una función.
 
 ```python
@@ -2979,13 +2996,14 @@ Hay una convención para escribir estos métodos mágicos, van entre `__magicMet
 
 ### String representation **str()**
 
-Este se usa para mostrar en pantalla nuestro objeto, es la representación en string de nuestro objeto. Para ello debemos sobreescribir el método `__str()__` de nuestra clase. Si no lo sobreescribimos nos devuele el id de la memoria dnd se almacena el onjeto.
+Este se usa para mostrar en pantalla nuestro objeto, es la representación en string de nuestro objeto. Para ello debemos sobreescribir el método `__str()__` de nuestra clase. Si no lo sobreescribimos nos devuele el id de la memoria dnd se almacena el objeto.
 Estos nos permite usar estos métodos de la siguiente manera
 
 ```python
 print(my_dog.__str__()) # <__main__.Dog object at 0x7fc7e32e78d0>
 print(str(my_dog)) # <__main__.Dog object at 0x7fc7e32e78d0>
 ```
+Solo puedo llamar a la función con la sintaxi `str( obj )` si es una built-in function
 
 ### tamaño del objeto **len**
 
@@ -3414,9 +3432,17 @@ if __name__ == '__main__':
 
 # Decorators
 
+## Que es un decorator
+
+Una vez explicado esto con los `decorators` nos permiten potenciar las funciones, dotarlas de funciones extra.
+Los dos conceptos básicos para entender el funcionamiento de un decorator son:
+- Las funciones pueden devolver otras funciones (devuelven la referencia a la función almacenada en memoria)
+- Podemos pasar una función como argumento de otra función.
+
+Los decorators son muy utilizados en framworks como django o flask.
 ## First class citizens
 
-Se usan junto con funciones. En python las funciones son lo que llamas `first class citizens` esto es que actuan como variables, tienen un nombre que hace de apuntado a una localización de memoria, incluso se pueden pasar como argumento de otra función.
+Se usan junto con funciones. En python las funciones son lo que llamas `first class citizens` esto es que actuan como variables, tienen un nombre que hace de apuntador a una localización de memoria, incluso se pueden pasar como argumento de otra función.
 
 Si yo tengo
 
@@ -3437,11 +3463,10 @@ del hello
 
 Python elimina la referencia hello pero la función sigue estando en el espacio de memoria pq hay otra referencia (greet) que está apuntando.
 
-Una vez explicado esto con los `decorators` nos permiten potenciar las funciones, dotarlas de funciones extra.
 
 ## HOC - Higher Order Function
 
-Las funcoines de alto grado son aquellas que acceptan otras funciones como argumento. Por ejemplo `map()` sería una HOC
+Las funciones de alto grado son aquellas que acceptan otras funciones como argumento. Por ejemplo `map()` sería una HOC
 
 ## Decorators syntaxi
 
@@ -3528,11 +3553,11 @@ def performance(fn):
     return wrapper
 
 @performance
-def long_time():
-    for x in range(100000000):
+def long_time(num):
+    for x in range(num):
         x*5
 
-long_time()
+long_time(100000000)
 ```
 
 # Errores y gestión de excepciones
@@ -3693,9 +3718,6 @@ dividir(5,0)
 division by zero
 '''
 ```
-
-
-
 ```python
 
 try:
@@ -3862,6 +3884,132 @@ def cap_text(text):
  ```
 
  ![not found](img/img-j-29.png)
+
+
+# Generators
+
+El concepto de `generadores` está muy relacionado con los `iteradores`.
+
+## Iteradores
+
+En Python existen diferentes estructuras de datos que pueden ser recorridas secuencialmente mediante el uso de bucles. Estos objetos llamados iteradores, básicamente, son secuencias, contenedores y ficheros de texto.
+
+La declaración for/in se utiliza con frecuencia para recorrer los elementos de distintos tipos de iteradores: los caracteres de una cadena, los elementos de una lista o una tupla, las claves y/o valores de un diccionario e incluso las líneas de un archivo. Todos ellos son **iterables** porque mediante el método `iter()` nos devuelve un iterador y todos los iteradores tienen el método `next()`.
+
+La función iter() se suele emplear para mostrar cómo funciona en realidad un bucle implementado con for/in. Cuand empieza el bucle éste llama a la función **iter()** sobre el objeto iterable (pej tupla) y retorna el objeto iterador. Una vez iniciado el bucle, obre el iterador se llama al método __next__(), éste permite avanzar, en cada ciclo, al siguiente elemento hasta alcanzar el último. Cuando el puntero se encuentra en el último elemento si se ejecuta nuevamente el método __next__() el programa produce la excepción StopIteration, esta excepción es gestionada por el loop for y lo detiene. 
+
+```python 
+lista = [10, 100, 1000, 10000]
+iterador = iter(lista)
+try:
+  while True:
+      print(iterador.__next__())        
+
+except StopIteration:
+  print("Se ha alcanzado el final de la lista")
+```
+
+## Generadores
+
+Un generador es una función especial que produce secuencias completas de resultados en lugar de ofrecer un único valor. En apariencia es como una función típica pero en lugar de devolver los valores con return lo hace con la declaración **yield**. 
+
+Una característica importante de los generadores es que tanto las variables locales como el punto de inicio de la ejecución se guardan automáticamente entre las llamadas sucesivas que se hagan al generador, es decir, a diferencia de una función común, una nueva llamada a un generador no inicia la ejecución al principio de la función, sino que la reanuda inmediatamente después del punto donde se encuentre la última declaración yield (que es donde terminó la función en la última llamada). 
+
+```python 
+# Declara generador
+
+def gen_basico():
+    yield "uno"   
+    yield "dos"
+    yield "tres"
+   
+for valor in gen_basico():
+    print(valor)  # uno, dos, tres
+
+```
+otro eemplo:
+
+```python 
+def gen_diez_numeros(inicio):
+  fin = inicio + 10    
+  while inicio < fin:
+      inicio+=1
+      yield inicio, fin
+
+for inicio, fin in gen_diez_numeros(23):
+  print(inicio, fin) 
+'''
+24 33 - 25 33 - 26 33 - 27 33 - 28 33 - 29 33 - 30 33 - 31 33 - 32 33 - 33 33 - 
+```
+`range()` es un ejemplo de generador.
+
+Los generadores pueden ser casteados a listas ``` list(range(10))```.
+
+Pero los generadores son más eficientes que guardar una lista.
+
+```python 
+def gen_fib(n):
+  a= 1
+  b= 1
+  for i in range(n):
+      yield a
+      a,b = b,b+a 
+```
+```python 
+for num in gen_fib(10):
+    print(num) 
+```
+Lo importante para comprender los generadores es la función `iter()` y `next()`
+
+### next()
+Podemos creat un generador simple
+
+```python 
+def simple_gen(): 
+  for i in range(3):
+    yield i
+```
+lo asigamos a una variable, para guardar el genrador tenemos que ejecutarlo de ahí que pongamos los '()'
+
+```python 
+g = simple_gen() 
+```
+llamamos al método `next()`
+
+```python 
+print(next(g)) #0
+print(next(g)) #1
+print(next(g)) #2
+```
+Si volvemos a llamar a next() nos saltará un error, porque ya no tiene más elementos para servir. Cuando ejecutamos el generador en un for no salta este error porque lo gestiona el propio for y detiene el loop.
+
+```python 
+print(next(g))
+
+
+---------------------------------------------------------------------------
+StopIteration                             Traceback (most recent call last)
+<ipython-input-14-1dfb29d6357e> in <module>
+----> 1 print(next(g))
+
+StopIteration: 
+
+```
+### iter()
+
+La función iter nos permite tranformar un objeto en un ieterador.
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 ---
 
