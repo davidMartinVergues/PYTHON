@@ -209,6 +209,19 @@ Bajaremos un paqueta q se llama anaconda compuesto por python y una serie de lib
    ```
      bash Anaconda3-5.2.0-Linux-x86_64.sh
    ```
+   Durante la instalación nos va a preguntar:
+   
+   The installer prompts “Do you wish the installer to initialize Anaconda3 by running conda init?” 
+   
+   Se recomienda poner [yes]
+   
+   si le damos a no hay q hacer los siguiente para iniciar anaconda:
+   ```
+   source /home/david/anaconda3/bin/activate
+   
+   conda init
+
+   ```
 
    ```
      source .bashrc
