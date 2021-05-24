@@ -279,16 +279,18 @@ Bajaremos un paqueta q se llama anaconda compuesto por python y una serie de lib
    ```
      bash Anaconda3-5.2.0-Linux-x86_64.sh
    ```
+
    Durante la instalación nos va a preguntar:
-   
-   The installer prompts “Do you wish the installer to initialize Anaconda3 by running conda init?” 
-   
+
+   The installer prompts “Do you wish the installer to initialize Anaconda3 by running conda init?”
+
    Se recomienda poner [yes]
-   
+
    si le damos a no hay q hacer los siguiente para iniciar anaconda:
+
    ```
    source /home/david/anaconda3/bin/activate
-   
+
    conda init
 
    ```
@@ -323,6 +325,12 @@ Bajaremos un paqueta q se llama anaconda compuesto por python y una serie de lib
 
    ```
     conda activate
+    
+   ```
+   Una vez instalado anaconda cada vez que abramos una nueva terminal se activará por defecto el entorno viertual conda, para prevenir esto podemos usar el siguiente comando 
+   
+   ```
+   conda config --set auto_activate_base false
    ```
 
 1. Saber versión y donde está instalado python  
@@ -338,10 +346,10 @@ Bajaremos un paqueta q se llama anaconda compuesto por python y una serie de lib
 
 Y nos tiene q dar la misma respuesta.
 
-Para actualizar anaconda 
+Para actualizar anaconda
 
 ```python
-conda deactivate 
+conda deactivate
 ```
 
 ```python
@@ -373,9 +381,9 @@ https://medium.com/@rbmsingh/making-jupyter-dark-mode-great-5adaedd814db
      pip install --upgrade jupyterthemes
    ```
 
-4. Seleccionamos monokai  
+3. Seleccionamos monokai  
    ![not fond](img/img-6.png)
-5. Modificamos el tema
+4. Modificamos el tema
    Con esa modificación los ejes de los gráficos se ven mal para rectificarlo:
    Make a file named 00_startup.py in ~/.ipython/profile_default/startup and stick the following snippet into it, and restart Jupyter, details are here
    import os
@@ -388,10 +396,11 @@ https://medium.com/@rbmsingh/making-jupyter-dark-mode-great-5adaedd814db
 
 # Introducción a Python
 
-## Interpretes y virtual environment 
+## Interpretes y virtual environment
 
 ### Interpretes
-Podemos tener instaldos diferentes interpretes de python (versiones prython2, python3.x..) cada uno de estos interpretes se instala en distintos lugares de nuestro SO 
+
+Podemos tener instaldos diferentes interpretes de python (versiones prython2, python3.x..) cada uno de estos interpretes se instala en distintos lugares de nuestro SO
 
 ![not found](img/img-j-37.png)
 
@@ -404,6 +413,7 @@ Si en terminal tecleamos:
 ```python
 which python3 # /home/david/anaconda3/bin/python3
 ```
+
 Nos dará dónde está instalada la versión de python que usamos por default
 
 En los settings de vscode podemos añadir esta info para cualquier archivo .py use este interprete.
@@ -416,78 +426,99 @@ Podemos crear un entorno virtual para cada proyecto de python. Un entorno virtua
 
 Imagine un escenario en el que está trabajando en dos proyectos web Python y uno de ellos usa Django 1.9 y el otro usa Django 1.10. En tales situaciones, el entorno virtual puede ser realmente útil para mantener las dependencias de ambos proyectos separadas y tener diferentes versiones de las librerias xa cada proyecto.
 
+Realmente cuando creamos un entorno virtual instalamos un interprete de python en una localización concreta y se reescribe el PATH haciendo que cuando usemos el comando python, éste empiece a buscar el intérprete de por la carpete de venv del proyecto. Para comprobar esto podemos hacer `echo $PATH `
+
+Hay que tener en cuenta que cuando creamos un venv este usa la versión del interprete por defecto que tenemos instalado globalmente. Si tenemos varias versiones de python3.4 y python3.6, podemos querer utilizar una u otra según el proyecto para escoger podemos usar el programa `pyenv`.
+
+```
+$ brew update
+$ brew install pyenv
+```
+
+https://www.freecodecamp.org/news/manage-multiple-python-versions-and-virtual-environments-venv-pyenv-pyvenv-a29fb00c296f/
+
+![not found](img/img-j-46.png)
+
 #### Crear un entorno virtual
 
 Para poder crear un entorno virtual debemos instalar en el sistema python3-venv
 
 ```
-sudo apt-get install python3-venv 
+sudo apt-get install python3-venv
 ```
 
 1. Para poder usar virtual environment debemos instalar el paquete `virtualenv`
 
 ```
-pip install virtualenv 
+pip install virtualenv
 ```
-Para saber qué paquetes tenemos instalados de manera global, primero debemos salir del entorno virtual (por ejemplo `conda deactivate`) y teclear: 
+
+Para saber qué paquetes tenemos instalados de manera global, primero debemos salir del entorno virtual (por ejemplo `conda deactivate`) y teclear:
 
 ```
 pip3 list
 ```
+
 o
+
 ```
 conda list
 ```
+
 Si dentro de un entorno virtual damos esa orden nos listará los paquetes asociados a ese entorno.
 
 Anaconda tiene su propio gestor de paquetes llamado conda, pip es otro gestor de paquetes.
 
-2. nos dirigimos a la raíz de nuestro proyecto 
- 
+2. nos dirigimos a la raíz de nuestro proyecto
+
 ```
 python3 -m venv nombre_del_proyecto_venv
 ```
+
 este comando llama al mòdulo (-m) con nombre (venv) y después pasa un nombre para el entorno.
 
 esto crea un directorio con el nombre especificado.
 
-> Por convención primero se crea el directorio de nuestro proyecto y dentro de éste se genera el entorno virtual 
+> Por convención primero se crea el directorio de nuestro proyecto y dentro de éste se genera el entorno virtual
 
 ```
-$ mkdir New_project 
+$ mkdir New_project
 
 $ python3 -m venv New_project/venv
 ```
+
 y nos quedaría así:
 
 ![not found](img/img-j-43.png)
 
 El resto de archivos de nuestro proyecto **no los pondremos** nunca dentro de nuestro directorio `venv` Porque el entorno virtual es algo que podemos eliminar y volver a crear.
 
-
 ![not found](img/img-j-40.png)
 
 Una cosa importante a tener en cuenta es que al crear el entorno virtual éste usará el interprete en la versión de python que estemos usando en ese momento, así que si queremos usar diferentes versiones del interprete de python debemos asegurarnos de cambiar antes de crear el entorno virtual.
+
 ```
 (venv) david@david-neon:~/Documentos$ which python
 /home/david/Documentos/New_project/venv/bin/python
 
 (venv) david@david-neon:~/Documentos$ python --version
 Python 3.8.5
-``` 
+```
 
 Una vez creado nuestro entorno virtual e instalado nuestras dependencias, podemos querer reproducir el mismo proyecto en otro entorno virtual pero conservando todas esas dependencias para q el proyecto funcione bien para ello usaremos el comando
+
 ```
-pip freeze  
+pip freeze
 ```
+
 que genera un output susceptible de ser tranformado en un archivo de requerimientos, podemos crear un archivo tipo txt con esa info
 
 ![not found](img/img-j-41.png)
 
-para ello: 
+para ello:
 
 ```
-pip freeze > requeriments.txt 
+pip freeze > requeriments.txt
 ```
 
 Una vez tenemos este archivo podemos crear un nuevo entorno virtual en otro lugar y cargar esas dependencias
@@ -496,37 +527,38 @@ Una vez tenemos este archivo podemos crear un nuevo entorno virtual en otro luga
 pip install -r requeriments.txt
 ```
 
-1. Para activar ese entorno 
+1. Para activar ese entorno
 
 ```
-source prueba_python/bin/activate 
+source prueba_python/bin/activate
 ```
+
 4. Para salir de este entorno hacemos
 
 ```
-$ deactivate 
+$ deactivate
 ```
 
 5. si hacemos ahora un pip list veremos que solo tenemos instalado pip y setuptools
 
 ![not found](img/img-j-41.png)
 
-
 6. Si queremos eliminar un entorno virtual solo es necesario borrar la carpeta del entorno
-
 
 Otra cosa importante es que podemos crear un entorno virtual con acceso a las librerias instaladas globalmente, auqnue una alternativa es hacer un requeriments.txt con las librerias globales q nos interesan y cargarlo en el proyecto.
 
 Para generar un entorno virtual con acceso a librerias globales hacemos:
 
 ```
-python3 -m venv proyecto/venv --system-site-packages 
+python3 -m venv proyecto/venv --system-site-packages
 ```
+
 Ahora bien todo lo que instalemos en este entorno virtual no afectará al global. Para listar los paquetes locales:
 
 ```
-pip list --local 
+pip list --local
 ```
+
 y tb podemos hacer un freeze local
 
 ```
@@ -535,23 +567,20 @@ pip freeze --local > requeriments.txt
 
 Cuando se crea un entorno virtual con venv se crea en la raíz del entorno un archivo `pyvenv..cfg` con la configuración del entorno.
 
-
 ![not found](img/img-j-44.png)
-
-
 
 ### pip vs pip3
 
-De manera global, en mi equipo tengo instalado python3 que funciona con pip3, si tuviera instalado python2 debería usar pip2. 
+De manera global, en mi equipo tengo instalado python3 que funciona con pip3, si tuviera instalado python2 debería usar pip2.
 Ahora bien en el entorno virtual de anaconda puedo usar pip, a secas sin especificar versión, eso es pq pip en anaconda se adapta al contexto si estamos en un interprete de python3 pip hará referencia a python3, usará pip3.
 
-Por ese motivo pip fuera del entorno  virtual anaconda (base) NO funciona y debo usar pip3
+Por ese motivo pip fuera del entorno virtual anaconda (base) NO funciona y debo usar pip3
 
 ```
-david@david-neon:~/Documentos/prueba_python/prueba_python$ 
+david@david-neon:~/Documentos/prueba_python/prueba_python$
 pip3 freeze | grep six
 
-six==1.14.0 
+six==1.14.0
 ```
 
 ### Incompatibilidades pip y conda
@@ -560,7 +589,7 @@ Siempre que sea posible deberemos utilizar comandos de conda cuando estemos en u
 
 ### venv vs virtualenv
 
-Ambas herramientas se usan para crear entornos virtuales, venv está incluido en python3 mientras virtualenv se instala con pip3. Hay q decir que venv es un subset de virtualenv por lo que está mś limitado. 
+Ambas herramientas se usan para crear entornos virtuales, venv está incluido en python3 mientras virtualenv se instala con pip3. Hay q decir que venv es un subset de virtualenv por lo que está mś limitado.
 
 ### virtualenv
 
@@ -569,17 +598,21 @@ Si vamos a usar virtualenv lo debemos instalar de manera global
 ```python
 pip3 install virtualenv
 ```
-Para crear un entorno, lo más sencillo 
+
+Para crear un entorno, lo más sencillo
 
 ```
 virtualenv my-env
 ```
+
 podemos añadir versión de python deseada ruta del entorno y que pueda acceder a paquetes globales
 
 ```
-virtualenv  --python=/usr/bin/python2.7 my-directory/new-venv5 --system-site-packages 
+virtualenv  --python=/usr/bin/python2.7 my-directory/new-venv5 --system-site-packages
 ```
+
 A partir de aquí igual que antes.
+
 #### conda
 
 Si usmaos conda, hay que tener en cuenta que todos los entornos virtuales se guardan en el directorio por defecto de anaconda
@@ -591,84 +624,111 @@ Si usmaos conda, hay que tener en cuenta que todos los entornos virtuales se gua
 conda create --name myenvironment
 ```
 
-especificando versoin de python 
+especificando versoin de python
+
 ```
 conda create --name myenvironment python=3.7
 ```
-
 
 1.1 crear entornos from file requeriments.txt
 
 ```
 conda create --name myenvironment --file requirements.txt
 ```
-1.2 Especificando una ruta para el entorno
-```
-conda create --prefix /some/path/to/env 
 
-conda create -p /some/path/to/env 
+1.2 Especificando una ruta para el entorno
+
 ```
+conda create --prefix /some/path/to/env
+
+conda create -p /some/path/to/env
+```
+
 lo que crea dos problemas:
 
-el promp se hace demasiado largo 
+el promp se hace demasiado largo
 
 ![not found](img/img-j-45.png)
 
-para solucionarlo 
+para solucionarlo
+
 ```
 conda config --set env_prompt '({name}) '
 ```
+
 Ese comando modifica o crea un archivo de configuración de conda en nuestro directorio de usuario llamado .condarc
 
 para instalar paquetes sin el entorno activado hay q especificar la ruta en nugar del nombre usando --prefix
 
-En una situación normal, entorno creado en el directorio x defecto de anaconda (/home/david/anaconda3/envs/) cno el flag --name es suficiente 
-```python
-conda install --name conda-env pandas 
-```
-si está en otro directorio 
+En una situación normal, entorno creado en el directorio x defecto de anaconda (/home/david/anaconda3/envs/) cno el flag --name es suficiente
 
 ```python
-conda install --prefix /home/david/Documentos/New-project-7/venv pandas 
+conda install --name conda-env pandas
 ```
-2. activar/desactivar  el entorno 
+
+si está en otro directorio
+
+```python
+conda install --prefix /home/david/Documentos/New-project-7/venv pandas
 ```
-conda activate myenvironment 
+
+2. activar/desactivar el entorno
+
+```
+conda activate myenvironment
 conda deactivate
 ```
-3. Listar todos los entornos 
-```python
-conda info -e 
+
+Si está en un path fuera del por defecto de conda
+
 ```
-4. Freeze the current environment into requirements.txt: 
+conda activate ./venv-django-project
+```
+
+3. Listar todos los entornos
+
+```python
+conda info -e
+```
+
+4. Freeze the current environment into requirements.txt:
+
 ```python
 conda list --export > requirements.txt
 ```
-5. Freeze the current environment into environment.yml: 
+
+5. Freeze the current environment into environment.yml:
+
 ```python
 conda env export > environment.yml
 ```
-6. To clean unnecessary cached files (which grow quickly over time): 
+
+6. To clean unnecessary cached files (which grow quickly over time):
+
 ```python
-conda clean 
+conda clean
 ```
-7. Para eliminar entornos de anaconda 
+
+7. Para eliminar entornos de anaconda
+
 ```python
 conda env remove --name my-env2
-``` 
-o 
+```
+
+o
+
 ```python
 conda env remove --prefix /home/david/Documentos/New-project-7/venv
-``` 
+```
+
 8. si quisierams cambiar el nombre del entorno
 
 ```python
 conda create --name <new_name> --clone <old_name>
-conda remove --name <old_name> --all 
+conda remove --name <old_name> --all
 ```
 
 ## Usos de python y librerías
-
 
 ![NOT FOUND](img/img-j-1.png)
 
@@ -951,7 +1011,7 @@ print(string.strip()) # 'xoxo love xoxo'
 # los siguientes caracteres serán eliminados
 #  <whitespace>,x,o,e
 # empieza por espacio en blanco? sí elimina el whitespace
-# temina en x | o | e ? pues va eliminando por detrás hasta q no termine en ningna de las combinaciones de xoe 
+# temina en x | o | e ? pues va eliminando por detrás hasta q no termine en ningna de las combinaciones de xoe
 print(string.strip(' xoe'))  #lov
 
 # el argumento no contiene espacios en blanco
@@ -1373,7 +1433,8 @@ student_tuples.sort(key=lambda student: student[2])   # sort by age
 
     l # ['b','n']
   ```
-Todo lo visto hasta aquí pemite crear una lista de una manera sencilla pero si sustituimos los `[]` por `()` en lugar de una lista obtenemos un `generator`.
+
+  Todo lo visto hasta aquí pemite crear una lista de una manera sencilla pero si sustituimos los `[]` por `()` en lugar de una lista obtenemos un `generator`.
 
 - Nested loops
 
@@ -1385,7 +1446,6 @@ Todo lo visto hasta aquí pemite crear una lista de una manera sencilla pero si 
             l.append(x*y)
     l # [2, 20, 200, 4, 40, 400, 6, 60, 600]
   ```
-
 
 #### **Count()**
 
@@ -1849,7 +1909,7 @@ my_set = {1,2,3,4}
 Para crear un set vacío:
 
 ```python
-my_empty_set = set() 
+my_empty_set = set()
 ```
 
 ```python
@@ -2087,7 +2147,7 @@ FOUR ON FOURTH
   with open('my_new_file.txt',mode='a') as f:
       f.write('FOUR ON FOURTH')
   ```
-si no existe lo crea!
+  si no existe lo crea!
 
 ### **w (write) mode**
 
@@ -3395,6 +3455,7 @@ Estos nos permite usar estos métodos de la siguiente manera
 print(my_dog.__str__()) # <__main__.Dog object at 0x7fc7e32e78d0>
 print(str(my_dog)) # <__main__.Dog object at 0x7fc7e32e78d0>
 ```
+
 Solo puedo llamar a la función con la sintaxi `str( obj )` si es una built-in function
 
 ### tamaño del objeto **len**
@@ -3482,7 +3543,7 @@ print(my_list) # [1,2,3]
 
 source: https://stackabuse.com/introduction-to-pythons-collections-module/
 
-Python está construido con modulos y podemos utilizarlos para distintas funciones. 
+Python está construido con modulos y podemos utilizarlos para distintas funciones.
 
 En este tema vermos los siguintes modulos:
 
@@ -3578,6 +3639,7 @@ print((count.elements())) # <itertools.chain object at 0x7f3ea4a7ab50>
 print(list(count.elements())) # count = ['david', 'david', 'martin', 'martin']
 
 ```
+
 ##### values()
 
 ```python
@@ -3585,6 +3647,7 @@ count = Counter({'david':2,'martin':2})
 
 print(count.values()) # dict_values([2, 2])
 ```
+
 ##### sum()
 
 ```python
@@ -3593,27 +3656,30 @@ count = Counter({'david':2,'martin':2})
 print(sum(count.values())) # dict_values([2, 2])
 
 ```
+
 ##### clear()
+
 ```python
 count = Counter({'david':2,'martin':2})
 
 count # Counter({'david': 2, 'martin': 2})
 
-count.clear() 
+count.clear()
 
 count # Counter()
 ```
 
 ##### list()
 
-Genera una lista con los valores, sin repeticiones 
+Genera una lista con los valores, sin repeticiones
 
 ```python
 count = Counter({'david':2,'martin':2})
 
 list(count) # ['david', 'martin']
- 
+
 ```
+
 ##### most_common()
 
 Permite ordenar el dictionary resultante, poniendo primero la clave con mayor número de repeticiones, podemos pasarle un valor para q nos dé el más común o los dos más comunes y así.
@@ -3632,13 +3698,13 @@ count.most_common(1) # [('a', 5)]
 
 ##### list()
 
-Genera una lista con los valores, sin repeticiones 
+Genera una lista con los valores, sin repeticiones
 
 ```python
 count = Counter({'david':2,'martin':2})
 
 list(count) # ['david', 'martin']
- 
+
 ```
 
 ##### set()
@@ -3652,8 +3718,9 @@ letters = 'aaabbbbbcccccddd'
 c = Counter(letters)
 
 set(c) # {'a', 'b', 'c', 'd'}
- 
+
 ```
+
 ##### dict()
 
 Genera un dicctionary ordinario
@@ -3665,7 +3732,7 @@ letters = 'aaabbbbbcccccddd'
 c = Counter(letters)
 
 set(c) # {'a': 3, 'b': 5, 'c': 5, 'd': 3}
- 
+
 ```
 
 ##### .items()
@@ -3678,15 +3745,15 @@ letters = 'aaabbbbbcccccddd'
 
 c = Counter(letters)
 
-c_items = c.items() 
+c_items = c.items()
 
 print(type(c_items)) # <class 'dict_items'>
 
 for x in c_items:
     print(x) # ('a', 3)('b', 5)('c', 5)('d', 3)
-    
+
 list(c_items) # [('a', 3), ('b', 5), ('c', 5), ('d', 3)]
- 
+
 ```
 
 ##### generar un Counter mediante una list de tuplas
@@ -3696,7 +3763,7 @@ Counter(dict([('a',2),('b',5)]))
 # Counter({'a': 2, 'b': 5})
 ```
 
-##### c.most_common()[:-n-1:-1] 
+##### c.most_common()[:-n-1:-1]
 
 Obtener los n valores menos comunes
 
@@ -3735,13 +3802,14 @@ print(count)
 print(list(count.elements()))
 # ['a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'c', 'c', 'c']
 ```
+
 ### namedtuple
 
-En una tupla normal cada elemento está indexado por un valor numérico 
+En una tupla normal cada elemento está indexado por un valor numérico
 
 ```python
 t = (12,13,14)
-t[0] # 12 
+t[0] # 12
 ```
 
 Cuando estas tuplas almacenan gran cantidad de datos puede ser difícil recordar dónde se encuentra el dato q buscamos para ello namedtuple permite asignarle un nombre a la posición del dato en la tupla sin perder el índice numérico.
@@ -3762,8 +3830,9 @@ type(david) # __main__.Creador_de_Persona
 david # Person(nombre='david', edad='36', profesion='bioInfo')
 
 david[0] # 'david'
-david.nombre # 'david 
+david.nombre # 'david
 ```
+
 ### defaultdict
 
 El defaultdict funciona exactamente como un diccionario de Python, excepto que no arroja KeyError cuando intenta acceder a una clave inexistente.
@@ -3845,10 +3914,11 @@ Estos modulos nos permitem navegar entre archivos y directorios y realizar ciert
 Tiene una serie de métodos importantes como:
 
 ### os.getcwd (os)
+
 Nos proporciona el current working directory
 
 ```python
-import os 
+import os
 
 os.getcwd() # '/home/david/Programacion/PYTHON/Code/10.Advanced_modules'
 ```
@@ -3861,10 +3931,11 @@ Lista todo el contenido del directorio donde me encuentro
 
 os.listdir() # ['practice.txt', 'os_module.ipynb', 'collections.ipynb']
 ```
+
 Podemos pasarle otra ruta y nos mostrará todo su contenido
 
 ```python
-os.listdir('/home/david/Programacion') 
+os.listdir('/home/david/Programacion')
 
 '''
 ['WEB-DEVELOPMENT',
@@ -3877,10 +3948,10 @@ os.listdir('/home/david/Programacion')
  'SQL']
 '''
 ```
-### os.unlink(path) 
+
+### os.unlink(path)
 
 Permite borrar un archivo
-
 
 ### os.rmdir(path)
 
@@ -3904,6 +3975,7 @@ shutil.move('/home/david/practice.txt', os.getcwd())
 send2trash.send2trash('practice.txt')
 
 ```
+
 ### os.walk()
 
 Realmente devuelve un generator que va sirviendo tuplas formadas por 3 elementos (dirpath, dirnames, filenames), es decir path del directorio por dnd empieza, directorios q contiene y archivos, y así para cada directorio que encuentra....generando un árbol del directorio ráiz.
@@ -3941,10 +4013,9 @@ for folder,subfolder,files in os.walk(os.getcwd()):
 '''
 ```
 
-
 ### shutil.move() (shutil)
-Para poder mover/borrar archivos debo usar el módulo  shutil (shell utility)
 
+Para poder mover/borrar archivos debo usar el módulo shutil (shell utility)
 
 ```python
 
@@ -3958,6 +4029,7 @@ shutil.move('practice.txt' ,'/home/david/') # '/home/david/practice.txt'
 ## datetime module
 
 ### time()
+
 Nos permite crear objetos con la hora pasando horas minutos segundos microsegundos timezone
 
 ```python
@@ -3969,8 +4041,11 @@ print(myTime) # 13:20:02.000020
 
 print(myTime.hour) # 13
 ```
+
 ### date()
+
 Nos permite crear objetos con la hora pasando año mes dia
+
 ```python
 myBirth = datetime.date(1984,4,11)
 
@@ -3990,7 +4065,8 @@ currentDay.ctime() # Thu Apr  1 00:00:00 2021
 ```
 
 ### datetime from datetime
-Si queremos combinar ambos, tener la fecha y la hora 
+
+Si queremos combinar ambos, tener la fecha y la hora
 
 ```python
 from datetime import datetime
@@ -3999,6 +4075,7 @@ day = datetime(1984,4,11,13,20,5,20)
 
 print(day) # 1984-04-11 13:20:05.000020
 ```
+
 ### .replace()
 
 Permite modificar datos de la fecha creada.
@@ -4008,6 +4085,7 @@ updatedDay = day.replace(year=2021)
 
 print(updatedDay) # 2021-04-11 13:20:05.000020
 ```
+
 ## Math and random
 
 ### floor() / ceil() / round()
@@ -4021,15 +4099,17 @@ math.floor(value) # 3
 
 math.ceil(value) # 4
 ```
+
 round no está dentro de math, lo q hace es redondear en el caso de los impares y q la parte decimal se .5 redondea hacia arriba si el número es par redondea hacia abajo. Este comortamiento es ara compensar.
 
 ```python
 round(2.5) # 2
-round(3.5) # 4 
+round(3.5) # 4
 ```
+
 math incluye funciones trigonométricas, logaritmos base 10 y logaritmos neperianos
 
-Tenemos una librería específica para trabajar con número `Numpy` 
+Tenemos una librería específica para trabajar con número `Numpy`
 
 ### random.randint(low,hight)
 
@@ -4038,14 +4118,17 @@ Permite generar un valor aleatorio entre dos enteros suministrados, incluyendo l
 ```python
 import random
 
-random.randint(0,10) 
+random.randint(0,10)
 ```
+
 ### random.choice(list)
+
 Escoge un número al hacer de una lista
 
 ```python
-random.choice(list(range(0,20))) 
+random.choice(list(range(0,20)))
 ```
+
 ### random.choices()
 
 Permite crear una lista cogiendo valores al azar de otra lista, se pueden repetir
@@ -4055,8 +4138,8 @@ mylist = list(range(0,20))
 
 random.choices(population = mylist, k= 10) # [11, 18, 18, 16, 2, 19, 15, 11, 10, 4]
 ```
-### random.sample()
 
+### random.sample()
 
 Permite crear una lista cogiendo valores al azar de otra lista, pero sin que se repitan
 
@@ -4065,21 +4148,25 @@ mylist = list(range(0,20))
 
 random.sample(population = mylist, k= 10) # [0, 9, 12, 10, 3, 16, 4, 19, 1, 18]
 ```
+
 ### random.shuffle()
+
 Afecta permanentemente a la lista y la desordena
 
 ```python
-random.shuffle(mylist) 
+random.shuffle(mylist)
 
 print(mylist)  # [4, 18, 7, 10, 14, 16, 5, 3, 13, 17, 12, 9, 8, 0, 15, 6, 1, 2, 19, 11]
 ```
+
 ## debugger
 
 Es un módulo incluido en python. Para utilizarlo hay que importarlo. Básicamente nos permite detener el script para saber en ese punto el valor de las distintas variables.
 
 ```python
-import pdb 
+import pdb
 ```
+
 Pordemos intercalar en el código, `pdb.set_trace()` para registrar los datos a partir de ahí. Entonces en ese punto puedo visulizar el valor de las distintas ariables.
 
 ```python
@@ -4089,16 +4176,18 @@ z = 1
 
 import pdb
 ```
+
 Ahora puedo hacer oeraciones y en medio hacer un set_trace() para saber el valor de éstas.
 
 ```python
 
-result_one = y+z 
+result_one = y+z
 
 pdb.set_trace()
 
-result_two = x+z 
+result_two = x+z
 ```
+
 se abre un cuadro de entrada de texto para indicar variables y otras operaciones. PAra salir teclear ' q' .
 
 ![not found](img/img-j-31.png)
@@ -4112,12 +4201,12 @@ Para utilizar regex en python tenemos la librería `re`.
 ### re.search()
 
 ```python
-text = "The agent's phone number is 408-555-1234. Call soon!" 
+text = "The agent's phone number is 408-555-1234. Call soon!"
 
 'phone' in text # True
 ```
-Utilizando la libreria `re` y `re.search()`
 
+Utilizando la libreria `re` y `re.search()`
 
 ```python
 import re
@@ -4128,6 +4217,7 @@ re.search(pattern,text) # <re.Match object; span=(12, 17), match='phone'>
 
 s = text[12:17] # phone
 ```
+
 El resultado de search() es un objeto especial tipo `re.Match` que nos da distinta información.
 
 ```python
@@ -4139,9 +4229,10 @@ match.start() # 12
 match.end() # 17
 match.group() # phone
 ```
+
 Con search() nos indica dónde se encuentra ese patrón, pero sólo la primera vez que aparece... si hay más no nos da la info.
 
-Si no se encuentra el patrón no devuelve nada. 
+Si no se encuentra el patrón no devuelve nada.
 
 ### re.findAll() / re.finditer()
 
@@ -4150,14 +4241,15 @@ Nos devuelve todas las coincidencias con el patrón, findAll() solo nos devuelve
 ```python
 match = re.findAll('phone',text)  # ['phone','phone']
 ```
-Si usamos finditer() nos devuelve tantos objetos re.Match como coincidencias haya 
+
+Si usamos finditer() nos devuelve tantos objetos re.Match como coincidencias haya
 
 ```python
 text = "The agent's phone number is 408-555-1234. Call soon! phone"
 
 for match in re.finditer('phone',text):
-  print(match) 
-  print(match.span()) 
+  print(match)
+  print(match.span())
 
 #<re.Match object; span=(12, 17), match='phone'>
 #<re.Match object; span=(53, 58), match='phone'>
@@ -4165,9 +4257,10 @@ for match in re.finditer('phone',text):
 # (12, 17)
 # (53, 58)
 ```
+
 ### Creación de patrones regex
 
-El `\w` alfanumérico tb sirve para undescore " _ "
+El `\w` alfanumérico tb sirve para undescore " \_ "
 
 ![not found](img/img-j-32.png)
 
@@ -4181,6 +4274,7 @@ print(phone,phone2)
 # <re.Match object; span=(19, 31), match='408-555-1234'>
 # <re.Match object; span=(19, 31), match='408-555-1234'>
 ```
+
 #### Quantifiers
 
 ![not found](img/img-j-33.png)
@@ -4190,9 +4284,10 @@ print(phone,phone2)
 Este método permite buscar distintos patrones y los compilamos en uno mismo
 
 ```python
-phone_pattern = re.compile(r'(\d{3})-(\d{3})-(\d{4})') 
+phone_pattern = re.compile(r'(\d{3})-(\d{3})-(\d{4})')
 ```
-el patrón resultante sería el mismo que antes `r'\d{3}-\d{3}-\d{4}'` pero al encerrar en paréntesis cada patrón me permitirá separar los elementos del string que coincida cn el patrón. 
+
+el patrón resultante sería el mismo que antes `r'\d{3}-\d{3}-\d{4}'` pero al encerrar en paréntesis cada patrón me permitirá separar los elementos del string que coincida cn el patrón.
 
 ```python
 
@@ -4211,18 +4306,20 @@ phone.group(1) # 408
 r = re.search(r'cat|dog', 'dog is here')
 r # <re.Match object; span=(0, 3), match='dog'>
 ```
+
 #### wildcard operator " . "
 
-Permite recuperar cualquier caracter. 
+Permite recuperar cualquier caracter.
 
 ```python
 re.findall(r'..at..', 'the cat in the hat went splat')
-# 
+#
 [' cat i', ' hat w']
 ```
+
 recupero el caracter anterior al patrón que busco, no recupera 'splat' porque no tiene caracteres por detrás.
 
-#### find start with ' ' ^ ' and end with ' $ ' 
+#### find start with ' ' ^ ' and end with ' $ '
 
 Recupera los caracteres con los q empeza un str
 
@@ -4230,6 +4327,7 @@ Recupera los caracteres con los q empeza un str
 re.findall(r'^\d', 'hello man')
 # []
 ```
+
 porq el str no empieza con un número
 
 ```python
@@ -4239,7 +4337,7 @@ re.findall(r'^\d', '2 men gone crazy')
 
 ```python
 re.findall(r'\d$', 'the number is 2')
-# ['2'] 
+# ['2']
 
 ```
 
@@ -4254,11 +4352,12 @@ phrase = 'there are 3 numbers 34 inside 5 this sentece'
 
 exclude_pattern = r'[^\d]'
 
-print(re.findall(exclude_pattern, phrase)) 
+print(re.findall(exclude_pattern, phrase))
 '''
 ['t', 'h', 'e', 'r', 'e', ' ', 'a', 'r', 'e', ' ', ' ', 'n', 'u', 'm', 'b', 'e', 'r', 's', ' ', ' ', 'i', 'n', 's', 'i', 'd', 'e', ' ', ' ', 't', 'h', 'i', 's', ' ', 's', 'e', 'n', 't', 'e', 'c', 'e']
 '''
 ```
+
 excluimos los números.
 
 ```python
@@ -4266,13 +4365,14 @@ exclude_pattern = r'[^\d]+'
 print(re.findall(exclude_pattern, phrase))
 # ['there are ', ' numbers ', ' inside ', ' this sentece']
 ```
-Podemos eliminar la puntuación (. ! ? whitespaces , ...)de una frase, nos devuelve una list con las palabras 
+
+Podemos eliminar la puntuación (. ! ? whitespaces , ...)de una frase, nos devuelve una list con las palabras
 
 ```python
 
 test_phrase = 'This is a string! But it has a puntuation. How can we remove it?'
 
-clean_phrase = re.findall(r'[^!.? ]+', test_phrase) 
+clean_phrase = re.findall(r'[^!.? ]+', test_phrase)
 # ['This', 'is', 'a', 'string', 'But', 'it', 'has', 'a', 'puntuation', 'How', 'can', 'we', 'remove', 'it']
 
 ' '.join(clean_phrase)
@@ -4290,6 +4390,7 @@ pattern= r'[\w]+-[\w]+'
 re.findall(pattern, phrase)
 # ['frase-test', 'grupoLetras-grupoLetras']
 ```
+
 #### palabras que empiezan por un patrón en una frase
 
 ```python
@@ -4313,7 +4414,6 @@ list(words) # ['panaderia']
 ```
 
 ## Timing tu código
-
 
 Para saber cuanto tarda en ejecutarse tu código.
 
@@ -4352,12 +4452,13 @@ result = end_time - start_time
 
 result # 0.15700054168701172 seconds
 ```
+
 ### Usando timeit library
 
 Definimos un statment un setup y un número de veces que se repetirá la función.
 
 ```python
-import timeit 
+import timeit
 
 statement= '''
 functionOne(100)
@@ -4410,8 +4511,6 @@ zip_obj.extractall('extracted')
 
 Normalmente lo que queremos es comprimir/descomprimir directorios enteros no archivos por separado. Para ello es mejor utilizar la libreria shell-utility `shutil` esta lo q hará si especificamos un directorio es coger todos los archivos/carpetas y las comprimirá.
 
-
-
 ```python
 import shutil
 
@@ -4425,7 +4524,6 @@ shutil.unpack_archive('Example2.zip', 'final_unzip2', 'zip')
 
 ```
 
-
 ## PIP
 
 Es un gestor de paquetes para python tipo npm para nodeJS. Se instala cuando instalamos anaconda.
@@ -4433,9 +4531,11 @@ Es un gestor de paquetes para python tipo npm para nodeJS. Se instala cuando ins
 ## PyPI (python package index)
 
 Si queremos usar pip fuera del entorno de `anaconda` tenemos que usarlo como:
+
 ```
 pip3 install nombrePaquete
 ```
+
 Esto es xq en linux el comando pip hace referencia a python2 y nosotros ya tenemos instalado python 3.
 
 Es un repositorio open-source de paquetes de terceros para python.
@@ -4596,10 +4696,12 @@ if __name__ == '__main__':
 
 Una vez explicado esto con los `decorators` nos permiten potenciar las funciones, dotarlas de funciones extra.
 Los dos conceptos básicos para entender el funcionamiento de un decorator son:
+
 - Las funciones pueden devolver otras funciones (devuelven la referencia a la función almacenada en memoria)
 - Podemos pasar una función como argumento de otra función.
 
 Los decorators son muy utilizados en framworks como django o flask.
+
 ## First class citizens
 
 Se usan junto con funciones. En python las funciones son lo que llamas `first class citizens` esto es que actuan como variables, tienen un nombre que hace de apuntador a una localización de memoria, incluso se pueden pasar como argumento de otra función.
@@ -4622,7 +4724,6 @@ del hello
 ```
 
 Python elimina la referencia hello pero la función sigue estando en el espacio de memoria pq hay otra referencia (greet) que está apuntando.
-
 
 ## HOC - Higher Order Function
 
@@ -4818,8 +4919,9 @@ hey you have an OS error
 i always run
 '''
 ```
-Si queremos saber de qué tipo es el error que nos está generando el código podemos utilizar la función 
-`{sys.exc_info()`. Es de tipo tupla y contiene `(type, value, traceback)` 
+
+Si queremos saber de qué tipo es el error que nos está generando el código podemos utilizar la función
+`{sys.exc_info()`. Es de tipo tupla y contiene `(type, value, traceback)`
 
 Para capturar cualquier error y poder imprimir una explicación podemos utilizar en el bloque except la clase base de la q heredan el resto de excepciones `BaseException` or `Exception` con la sugiente sintaxi `except BaseException as err:` en este caso err contiene una explcación del error.
 
@@ -4844,12 +4946,12 @@ something went wrong!
 
 sys.exc_info() es una => <class 'tuple'>
 (
-  <class 'TypeError'>, 
-  TypeError("unsupported operand type(s) for +: 'int' and 'str'"), 
+  <class 'TypeError'>,
+  TypeError("unsupported operand type(s) for +: 'int' and 'str'"),
   <traceback object at 0x7f089108fc30>
 )
 
-unsupported operand type(s) for +: 'int' and 'str' 
+unsupported operand type(s) for +: 'int' and 'str'
 
 el programa sigue..
 
@@ -4878,6 +4980,7 @@ dividir(5,0)
 division by zero
 '''
 ```
+
 ```python
 
 try:
@@ -4928,7 +5031,6 @@ raise Exception('hey cut it out')
 
 ![not found](img/img-j-30.png)
 
-
 # Unit testing
 
 Hay varias librerías dedicadas a ello pero dos de las más habituales son:
@@ -4937,7 +5039,7 @@ Hay varias librerías dedicadas a ello pero dos de las más habituales son:
   Revisa tu código y nos reporta posibles errores
 
 - unittest
-  Permite testear nuestro programa comproando si obtenemos los outputs deseados. 
+  Permite testear nuestro programa comproando si obtenemos los outputs deseados.
 
 ## Pylint
 
@@ -4946,6 +5048,7 @@ instalamos pylint
 ```
 pip install pylint
 ```
+
 escribimos algo de código
 
 ```python
@@ -4961,6 +5064,7 @@ Para analizar el código con pylint tecleamos en terminal
 ```
 pylint simple1.py -r y
 ```
+
 Y no imprime en consola un report con errores de estilo, de sintaxi,...
 
 ![not found](img/img-j-27.png)
@@ -4972,7 +5076,7 @@ Para mejorar el código:
 '''
 a very simple script
 '''
-    
+
 def myfunc():
     '''
     simple function
@@ -4981,38 +5085,37 @@ def myfunc():
     second = 2
     print(first)
     print(second)
-    
+
 myfunc()
 
 ```
 
 ## unittest
 
-Es una libreria built-in python, por lo que debemos importarla para poder utilizarla. 
+Es una libreria built-in python, por lo que debemos importarla para poder utilizarla.
 
 Para escribir test unitarios y probar nuestro programa debemos crear una clase en un script a parte. Esta clase heredará de `unittest.testCase`.
 
- Debemos también importar el script que queramos testear.
+Debemos también importar el script que queramos testear.
 
- ```python
+```python
 def cap_text(text):
-    '''
-    input a string
-    Output a string capitalized
-    '''
-    return text.capitalize()
+   '''
+   input a string
+   Output a string capitalized
+   '''
+   return text.capitalize()
 
- ```
+```
 
 Escribimos nnuestros test en un script a parte
-
 
 ```python
 import unittest
 import cap
 
 class Test_cap(unittest.TestCase):
-    
+
     def test_cap(self):
         text = 'python'
         result = cap.cap_text(text)
@@ -5031,20 +5134,19 @@ Ejecutamos el test
 
 ![not fond](img/img-j-28.png)
 
-arreglamos el error 
+arreglamos el error
 
- ```python
+```python
 def cap_text(text):
-    '''
-    input a string
-    Output a string capitalized
-    '''
-    return text.title()
+   '''
+   input a string
+   Output a string capitalized
+   '''
+   return text.title()
 
- ```
+```
 
- ![not found](img/img-j-29.png)
-
+![not found](img/img-j-29.png)
 
 # Generators
 
@@ -5056,14 +5158,14 @@ En Python existen diferentes estructuras de datos que pueden ser recorridas secu
 
 La declaración for/in se utiliza con frecuencia para recorrer los elementos de distintos tipos de iteradores: los caracteres de una cadena, los elementos de una lista o una tupla, las claves y/o valores de un diccionario e incluso las líneas de un archivo. Todos ellos son **iterables** porque mediante el método `iter()` nos devuelve un iterador y todos los iteradores tienen el método `next()`.
 
-La función iter() se suele emplear para mostrar cómo funciona en realidad un bucle implementado con for/in. Cuando empieza el bucle éste llama a la función **iter()** sobre el objeto iterable (pej tupla) y retorna el objeto iterador. Una vez iniciado el bucle, sobre el iterador se llama al método __next__(), éste permite avanzar, en cada ciclo, al siguiente elemento hasta alcanzar el último. Cuando el puntero se encuentra en el último elemento si se ejecuta nuevamente el método __next__() el programa produce la excepción StopIteration, esta excepción es gestionada por el loop for y lo detiene. 
+La función iter() se suele emplear para mostrar cómo funciona en realidad un bucle implementado con for/in. Cuando empieza el bucle éste llama a la función **iter()** sobre el objeto iterable (pej tupla) y retorna el objeto iterador. Una vez iniciado el bucle, sobre el iterador se llama al método **next**(), éste permite avanzar, en cada ciclo, al siguiente elemento hasta alcanzar el último. Cuando el puntero se encuentra en el último elemento si se ejecuta nuevamente el método **next**() el programa produce la excepción StopIteration, esta excepción es gestionada por el loop for y lo detiene.
 
-```python 
+```python
 lista = [10, 100, 1000, 10000]
 iterador = iter(lista)
 try:
   while True:
-      print(iterador.__next__())        
+      print(iterador.__next__())
 
 except StopIteration:
   print("Se ha alcanzado el final de la lista")
@@ -5078,7 +5180,7 @@ class PrintNumber:
 
     def __init__(self, max):
         self.max = max
-    
+
     def __iter__(self):
         self.num = 0
         return self
@@ -5093,14 +5195,15 @@ customIterator = PrintNumber(6)
 
 for num in customIterator:
     print(num, end=' ')
-# 1 2 3 4 5 6 
+# 1 2 3 4 5 6
 ```
+
 o puedo llamar manualmente los métodos iter() next()
 
 ```python
 
 imprimirNum_to_iterador = iter(imprimirNum)
-print(imprimirNum_to_iterador.__next__()) 
+print(imprimirNum_to_iterador.__next__())
 ```
 
 ## Generadores
@@ -5108,18 +5211,15 @@ print(imprimirNum_to_iterador.__next__())
 Diferencias entre:
 
 1. Iterador
-es un objeto que implementa el método __iter__() por lo que podemos llamar a valores sucesivos, lo q es iterable.
+   es un objeto que implementa el método **iter**() por lo que podemos llamar a valores sucesivos, lo q es iterable.
 
 2. Iterar
-es el hecho de llamar a cada valor de manera secuencial de un objeto iterable
+   es el hecho de llamar a cada valor de manera secuencial de un objeto iterable
 
 3. generador,
-es un tipo de iterador por ejemplo range() es un generator y por lo lo tanto es iterable pero list() es un iterador pero no es un generator
+   es un tipo de iterador por ejemplo range() es un generator y por lo lo tanto es iterable pero list() es un iterador pero no es un generator
 
-
-
-
-There is a lot of work in building an iterator in Python. We have to implement a class with __iter__() and __next__() method, keep track of internal states, and raise StopIteration when there are no values to be returned.
+There is a lot of work in building an iterator in Python. We have to implement a class with **iter**() and **next**() method, keep track of internal states, and raise StopIteration when there are no values to be returned.
 
 This is both lengthy and counterintuitive. Generator comes to the rescue in such situations.
 
@@ -5137,37 +5237,40 @@ Una característica importante de los generadores es que tanto las variables loc
 
 En las funciones generators podemos usar varias veces la keyword yield.
 
-Debido al hecho que el generator guarda en memoria un puntero que recuerda el último yield ejecutado no necesita cargar en memoria toda la info,  por ejemplo en un lista de 1000 elementos cargamos en memoria esos 1000 elementos, en cambio en un generador vamos recuperando el elemento de manera seuencial sin tenerlos todos cargados previamente. Así es como funciona `range()`, range es un generador que en lugar de guardar todos los valores en memoria va suministrandolos a medida q los llamamos.
+Debido al hecho que el generator guarda en memoria un puntero que recuerda el último yield ejecutado no necesita cargar en memoria toda la info, por ejemplo en un lista de 1000 elementos cargamos en memoria esos 1000 elementos, en cambio en un generador vamos recuperando el elemento de manera seuencial sin tenerlos todos cargados previamente. Así es como funciona `range()`, range es un generador que en lugar de guardar todos los valores en memoria va suministrandolos a medida q los llamamos.
 
-```python 
+```python
 # Declara generador
 
 def gen_basico():
-    yield "uno"   
+    yield "uno"
     yield "dos"
     yield "tres"
-   
+
 for valor in gen_basico():
     print(valor)  # uno, dos, tres
 
 ```
+
 otro eemplo:
 
-```python 
+```python
 def gen_diez_numeros(inicio):
-  fin = inicio + 10    
+  fin = inicio + 10
   while inicio < fin:
       inicio+=1
       yield inicio, fin
 
 for inicio, fin in gen_diez_numeros(23):
-  print(inicio, fin) 
+  print(inicio, fin)
 '''
-24 33 - 25 33 - 26 33 - 27 33 - 28 33 - 29 33 - 30 33 - 31 33 - 32 33 - 33 33 - 
+24 33 - 25 33 - 26 33 - 27 33 - 28 33 - 29 33 - 30 33 - 31 33 - 32 33 - 33 33 -
 ```
+
 `range()` es un ejemplo de generador.
 
-Los generadores pueden ser casteados a listas 
+Los generadores pueden ser casteados a listas
+
 ```python
 list(range(10))
 
@@ -5175,44 +5278,49 @@ list(range(10))
 
 Pero los generadores son más eficientes que guardar una lista.
 
-```python 
+```python
 def gen_fib(n):
   a= 1
   b= 1
   for i in range(n):
       yield a
-      a,b = b,b+a 
+      a,b = b,b+a
 ```
 
-```python 
+```python
 for num in gen_fib(10):
-    print(num) 
+    print(num)
 ```
+
 Lo importante para comprender los generadores es la función `iter()` y `next()`
 
 ### next()
+
 Podemos crear un generador simple
 
-```python 
-def simple_gen(): 
+```python
+def simple_gen():
   for i in range(3):
     yield i
 ```
+
 lo asignamos a una variable, para guardar el genrador tenemos que ejecutarlo de ahí que pongamos los '()'
 
-```python 
-g = simple_gen() 
+```python
+g = simple_gen()
 ```
+
 llamamos al método `next()`
 
-```python 
+```python
 print(next(g)) #0
 print(next(g)) #1
 print(next(g)) #2
 ```
+
 Si volvemos a llamar a next() nos saltará un error, porque ya no tiene más elementos para servir. Cuando ejecutamos el generador en un for no salta este error porque lo gestiona el propio for y detiene el loop.
 
-```python 
+```python
 print(next(g))
 
 
@@ -5221,12 +5329,11 @@ StopIteration                             Traceback (most recent call last)
 <ipython-input-14-1dfb29d6357e> in <module>
 ----> 1 print(next(g))
 
-StopIteration: 
+StopIteration:
 
 ```
+
 A list comprehension permite crear una lista de una manera sencilla pero si sustituimos los `[]` por `()` en lugar de una lista obtenemos un `generator`.
-
-
 
 # Web Scraping
 
@@ -5254,7 +5361,6 @@ bs4 = beatiful Soup 4
 requests = nos permitirá hacer una request a una web
 lxml = nos permitirá leer el contenido que devuelve la web
 
-
 ```bash
 conda|pip install requests
 conda install lxml
@@ -5273,11 +5379,12 @@ type(result) # requests.models.Response
 result.text # nos da todo el HTML
 
 ```
+
 Este objeto tiene varios atributos:
 
-1. text, nos devuelve el HTML de la request 
+1. text, nos devuelve el HTML de la request
    ```python
-    result.text 
+    result.text
    ```
 2. ok, si ha ido todo bien devuelve True
    ```python
@@ -5288,17 +5395,17 @@ Este objeto tiene varios atributos:
     web_books.status_code # 200 | 202| 404...
    ```
 4. headers, nos devuelve el header de la response
+
    ```python
-    web_books.headers 
+    web_books.headers
 
     # {'Server': 'nginx/1.17.7', 'Date': 'Sun, 18 Apr 2021 12:53:52 GMT', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Vary': 'Accept-Encoding', 'Last-Modified': 'Thu, 25 Mar 2021 13:59:05 GMT', 'Strict-Transport-Security': 'max-age=15724800; includeSubDomains', 'Content-Encoding': 'gzip'}
    ```
-5. request, nos devuelve el tipo de petición enviada 
+
+5. request, nos devuelve el tipo de petición enviada
    ```python
     web_books.request # GET| POST ...
    ```
-
-
 
 Para poder coger información usaremos beatiful soup (bs4) pasándole una libreria lxml para que pueda interpretar el código HTMl.
 
@@ -5312,15 +5419,15 @@ soup.select('h1')
 #[<h1 class="w-100 line-height-1">Conversor online gratuito</h1>]
 
 ```
+
 Usando select podemos coger un tag en concreto, por ejemplo 'title',** Nos devuelve un array**.
 
 Para extraer el texto:
 
 ```python
-soup.select('h1')[0].getText() 
+soup.select('h1')[0].getText()
 # 'Conversor online gratuito'
 ```
-
 
 Así cogemots todas las imágenes.
 
@@ -5336,14 +5443,16 @@ soup.select('img')
  <img alt="Get it on Google Play" class="app_icon" src="https://oc7.ocstatic.com/images/es_get_google_play.svg"/>,
  <img alt="Get it on Apple iTunes" class="app_icon" src="https://oc7.ocstatic.com/images/Download_on_the_App_Store_Badge_ES_135x40.svg"/>,
  <img alt="Matomo" src="https://www1.online-convert.com/piwik/piwik.php?idsite=1&amp;rec=1" style="border:0;"/>]
-''' 
+'''
 ```
+
 podemos extraer la URI de la imagen
 
 ```python
-soup.select('img')[0].get('src') 
+soup.select('img')[0].get('src')
 # 'https://oc7.ocstatic.com/images/logo_no_gradient_45.png'
 ```
+
 Podemos tb coger los ids, clases y otros elementos siguiendo la sigueinte sntaxis.
 
 ![not found](img/img-j-34.png)
@@ -5376,14 +5485,14 @@ wiki = requests.get('https://es.wikipedia.org/wiki/Albert_Einstein')
 
 wiki_soup = bs4.BeautifulSoup(wiki.text, 'lxml')
 
-list_of_img = wiki_soup.select('img.thumbimage') 
+list_of_img = wiki_soup.select('img.thumbimage')
 
 lista_img = []
 
 for img in list_of_img:
    lista_img.append(img)
 
-len(lista_img) # 16 imagenes 
+len(lista_img) # 16 imagenes
 ```
 
 Podemos encontrarnos con que no sabemos las clases asociadas al tag img para ello podemos hacer:
@@ -5409,6 +5518,7 @@ set(classes_on_img)
 
 # vemos que solo hay dos tipos de clases.
 ```
+
 Una vez tenemos las imagenes podemos "descargarlas" lo que haremos es hacer un nuevo requests pero del URL de la img y obtener su atributo content, el cual nos da los datos binarios de la imagen. Python puede leer los archivos binarios y guardarlos como imagen, así q lo q haces más q bajar la imagen es copiarla.
 
 ```python
@@ -5419,7 +5529,7 @@ Una vez tengo los datos binarios de la imagen los guardo en un archivo nuevo usa
 
 ```python
 with open('new_img.jpg', 'wb') as file:
-    file.write(img_binari_data) 
+    file.write(img_binari_data)
 ```
 
 ## Grabbing elements on multiple pages
@@ -5434,7 +5544,7 @@ Usaremos una web especial para practicar web scraping [www.toscrape.com](https:/
 list_of_all_books_2_stars = []
 
 for n in range(1,51):
-    
+
     web_books = requests.get(f'https://books.toscrape.com/catalogue/page-{n}.html')
 
     web_books_soup = bs4.BeautifulSoup(web_books.text,'lxml')
@@ -5450,12 +5560,12 @@ for n in range(1,51):
         list_of_all_books_2_stars.append(book.select('h3>a')[0].get('title'))
 
 
-list_of_all_books_2_stars 
+list_of_all_books_2_stars
 ```
 
 Tenemos que tener en cuenta que una [] array vacío el if lo evalua como false, por eso si book.select('.star-rating.Two') no encuentra ninguna clase devuelve un array vacío [].
 
-Otro punto importante es que cuando hago una requests me devuelve objeto tipo `response Object` que contiene 
+Otro punto importante es que cuando hago una requests me devuelve objeto tipo `response Object` que contiene
 
 # working with images
 
@@ -5465,8 +5575,9 @@ Para ello usaremos la libraria pillow que es un fork de la libreria PIL (python 
 
 ```bash
 conda install pillow
- 
+
 ```
+
 ## Imagenes
 
 Primero debemos importar la libreria
@@ -5476,20 +5587,23 @@ from PIL import Image
 
 mac = Image.open('./example.jpg')
 
-# para mostrar la imagen 
+# para mostrar la imagen
 mac.show()
 
 type(mac) # PIL.JpegImagePlugin.JpegImageFile
 ```
+
 Podemos mostrar atributos de las imagenes
+
 ```python
 mac.size                    # (1993, 1257)
 mac.filename                # './example.jpg'
 mac.format_description      # 'JPEG (ISO 10918)'
 ```
+
 ## Coger una sección de la imagen - cropping image
 
-Utilizamos el método `crop()`pasándole una tuple de 4 coordenadas, las dos primeras es i punto de partida y las otras dos son la posición final de la x y de la y 
+Utilizamos el método `crop()`pasándole una tuple de 4 coordenadas, las dos primeras es i punto de partida y las otras dos son la posición final de la x y de la y
 
 ![not found](img/img-j-35.png)
 
@@ -5502,9 +5616,10 @@ y= 1100
 w = total_heigth*0.33
 h = total_heigth
 
-pencils.crop((x,y,w,h)) 
- 
+pencils.crop((x,y,w,h))
+
 ```
+
 ## copiar imagenes
 
 Podemos guardar una sección de la imagen en una variable
@@ -5512,19 +5627,21 @@ Podemos guardar una sección de la imagen en una variable
 ```python
 computer = mac.crop((800,800,1300,1240))
 ```
+
 y pegar esa sección en una posición de la imagen original
 
 ```python
 mac.paste(im=computer,box=(0,0))
 ```
-la tupla (0,0) marca pa posición dnd queremos pegar la subimagen. 
+
+la tupla (0,0) marca pa posición dnd queremos pegar la subimagen.
 
 NO MODIFICAMOS LA IMAGEN ORIGINAL, TODO ESO SUCEDE EN MEMORIA.
 
-si la quisiéramos guardar la imagen usamos el método `save` de los objetos `JpegImageFile` 
+si la quisiéramos guardar la imagen usamos el método `save` de los objetos `JpegImageFile`
 
 ```python
-mac.save('mac_new.png') 
+mac.save('mac_new.png')
 ```
 
 ![not found](img/img-j-36.png)
@@ -5538,6 +5655,7 @@ mac.resize((3000,500))
 ## rotar imagenes
 
 Rotamos pasando los grados a girar, siempre gira desde el punto inicial (0,0) lo q sería esquina superior derecha y gira antihorario.
+
 ```python
  pencils.rotate(90)
 ```
@@ -5555,6 +5673,7 @@ red = Image.open('red_color.jpg')
 print(blue.mode) # P
 print(red.mode)  # RGB
 ```
+
 Las convertimos a RGBA
 
 ```python
@@ -5564,10 +5683,9 @@ print(blue.mode) # RGBA
 print(red.mode)  # RGBA
 ```
 
-Ahora aplicamos la transparencia 
+Ahora aplicamos la transparencia
 
 ```python
 
 red.putalpha(90)
 ```
-
